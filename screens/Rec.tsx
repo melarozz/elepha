@@ -13,7 +13,7 @@ import RegularButton from "../components/Buttons/RegularButton";
 import {useNavigation} from "@react-navigation/native";
 import background2 from "./../assets/bgs/bg2.png";
 
-import { ImageBackground, Image, View, StyleSheet} from "react-native";
+import { ImageBackground, Image, View, StyleSheet, Modal, TouchableOpacity, Text } from "react-native";
 
 import MusicPlayer from "../components/MusicPlayer";
 
@@ -51,6 +51,9 @@ const TopSection = styled.View`
 const Rec: FunctionComponent = () => {
   const navigation = useNavigation();
 
+  const [selectedMood, setSelectedMood] = useState<"mood1" | "mood2" | "mood3">("mood1");
+  const [isMoodSelectionVisible, setIsMoodSelectionVisible] = useState(true);
+
   const [isPlaying, setIsPlaying] = useState(false);
   const [isRepeatEnabled, setIsRepeatEnabled] = useState(false);
   const [currentTime, setCurrentTime] = useState(0); 
@@ -70,8 +73,14 @@ const Rec: FunctionComponent = () => {
   };
 
   const handleRepeatPress = () => {
+    
     setIsRepeatEnabled(!isRepeatEnabled);
   };
+
+  const handleResetMood = () => {
+    setIsMoodSelectionVisible(true);
+    setSelectedMood("mood1");
+  }
 
   return (
     <>
@@ -91,27 +100,49 @@ const Rec: FunctionComponent = () => {
               Рекомендации
             </BigText>
             </View>
-          <TopSection>
+          <TopSection style={{
+            backgroundColor:
+              selectedMood === "mood1"
+                ? "rgba(168, 168, 166, 0.3)"
+                : selectedMood === "mood2"
+                ? "rgba(252, 210, 185, 0.3)"
+                : "rgba(220, 234, 192, 0.3)",
+          }}>
             <RegularText
               textStyles={{
                 fontSize: 20,
                 width: "80%",
                 textAlign: "left",
-                color: "rgba(139, 223, 216, 1)",
-                padding: 5,
+                color:
+                selectedMood === "mood1"
+                  ? "rgba(139, 223, 216, 1)"
+                  : selectedMood === "mood2"
+                  ? "rgba(252, 210, 185, 1)"
+                  : "rgba(180, 224, 85, 1)",
+                marginTop: 5,
+                marginLeft: 10,
               }}
-            >Матрица на
+            >Матрица
             </RegularText>
              <RegularText
               textStyles={{
                 fontSize: 20,
-                width: "80%",
+                width: "100%",
                 textAlign: "left",
-                color: "rgba(139, 223, 216, 1)",
-                paddingHorizontal: 5,
-                paddingVertical: 1,
+                marginTop: 1,
+                 color:
+                selectedMood === "mood1"
+                  ? "rgba(139, 223, 216, 1)"
+                  : selectedMood === "mood2"
+                  ? "rgba(252, 210, 185, 1)"
+                  : "rgba(180, 224, 85, 1)",
+                
               }}
-            >восстановление
+            > {selectedMood === "mood1"
+              ? "на восстановление"
+              : selectedMood === "mood2"
+              ? "на внутренний баланс"
+              : "на активацию работы мозга"}
             </RegularText>
             
 
@@ -128,14 +159,11 @@ const Rec: FunctionComponent = () => {
               duration={"3:57"}
             />
           
-
-            <RegularText textStyles={{fontSize: 16,textAlign: "left", marginLeft: "5%", marginBottom: 5}}>Данная аудиоматрица:</RegularText>
-            <RegularText textStyles={{fontSize: 16,textAlign: "left", marginLeft: "5%", marginBottom: 5}}>· обладает глубоким успокаивающим воздействием,</RegularText>
-            <RegularText textStyles={{fontSize: 16,textAlign: "left", marginLeft: "5%", marginBottom: 5}}>· улучшает сон,</RegularText>
-            <RegularText textStyles={{fontSize: 16,textAlign: "left", marginLeft: "5%", marginBottom: 5}}>· избавляет от депрессивных состояний,</RegularText>
-            <RegularText textStyles={{fontSize: 16,textAlign: "left", marginLeft: "5%", marginBottom: 5}}>· восстанавливает работу ЦНС,</RegularText>
-            <RegularText textStyles={{fontSize: 16,textAlign: "left", marginLeft: "5%", marginBottom: 5}}>· снимает состояние тревожности,</RegularText>
-            <RegularText textStyles={{fontSize: 16,textAlign: "left", marginLeft: "5%", marginBottom: "5%"}}>· помогает формировать новые нейронные связи.</RegularText>
+            <RegularText textStyles={{fontSize: 16,textAlign: "left", marginLeft: "5%", marginTop: 5, lineHeight: 25}}>{selectedMood === "mood1"
+              ? "Данная аудиоматрица:\n·обладает глубоким успокаивающим воздействием,\n·улучшает сон,\n·избавляет от депрессивных состояний,\n·восстанавливает работу ЦНС,\n·снимает состояние тревожности,\n·помогает формировать новые нейронные связи."
+              : selectedMood === "mood2"
+              ? "Данная аудиоматрица:\n·помогает синхронизировать работу двух полушарий мозга,\n·для расширения сознания,\n·сгармонизировать общее самочувствие,\n·переносить психоэмоциональные перезагрузки,\n·обладает стресс-протекторным действием."
+              : "Данная аудиоматрица:\n·улучшает когнитивные способности,\n·повышает проводимость нервных импульсов для быстрого принятия решений,\n·увеличивается энергетический резерв мозга,\n·повышается работоспособность и мотивация."}</RegularText>
           </TopSection>
 
           
@@ -168,10 +196,53 @@ const Rec: FunctionComponent = () => {
                 color: "#FFFFFF",
                 backgroundColor: "transparent",
               }}
-              onPress={() => navigation.navigate("Welcome") }> Сделать замер снова
+              onPress={ handleResetMood }> Изменить состояние
          </RegularButton> 
         </LinearGradient>
+        
+        {selectedMood === "mood1" && (
+        <Modal visible={isMoodSelectionVisible} animationType="fade">
+          <ImageBackground source={require('./../assets/bgs/back1.png')} style={styles.backgroundImage}>
+          <ImageBackground
+            source={require('./../assets/bgs/bg2.png')}
+            style={styles.overlay}
+            imageStyle={{ opacity: 0.4 }}
+          >
+            <View style={styles.modalContainer}>
+              <TouchableOpacity
+                onPress={() => {
+                  setSelectedMood("mood1");
+                  setIsMoodSelectionVisible(false);
+                }}
+                style={styles.moodOption}
+              >
+                <Text style={styles.moodOptionText}>Mood 1</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  setSelectedMood("mood2");
+                  setIsMoodSelectionVisible(false);
+                }}
+                style={styles.moodOption}
+              >
+                <Text style={styles.moodOptionText}>Mood 2</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  setSelectedMood("mood3");
+                  setIsMoodSelectionVisible(false);
+                }}
+                style={styles.moodOption}
+              >
+                <Text style={styles.moodOptionText}>Mood 3</Text>
+              </TouchableOpacity>
+            </View>
+            </ImageBackground>
+            </ImageBackground>
+          </Modal>
+        )}
       </RecContainer>
+
     </>
   );
 };
@@ -182,7 +253,32 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "flex-start",
   },
-  
+  modalContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  moodOption: {
+    padding: 20,
+    backgroundColor: "rgba(139, 223, 216, 0.5)",
+    margin: 10,
+    borderRadius: 8,
+  },
+  moodOptionText: {
+    fontSize: 18,
+    color: "#FFFFFF",
+  },
+  backgroundImage: {
+    flex: 1,
+    resizeMode: 'cover',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
 
 export default Rec;
