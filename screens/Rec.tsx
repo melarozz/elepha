@@ -108,28 +108,14 @@ const Rec: FunctionComponent = () => {
                 ? "rgba(252, 210, 185, 0.3)"
                 : "rgba(220, 234, 192, 0.3)",
           }}>
-            <RegularText
-              textStyles={{
-                fontSize: 20,
-                width: "80%",
-                textAlign: "left",
-                color:
-                selectedMood === "mood1"
-                  ? "rgba(139, 223, 216, 1)"
-                  : selectedMood === "mood2"
-                  ? "rgba(252, 210, 185, 1)"
-                  : "rgba(180, 224, 85, 1)",
-                marginTop: 5,
-                marginLeft: 10,
-              }}
-            >Матрица
-            </RegularText>
+            
              <RegularText
               textStyles={{
                 fontSize: 20,
                 width: "100%",
                 textAlign: "left",
-                marginTop: 1,
+                marginTop: "10%",
+                marginLeft: 10,
                  color:
                 selectedMood === "mood1"
                   ? "rgba(139, 223, 216, 1)"
@@ -139,10 +125,10 @@ const Rec: FunctionComponent = () => {
                 
               }}
             > {selectedMood === "mood1"
-              ? "на восстановление"
+              ? "Матрица \n на восстановление"
               : selectedMood === "mood2"
-              ? "на внутренний баланс"
-              : "на активацию работы мозга"}
+              ? "Матрица \n на внутренний баланс"
+              : "Матрица \n на активацию работы мозга"}
             </RegularText>
             
 
@@ -155,7 +141,7 @@ const Rec: FunctionComponent = () => {
               onPreviousPress={handlePreviousPress}
               onNextPress={handleNextPress}
               onRepeatPress={handleRepeatPress}
-              currentTime={"1:56"}
+              currentTime={"1:07"}
               duration={"3:57"}
             />
           
