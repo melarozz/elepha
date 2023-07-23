@@ -69,15 +69,15 @@ const Welcome: FunctionComponent  = () => {
         <TopSection>
           <TopImage source={logo}></TopImage>
 
-          <BigText textStyles={{width: "100%", textAlign: "center"}}>
+          <BigText textStyles={{width: "100%", textAlign: "center", fontSize: 26, color: "rgba(209, 229, 240, 1)"}}>
           Добро пожаловать!
           </BigText>
 
-          <RegularText textStyles={{width: "100%",marginTop: 10}}>
+          <RegularText textStyles={{width: "100%",marginTop: 10, color: "rgba(195, 216, 228, 1)", fontSize: 17}}>
             SoundCure by Elepha
           </RegularText>
 
-          <BigText textStyles={{width: "70%",marginTop: 100, fontSize: 20, textAlign: "center", marginLeft: "auto", marginRight: "auto"}}>
+          <BigText textStyles={{width: "70%",marginTop: 100, fontSize: 20, textAlign: "center", marginLeft: "auto", marginRight: "auto", color: "rgba(242, 242, 242, 1)"}}>
             Проверьте свой уровень стресса и оптимизируйте внутреннее состояние 
           </BigText>
           
