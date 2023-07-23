@@ -19,7 +19,7 @@ import MusicPlayer from "../components/MusicPlayer";
 
 const RecContainer = styled(ImageBackground)`
   background-color: ${colors.secondary};
-  justify-content: space-between;
+  justify-content: flex-start;
   width: 100%;
   height: 100%;
 `;
@@ -36,12 +36,16 @@ const Overlay = styled.View`
 const TopSection = styled.View`
   position: relative;
   width: 90%;
-  height: 55%;
   margin-left: auto;
   margin-right: auto;
   border-radius: 10px;
   flex: 1;
+  max-height: 60%;
+  justify-content: space-between;
+  align-items: flex-start;
   background-color: rgba(168, 168, 166, 0.3);
+  marginTop: 20;
+  marginBottom: 20;
 `;
 
 const Rec: FunctionComponent = () => {
@@ -94,7 +98,7 @@ const Rec: FunctionComponent = () => {
                 width: "70%",
                 textAlign: "left",
                 color: "rgba(139, 223, 216, 1)",
-                padding: "1%",
+                padding: 5,
               }}
             >Матрица на восстановление
             </RegularText>
@@ -145,7 +149,9 @@ const Rec: FunctionComponent = () => {
             }}
           > 
           
-        <RegularButton textStyles={{
+        <RegularButton 
+              btnStyles={{marginTop: 5}}
+              textStyles={{
                 fontSize: 18,
                 textAlign: "center",
                 color: "#FFFFFF",
@@ -162,6 +168,8 @@ const Rec: FunctionComponent = () => {
 const styles = StyleSheet.create({
   container1:{
     marginTop: "25%",
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
   },
   
 });
