@@ -215,7 +215,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   greenContainer: {
-    backgroundColor: 'rgba(195, 195, 193, 0.3)', // Green container with 20% opacity
+    backgroundColor: 'rgba(195, 195, 193, 0.3)', 
     borderRadius: 15,
     padding: 20,
     width: "100%",
