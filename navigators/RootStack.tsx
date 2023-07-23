@@ -23,7 +23,7 @@ const Stack = createStackNavigator<RootStackParamList>();
 const RootStack: FunctionComponent = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Rec">
+      <Stack.Navigator initialRouteName="Login">
         <Stack.Screen
           name="Welcome"
           component={Welcome}
