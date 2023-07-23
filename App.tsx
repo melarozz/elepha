@@ -2,7 +2,7 @@ import React from 'react';
 import AppLoading from "expo-app-loading";
 import { useFonts } from "expo-font";
 
-import RootStack from "./navigators/RootStack"; // Update the import path here
+import RootStack from "./navigators/RootStack"; 
 import Rec from "./screens/Rec";
 import Welcome from "./screens/Welcome";
 
