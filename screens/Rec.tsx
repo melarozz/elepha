@@ -95,12 +95,23 @@ const Rec: FunctionComponent = () => {
             <RegularText
               textStyles={{
                 fontSize: 20,
-                width: "70%",
+                width: "80%",
                 textAlign: "left",
                 color: "rgba(139, 223, 216, 1)",
                 padding: 5,
               }}
-            >Матрица на восстановление
+            >Матрица на
+            </RegularText>
+             <RegularText
+              textStyles={{
+                fontSize: 20,
+                width: "80%",
+                textAlign: "left",
+                color: "rgba(139, 223, 216, 1)",
+                paddingHorizontal: 5,
+                paddingVertical: 1,
+              }}
+            >восстановление
             </RegularText>
             
 
