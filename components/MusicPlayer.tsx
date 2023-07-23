@@ -52,7 +52,9 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({
     <View style={styles.container}>
       <View style={styles.topContainer}>
         <RegularText textStyles={{color: "rgba(253, 253, 194, 1)"}}> {trackName} </RegularText>
-        <Icon name="retweet" size={24} color="white" />
+        <TouchableOpacity onPress={onRepeatPress} style={styles.iconButton}>
+          <Icon name="retweet" size={24} color="white" />
+        </TouchableOpacity>
       </View>
 
       {/* Center */}
