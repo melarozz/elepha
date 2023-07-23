@@ -170,12 +170,12 @@ const Register: React.FC = () => {
               end={{ x: 0, y: 1 }}
               style={{
                 width: "100%",
-                height: "15%",
+                height: "5%",
                 marginTop: 30,
                 marginLeft: "auto",
                 marginRight: "auto",
                 borderRadius: 15,
-                
+                justifyContent: "center",
                 alignItems: "center",
               }}
             >
@@ -215,7 +215,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   greenContainer: {
-    backgroundColor: 'rgba(195, 195, 193, 0.3)', 
+    backgroundColor: 'rgba(195, 195, 193, 0.3)', // Green container with 20% opacity
     borderRadius: 15,
     padding: 20,
     width: "100%",
