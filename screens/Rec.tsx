@@ -21,7 +21,7 @@ const RecContainer = styled(ImageBackground)`
   background-color: ${colors.secondary};
   justify-content: flex-start;
   width: 100%;
-  height: 100%;
+  height: 105%;
 `;
 
 const Overlay = styled.View`
@@ -41,7 +41,7 @@ const TopSection = styled.View`
   border-radius: 10px;
   flex: 1;
   max-height: 60%;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: flex-start;
   background-color: rgba(168, 168, 166, 0.3);
   marginTop: 20;
