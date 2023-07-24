@@ -2,7 +2,9 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
 import Rec from './../screens/Rec';
+import Profile from './../screens/Profile';
 
 const Tab = createBottomTabNavigator();
 
@@ -54,7 +56,7 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
 const TabScreens = () => {
   return (
     <Tab.Navigator tabBar={(props) => <CustomTabBar {...props} />}>
-      <Tab.Screen name="Home4" component={Rec} options={{ headerShown: false }} />
+      <Tab.Screen name="Home4" component={Profile} options={{ headerShown: false}} />
       <Tab.Screen name="Home2" component={Rec} options={{ headerShown: false }} />
       <Tab.Screen name="Home3" component={Rec} options={{ headerShown: false }} />
     </Tab.Navigator>
