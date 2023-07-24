@@ -8,6 +8,7 @@ import Welcome from '../screens/Welcome';
 import Reset from '../screens/Reset';
 import Rec from './../screens/Rec';
 import Login from './../screens/Login';
+import Profile from './../screens/Profile';
 import { colors } from './../components/colors';
 import TabScreens from './../navigators/TabScreens';
 
@@ -47,6 +48,11 @@ const RootStack: FunctionComponent = () => {
         <Stack.Screen
           name="Register"
           component={Register}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Profile"
+          component={TabScreens}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
