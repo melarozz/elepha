@@ -26,8 +26,7 @@ const Register: React.FC = () => {
     
   };
    const handleConfirm = () => {
-    // Perform any necessary confirmation code validation here
-    // For demonstration purposes, we'll just close the modal and navigate back to "Welcome"
+   
     setShowConfirmationModal(false);
     setConfirmationCode('');
 
