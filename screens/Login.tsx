@@ -1,5 +1,6 @@
-import React, {useState} from 'react';
-import {View, Text, TextInput, TouchableOpacity, StyleSheet, ImageBackground} from 'react-native';
+import * as React from 'react';
+import {useState} from 'react';
+import {View, Text, TextInput, TouchableOpacity, StyleSheet, ImageBackground, StyleProp, TextStyle} from 'react-native';
 import {LinearGradient} from 'expo-linear-gradient';
 import RegularButton from "../components/Buttons/RegularButton";
 import {useNavigation} from "@react-navigation/native";
@@ -23,17 +24,48 @@ const Login: React.FC = () => {
     return (
         <ImageBackground
             source={require('../assets/bgs/back1.png')}
-            style={styles.backgroundImage}
+            style={{
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'center',}}
         >
             <ImageBackground
                 source={require('../assets/bgs/bg2.png')}
-                style={styles.overlay}
+                style={{
+                    ...StyleSheet.absoluteFillObject,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                }}
                 imageStyle={{opacity: 0.4}}
             >
-                <View style={styles.container}>
-                    <View style={styles.greenContainer}>
+                <View style={{
+                    flex: 1,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    padding: 20,
+                    width: "100%",
+                }}>
+                    <View style={{
+                        backgroundColor: 'rgba(195, 195, 193, 0.3)',
+                        borderRadius: 15,
+                        padding: 20,
+                        width: "100%",
+                        height: "60%",
+                        justifyContent: "space-between",
+                    }}>
+                        <View>
                         <TextInput
-                            style={styles.input}
+                            style={({
+                                width: '100%',
+                                height: 40,
+                                borderColor: 'white',
+                                borderWidth: 1,
+                                marginBottom: 10,
+                                paddingHorizontal: 10,
+                                borderRadius: 15,
+                                fontFamily: "TenorSans_400Regular",
+                                color: "white",
+                            } as unknown) as StyleProp<TextStyle>}
                             placeholder="Email"
                             placeholderTextColor="white"
                             value={email}
@@ -41,9 +73,22 @@ const Login: React.FC = () => {
                             keyboardType="email-address"
                             autoCapitalize="none"
                         />
-                        <View style={styles.passwordContainer}>
+
+                        <View style={{
+                            position: "relative",
+                        }}>
                             <TextInput
-                                style={styles.input}
+                                style={({
+                                    width: '100%',
+                                    height: 40,
+                                    borderColor: 'white',
+                                    borderWidth: 1,
+                                    marginBottom: 10,
+                                    paddingHorizontal: 10,
+                                    borderRadius: 15,
+                                    fontFamily: "TenorSans_400Regular",
+                                    color: "white",
+                                } as unknown) as StyleProp<TextStyle>}
                                 placeholder="Пароль"
                                 placeholderTextColor="white"
                                 value={password}
@@ -52,20 +97,22 @@ const Login: React.FC = () => {
                             />
                             {showForgotPassword && (
                                 <RegularButton
-                                    textStyles={{
+                                    textStyles={({
                                         fontSize: 18,
                                         textAlign: "center",
                                         color: "#FFFFFF",
                                         backgroundColor: "transparent",
-                                    }}
+                                        fontFamily: "TenorSans_400Regular",
+                                    } as unknown) as StyleProp<TextStyle>}
                                     onPress={() => navigation.navigate("Reset")}
                                 >
                                     Забыли пароль?
                                 </RegularButton>
                             )}
                         </View>
+                        </View>
 
-
+                        <View>
                         <LinearGradient
                             colors={[
                                 "rgba(100, 135, 136, 1)",
@@ -77,7 +124,7 @@ const Login: React.FC = () => {
                             end={{x: 0, y: 1}}
                             style={{
                                 width: "100%",
-                                height: "15%",
+                                height: "35%",
                                 marginTop: 30,
                                 marginLeft: "auto",
                                 marginRight: "auto",
@@ -87,13 +134,14 @@ const Login: React.FC = () => {
                             }}
                         >
                             <RegularButton
-                                textStyles={{
+                                textStyles={({
                                     fontSize: 18,
                                     textAlign: "center",
                                     color: "#FFFFFF",
                                     backgroundColor: "transparent",
-                                }}
-                                onPress={() => navigation.navigate("Welcome")}
+                                    fontFamily: "TenorSans_400Regular",
+                                } as unknown) as StyleProp<TextStyle>}
+                                onPress={() => navigation.navigate("Rec")}
                             >
                                 Войти
                             </RegularButton>
@@ -101,63 +149,24 @@ const Login: React.FC = () => {
 
 
                         <RegularButton
-                            textStyles={{
+                            textStyles={({
                                 fontSize: 18,
                                 textAlign: "center",
                                 color: "#FFFFFF",
                                 backgroundColor: "transparent",
                                 marginTop: 30,
-                            }}
+                                fontFamily: "TenorSans_400Regular",
+                            } as unknown) as StyleProp<TextStyle>}
                             onPress={() => navigation.navigate("Register")}
                         >
                             Регистрация
                         </RegularButton>
+                    </View>
                     </View>
                 </View>
             </ImageBackground>
         </ImageBackground>
     );
 };
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: 20,
-        width: "100%",
-    },
-    backgroundImage: {
-        flex: 1,
-        resizeMode: 'cover',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    overlay: {
-        ...StyleSheet.absoluteFillObject,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    greenContainer: {
-        backgroundColor: 'rgba(195, 195, 193, 0.3)',
-        borderRadius: 15,
-        padding: 20,
-        width: "100%",
-        height: "40%",
-    },
-    input: {
-        width: '100%',
-        height: 40,
-        borderColor: 'white',
-        borderWidth: 1,
-        marginBottom: 10,
-        paddingHorizontal: 10,
-        borderRadius: 15,
-    },
-    passwordContainer: {
-        position: "relative",
-    },
-
-});
 
 export default Login;

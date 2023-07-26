@@ -25,7 +25,7 @@ const Stack = createStackNavigator<RootStackParamList>();
 const RootStack: FC = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login">
+      <Stack.Navigator initialRouteName="Welcome">
         <Stack.Screen
           name="Welcome"
           component={Welcome}

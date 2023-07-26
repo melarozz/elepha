@@ -8,34 +8,8 @@ import RegularText from "../components/Texts/RegularText";
 import RegularButton from "../components/Buttons/RegularButton";
 import {useNavigation} from "@react-navigation/native";
 import {useAssets} from "expo-asset";
-import {ImageSourcePropType} from 'react-native'
-const WelcomeContainer = styled.ImageBackground`
-  background-color: ${colors.secondary};
-  justify-content: space-between;
-  width: 100%;
-  height: 100%;
-`;
+import {ImageBackground, ImageSourcePropType, View, Image, StyleProp, TextStyle} from 'react-native'
 
-const TopSection = styled.View`
-  width: 100%;
-  flex: 1;
-  max-height: 100%;
-`;
-
-const TopImage = styled.Image`
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 30px;
-  width: 40%;
-  height: 25%;
-`;
-
-const OverlayImage = styled.ImageBackground`
-  position: absolute;
-  width: 100%;
-  height: 150%;
-  opacity: 0.3;
-`;
 
 
 const Welcome: FunctionComponent = () => {
@@ -50,40 +24,74 @@ const Welcome: FunctionComponent = () => {
         <>
             <StatusBar style='light'/>
             {assets &&
-            <WelcomeContainer source={assets[0] as ImageSourcePropType}>
-                <OverlayImage source={assets[1] as ImageSourcePropType}>
-                </OverlayImage>
+            <ImageBackground source={assets[0] as ImageSourcePropType} style={{
+                justifyContent: "space-between",
+                width: "100%",
+                height: "100%",
+            }}>
+                <ImageBackground
+                    source={assets[1] as ImageSourcePropType}
+                    style={{
+                        position: "absolute",
+                        width: "100%",
+                        height: "150%",
+                        opacity: 0.3,
+                    }}
+                >
+                </ImageBackground>
 
-                <TopSection>
-                    <TopImage source={assets[2] as ImageSourcePropType}></TopImage>
+                <View style={{
+                    justifyContent: "flex-start",
+                    alignItems: "center",
+                    width: "100%",
+                    flex: 1,
+                }}>
+                    <Image
+                        source={assets[2] as ImageSourcePropType}
+                        style={{
+                            marginLeft: "auto",
+                            marginRight: "auto",
+                            marginTop: 30,
+                            width: "40%",
+                            height: "25%",
+                        }}></Image>
 
-                    <BigText textStyles={{
+                    <BigText textStyles={({
                         width: "100%",
                         textAlign: "center",
                         fontSize: 26,
-                        color: "rgba(209, 229, 240, 1)"
-                    }}>
+                        color: "rgba(209, 229, 240, 1)",
+                        fontFamily: "TenorSans_400Regular",
+                    } as unknown) as StyleProp<TextStyle>}>
                         Добро пожаловать!
                     </BigText>
 
                     <RegularText
-                        textStyles={{width: "100%", marginTop: 10, color: "rgba(195, 216, 228, 1)", fontSize: 17}}>
+                        textStyles={({
+                            width: "100%",
+                            marginTop: 10,
+                            color: "rgba(195, 216, 228, 1)",
+                            fontSize: 17,
+                            textAlign: "center",
+                            fontFamily: "TenorSans_400Regular",
+                    } as unknown) as StyleProp<TextStyle>}>
                         SoundCure by Elepha
                     </RegularText>
 
-                    <BigText textStyles={{
+                    <BigText textStyles={({
                         width: "70%",
                         marginTop: 100,
                         fontSize: 20,
                         textAlign: "center",
                         marginLeft: "auto",
                         marginRight: "auto",
-                        color: "rgba(242, 242, 242, 1)"
-                    }}>
+                        color: "rgba(242, 242, 242, 1)",
+                        fontFamily: "TenorSans_400Regular",
+                    } as unknown) as StyleProp<TextStyle>}>
                         Проверьте свой уровень стресса и оптимизируйте внутреннее состояние
                     </BigText>
 
-                </TopSection>
+                </View>
 
                 <LinearGradient
                     colors={[
@@ -108,17 +116,18 @@ const Welcome: FunctionComponent = () => {
                 >
 
                     <RegularButton
-                        textStyles={{
+                        textStyles={({
                             fontSize: 18,
                             textAlign: "center",
                             color: "#FFFFFF",
                             backgroundColor: "transparent",
-                        }}
-                        onPress={() => navigation.navigate("Rec")}> Полетели!
+                            fontFamily: "TenorSans_400Regular",
+                        } as unknown) as StyleProp<TextStyle>}
+                        onPress={() => navigation.navigate("Login")}> Полетели!
                     </RegularButton>
                 </LinearGradient>
 
-            </WelcomeContainer>
+            </ImageBackground>
             }
 
         </>

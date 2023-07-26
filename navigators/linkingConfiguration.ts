@@ -14,7 +14,6 @@ const prefix = Linking.createURL('/');
 const linkingConfiguration: LinkingOptions<RootStackParamList> = {
   prefixes: [prefix],
   config: {
-    initialRouteName: 'Welcome',
     screens: {
       Login: '/Login',
       Welcome: '/Welcome',
@@ -23,6 +22,7 @@ const linkingConfiguration: LinkingOptions<RootStackParamList> = {
       Register: '/Register',
       Reset: '/Reset',
     },
+    initialRouteName: 'Login',
   },
 };
 

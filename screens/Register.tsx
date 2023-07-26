@@ -1,64 +1,31 @@
 import React, { useState } from 'react';
-import { View, TextInput, StyleSheet, ImageBackground, Modal } from 'react-native';
+import {View, TextInput, StyleSheet, ImageBackground, Modal, StyleProp, ViewStyle, TextStyle} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import RegularButton from "../components/Buttons/RegularButton";
 import RegularText from "../components/Texts/RegularText";
 import { useNavigation } from "@react-navigation/native";
 
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-    width: "100%",
-  },
-  backgroundImage: {
-    flex: 1,
-    resizeMode: 'cover',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  overlay: {
-    ...StyleSheet.absoluteFillObject,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  greenContainer: {
-    backgroundColor: 'rgba(195, 195, 193, 0.3)', // Green container with 20% opacity
-    borderRadius: 15,
-    padding: 20,
-    width: "100%",
-  },
-  title: {
-    fontSize: 24,
-    marginBottom: 20,
-    color: "#FFFFFF",
-    textAlign: "center",
-  },
-  input: {
-    width: '100%',
-    height: 40,
-    borderColor: 'white',
-    borderWidth: 1,
-    marginBottom: 10,
-    paddingHorizontal: 10,
-    borderRadius: 15,
-  },
-  buttonContainer: {
-    flexDirection: "row",
-    marginTop: 30,
-    width: "100%",
-  },
-  modalContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'transparent',
-  },
-});
-
+const inputStyle: {
+  borderColor: string;
+  fontFamily: string;
+  borderRadius: number;
+  color: string;
+  borderWidth: number;
+  width: string;
+  paddingHorizontal: number;
+  marginBottom: number;
+  height: number
+} = {
+  width: '100%',
+  height: 40,
+  borderColor: 'white',
+  borderWidth: 1,
+  marginBottom: 10,
+  paddingHorizontal: 10,
+  borderRadius: 15,
+  fontFamily: "TenorSans_400Regular",
+  color: "white"};
 
 
 const Register: React.FC = () => {
@@ -76,51 +43,77 @@ const Register: React.FC = () => {
     console.log('Mobile Number:', mobile);
     console.log('Password:', password);
     console.log('Confirm Password:', confirmPassword);
+    console.log(showConfirmationModal);
     setShowConfirmationModal(true);
-
+    console.log(showConfirmationModal);
   };
-   const handleConfirm = () => {
-
+  const handleConfirm = () => {
     setShowConfirmationModal(false);
+    console.log(showConfirmationModal);
     setConfirmationCode('');
-
     navigation.navigate("Login");
   };
 
 
-  const navigation = useNavigation<any>();
+  const navigation = useNavigation();
+
 
   return (
     <ImageBackground
       source={require('../assets/bgs/back1.png')}
-      style={styles.backgroundImage}
+      style={{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
     >
       <ImageBackground
         source={require('../assets/bgs/bg2.png')}
-        style={styles.overlay}
+        style={{
+          ...StyleSheet.absoluteFillObject,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
         imageStyle={{ opacity: 0.4 }}
       >
-        <View style={styles.container}>
-          <View style={styles.greenContainer}>
-            <RegularText textStyles={styles.title}>Регистрация</RegularText>
+        <View style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+          padding: 20,
+          width: "100%",
+        }}>
+          <View style={{
+            backgroundColor: 'rgba(195, 195, 193, 0.3)',
+            borderRadius: 15,
+            padding: 20,
+            width: "100%",
+          }}>
+            <RegularText textStyles={{
+              fontSize: 24,
+              marginBottom: 20,
+              color: "#FFFFFF",
+              textAlign: "center",
+              fontFamily: "TenorSans_400Regular",
+            }}>Регистрация</RegularText>
             <TextInput
-              style={styles.input}
+              style={(inputStyle) as StyleProp<TextStyle>}
               placeholder="Имя"
               placeholderTextColor="white"
               value={name}
               onChangeText={setName}
             />
             <TextInput
-              style={styles.input}
-              placeholder="Email"
-              placeholderTextColor="white"
-              value={email}
-              onChangeText={setEmail}
-              keyboardType="email-address"
-              autoCapitalize="none"
+                style={(inputStyle) as StyleProp<TextStyle>}
+                placeholder="Email"
+                placeholderTextColor="white"
+                value={email}
+                onChangeText={setEmail}
+                keyboardType="email-address"
+                autoCapitalize="none"
             />
             <TextInput
-              style={styles.input}
+                style={(inputStyle) as StyleProp<TextStyle>}
               placeholder="Мобильный номер"
               placeholderTextColor="white"
               value={mobile}
@@ -128,7 +121,7 @@ const Register: React.FC = () => {
               keyboardType="phone-pad"
             />
             <TextInput
-              style={styles.input}
+                style={(inputStyle) as StyleProp<TextStyle>}
               placeholder="Пароль"
               placeholderTextColor="white"
               value={password}
@@ -136,7 +129,7 @@ const Register: React.FC = () => {
               secureTextEntry
             />
             <TextInput
-              style={styles.input}
+                style={(inputStyle) as StyleProp<TextStyle>}
               placeholder="Подтвердите пароль"
               placeholderTextColor="white"
               value={confirmPassword}
@@ -169,13 +162,18 @@ const Register: React.FC = () => {
                   textAlign: "center",
                   color: "#FFFFFF",
                   backgroundColor: "transparent",
+                  fontFamily: "TenorSans_400Regular",
                 }}
                 onPress={handleRegister}
               >
                 Зарегистрироваться
               </RegularButton>
             </LinearGradient>
-            <View style={styles.buttonContainer}>
+            <View style={{
+              flexDirection: "row",
+              marginTop: 30,
+              width: "100%",
+            }}>
               <RegularButton
                 textStyles={{
                   fontSize: 18,
@@ -183,6 +181,7 @@ const Register: React.FC = () => {
                   color: "#FFFFFF",
                   backgroundColor: "transparent",
                   marginTop: 30,
+                  fontFamily: "TenorSans_400Regular",
                 }}
                 onPress={() => navigation.navigate("Login")}
               >
@@ -191,36 +190,55 @@ const Register: React.FC = () => {
             </View>
           </View>
         </View>
-      </ImageBackground>
 
       {/* Confirmation Code Modal */}
       <Modal visible={showConfirmationModal} animationType="fade">
       <ImageBackground source={require('../assets/bgs/back1.png')}
-      style={styles.backgroundImage}>
+      style={{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}>
       <ImageBackground
         source={require('../assets/bgs/bg2.png')}
-        style={styles.overlay}
+        style={{
+          ...StyleSheet.absoluteFillObject,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
         imageStyle={{ opacity: 0.4 }}
       >
-        <View style={styles.modalContainer}>
-          <RegularText textStyles={styles.title}>Введите код подтверждения</RegularText>
+
+        <View style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: 'transparent',
+        }}>
+          <RegularText textStyles={{
+            fontSize: 24,
+            marginBottom: 20,
+            color: "#FFFFFF",
+            textAlign: "center",
+            fontFamily: "TenorSans_400Regular",
+          }}>Введите код подтверждения</RegularText>
               <TextInput
-                style={styles.input}
-                placeholder="Код"
-                placeholderTextColor="white"
-                value={confirmationCode}
-                onChangeText={setConfirmationCode}
-                keyboardType="numeric"
+                  style={(inputStyle) as StyleProp<TextStyle>}
+                  placeholder="Код"
+                  placeholderTextColor="white"
+                  value={confirmationCode}
+                  onChangeText={setConfirmationCode}
+                  keyboardType="numeric"
               />
-              <LinearGradient
+          <LinearGradient
               colors={[
                 "rgba(100, 135, 136, 1)",
                 "rgba(117, 160, 161, 1)",
                 "rgba(108, 175, 167, 1)",
                 "rgba(150, 202, 200, 0.69)",
               ]}
-              start={{ x: 0, y: 0 }}
-              end={{ x: 0, y: 1 }}
+              start={{x: 0, y: 0}}
+              end={{x: 0, y: 1}}
               style={{
                 width: "100%",
                 height: "5%",
@@ -231,18 +249,25 @@ const Register: React.FC = () => {
                 justifyContent: "center",
                 alignItems: "center",
               }}
-            >
-              <RegularButton
-                textStyles={styles.buttonContainer}
+          >
+            <RegularButton
+                textStyles={{
+                  fontSize: 18,
+                  textAlign: "center",
+                  color: "#FFFFFF",
+                  backgroundColor: "transparent",
+                  fontFamily: "TenorSans_400Regular",
+                }}
                 onPress={handleConfirm}
-              >
-                Подтвердить
-              </RegularButton>
-              </LinearGradient>
+            >
+              Подтвердить
+            </RegularButton>
+          </LinearGradient>
         </View>
         </ImageBackground>
         </ImageBackground>
       </Modal>
+    </ImageBackground>
     </ImageBackground>
   );
 };

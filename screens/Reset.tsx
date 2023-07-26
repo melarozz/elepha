@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TextInput, StyleSheet, ImageBackground } from 'react-native';
+import {View, TextInput, StyleSheet, ImageBackground, StyleProp, TextStyle} from 'react-native';
 import RegularButton from "../components/Buttons/RegularButton";
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from 'expo-linear-gradient';
@@ -7,15 +7,13 @@ import RegularText from "../components/Texts/RegularText";
 
 const Reset: React.FC = () => {
   const navigation = useNavigation<any>();
-  
+
   const [email, setEmail] = useState('');
   const [confirmationCode, setConfirmationCode] = useState('');
   const [isConfirmationCodeRequested, setIsConfirmationCodeRequested] = useState(false);
 
   const handleRequestConfirmationCode = () => {
-    
     setIsConfirmationCodeRequested(true);
-    
   };
 
   const handleConfirm = () => {
@@ -23,33 +21,72 @@ const Reset: React.FC = () => {
     setEmail('');
     setConfirmationCode('');
     navigation.navigate("Login");
-
   };
 
   return (
     <ImageBackground
       source={require('../assets/bgs/back1.png')}
-      style={styles.backgroundImage}
+      style={{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
     >
     <ImageBackground
       source={require('../assets/bgs/bg2.png')}
-      style={styles.overlay}
+      style={{
+        ...StyleSheet.absoluteFillObject,
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
       imageStyle={{ opacity: 0.4 }}
     >
-      <View style={styles.container}>
-        <View style={styles.greenContainer}>
+      <View style={{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 20,
+        width: "100%",
+      }}>
+        <View style={{
+          backgroundColor: 'rgba(195, 195, 193, 0.3)',
+          borderRadius: 15,
+          padding: 20,
+          width: "100%",
+          height: "30%",
+          justifyContent: "space-between",
+        }}>
           {isConfirmationCodeRequested ? (
             <>
-              <RegularText textStyles={styles.title}>Введите код подтверждения</RegularText>
+              <RegularText textStyles={({
+                fontSize: 20,
+                color: "#FFFFFF",
+                textAlign: "center",
+                fontFamily: "TenorSans_400Regular",
+              } as unknown) as StyleProp<TextStyle>}>
+                Введите код подтверждения</RegularText>
               <TextInput
-                style={styles.input}
+                style={({
+                  width: '100%',
+                  marginTop: 5,
+                  height: 40,
+                  borderColor: 'white',
+                  borderWidth: 1,
+                  paddingHorizontal: 10,
+                  borderRadius: 15,
+                  fontFamily: "TenorSans_400Regular",
+                  color: "white",
+                } as unknown) as StyleProp<TextStyle>}
                 placeholder="Код"
                 placeholderTextColor="white"
                 value={confirmationCode}
                 onChangeText={setConfirmationCode}
                 keyboardType="numeric"
               />
-              <View style={styles.container2}>
+              <View style={{
+                flex: 1,
+                justifyContent: "flex-end",
+              }}>
               <LinearGradient
               colors={[
                 "rgba(100, 135, 136, 1)",
@@ -61,8 +98,6 @@ const Reset: React.FC = () => {
               end={{ x: 0, y: 1 }}
               style={{
                 width: "100%",
-                height: "45%",
-                
                 marginLeft: "auto",
                 marginRight: "auto",
                 borderRadius: 15,
@@ -70,7 +105,13 @@ const Reset: React.FC = () => {
               }}
             >
               <RegularButton
-                textStyles={styles.buttonText}
+                textStyles={({
+                  fontSize: 18,
+                  textAlign: "center",
+                  color: "#FFFFFF",
+                  backgroundColor: "transparent",
+                  fontFamily: "TenorSans_400Regular",
+                } as unknown) as StyleProp<TextStyle>}
                 onPress={handleConfirm}
               >
                 Подтвердить
@@ -81,7 +122,17 @@ const Reset: React.FC = () => {
           ) : (
             <>
               <TextInput
-                style={styles.input}
+                style={({
+                  width: '100%',
+                  height: 40,
+                  borderColor: 'white',
+                  borderWidth: 1,
+                  marginTop: 20,
+                  paddingHorizontal: 10,
+                  borderRadius: 15,
+                  fontFamily: "TenorSans_400Regular",
+                  color: "white",
+                } as unknown) as StyleProp<TextStyle>}
                 placeholder="Email"
                 placeholderTextColor="white"
                 value={email}
@@ -89,32 +140,42 @@ const Reset: React.FC = () => {
                 keyboardType="email-address"
                 autoCapitalize="none"
               />
-              <View style={styles.container2}>
-              <LinearGradient
-              colors={[
-                "rgba(100, 135, 136, 1)",
-                "rgba(117, 160, 161, 1)",
-                "rgba(108, 175, 167, 1)",
-                "rgba(150, 202, 200, 0.69)",
-              ]}
-              start={{ x: 0, y: 0 }}
-              end={{ x: 0, y: 1 }}
-              style={{
-                width: "100%",
-                height: "40%",
-                marginLeft: "auto",
-                marginRight: "auto",
-                borderRadius: 15,
-              }}
-            >
-              <RegularButton
-                textStyles={styles.buttonText}
-                onPress={handleRequestConfirmationCode}
-              >
-                Сбросить
-              </RegularButton>
-              </LinearGradient>
+              <View>
+                <LinearGradient
+                    colors={[
+                      "rgba(100, 135, 136, 1)",
+                      "rgba(117, 160, 161, 1)",
+                      "rgba(108, 175, 167, 1)",
+                      "rgba(150, 202, 200, 0.69)",
+                    ]}
+                    start={{x: 0, y: 0}}
+                    end={{x: 0, y: 1}}
+                    style={{
+                      width: "100%",
+                      height: "35%",
+                      marginTop: 30,
+                      marginLeft: "auto",
+                      marginRight: "auto",
+                      borderRadius: 15,
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                >
+                  <RegularButton
+                      textStyles={({
+                        fontSize: 18,
+                        textAlign: "center",
+                        color: "#FFFFFF",
+                        backgroundColor: "transparent",
+                        fontFamily: "TenorSans_400Regular",
+                      } as unknown) as StyleProp<TextStyle>}
+                      onPress={handleRequestConfirmationCode}
+                  >
+                    Сбросить
+                  </RegularButton>
+                </LinearGradient>
               </View>
+
             </>
           )}
         </View>
@@ -123,61 +184,5 @@ const Reset: React.FC = () => {
     </ImageBackground>
   );
 };
-
-const styles = StyleSheet.create({
-  overlay: {
-    ...StyleSheet.absoluteFillObject,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-    width: "100%",
-  },
-  backgroundImage: {
-    flex: 1,
-    resizeMode: 'cover',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  greenContainer: {
-    backgroundColor: 'rgba(195, 195, 193, 0.3)',
-    borderRadius: 15,
-    padding: 20,
-    width: "100%",
-    height: "30%",
-    
-  },
-  title: {
-    fontSize: 24,
-    marginBottom: 20,
-    color: "#FFFFFF",
-    textAlign: "center",
-  },
-  input: {
-    width: '100%',
-    height: 40,
-    borderColor: 'white',
-    borderWidth: 1,
-    marginTop: 20,
-    paddingHorizontal: 10,
-    borderRadius: 15,
-  },
-  buttonText: {
-    fontSize: 18,
-    textAlign: "center",
-    color: "#FFFFFF",
-    backgroundColor: "transparent",
-    padding: 15,
-  },
-  container2: {
-    flex: 1,
-    justifyContent: "flex-end",
-    marginBottom: 20,
-  }
-});
 
 export default Reset;
