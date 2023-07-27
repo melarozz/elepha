@@ -29,18 +29,9 @@ const Register: React.FC = () => {
     const [confirmationCode, setConfirmationCode] = useState<string>('');
 
     const handleRegister = () => {
-        // console.log('Name:', name);
-        // console.log('Email:', email);
-        // console.log('Mobile Number:', mobile);
-        // console.log('Password:', password);
-        // console.log('Confirm Password:', confirmPassword);
-        // console.log(showConfirmationModal);
         setShowConfirmationModal(!showConfirmationModal);
-        // console.log(showConfirmationModal);
     };
     const handleConfirm = () => {
-        //setShowConfirmationModal(!showConfirmationModal);
-        // console.log(showConfirmationModal);
         setConfirmationCode('');
         navigation.navigate("Login");
     };

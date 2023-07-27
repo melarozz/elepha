@@ -17,10 +17,12 @@ const linkingConfiguration: LinkingOptions<RootStackParamList> = {
     screens: {
       Login: '/Login',
       Welcome: '/Welcome',
-      Profile: '/Profile',
+      Profile: '/Index',
       Rec: '/Rec',
       Register: '/Register',
       Reset: '/Reset',
+      EditProfile: '/EditProfile',
+      Edited: "/Edited",
     },
     initialRouteName: 'Login',
   },

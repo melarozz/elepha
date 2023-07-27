@@ -20,6 +20,9 @@ export type RootStackParamList = {
     Register: undefined;
     Profile: undefined;
     TabScreens: undefined;
+    EditProfile: undefined;
+    Edited: undefined;
+
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<RootStackParamList,

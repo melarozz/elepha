@@ -8,9 +8,9 @@ import RegularText from "../components/Texts/RegularText";
 const Reset: React.FC = () => {
   const navigation = useNavigation<any>();
 
-  const [email, setEmail] = useState('');
-  const [confirmationCode, setConfirmationCode] = useState('');
-  const [isConfirmationCodeRequested, setIsConfirmationCodeRequested] = useState(false);
+  const [email, setEmail] = useState<string>('');
+  const [confirmationCode, setConfirmationCode] = useState<string>('');
+  const [isConfirmationCodeRequested, setIsConfirmationCodeRequested] = useState<boolean>(false);
 
   const handleRequestConfirmationCode = () => {
     setIsConfirmationCodeRequested(true);
@@ -53,7 +53,7 @@ const Reset: React.FC = () => {
           borderRadius: 15,
           padding: 20,
           width: "100%",
-          height: "30%",
+          height: 200,
           justifyContent: "space-between",
         }}>
           {isConfirmationCodeRequested ? (
@@ -85,7 +85,7 @@ const Reset: React.FC = () => {
               />
               <View style={{
                 flex: 1,
-                justifyContent: "flex-end",
+                justifyContent: "center",
               }}>
               <LinearGradient
               colors={[
@@ -98,10 +98,12 @@ const Reset: React.FC = () => {
               end={{ x: 0, y: 1 }}
               style={{
                 width: "100%",
+                height: "25%",
                 marginLeft: "auto",
                 marginRight: "auto",
                 borderRadius: 15,
                 alignItems: "center",
+                marginTop: 20,
               }}
             >
               <RegularButton
@@ -153,7 +155,7 @@ const Reset: React.FC = () => {
                     style={{
                       width: "100%",
                       height: "35%",
-                      marginTop: 30,
+                      marginTop: 10,
                       marginLeft: "auto",
                       marginRight: "auto",
                       borderRadius: 15,

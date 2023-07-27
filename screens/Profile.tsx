@@ -1,4 +1,4 @@
-import React, {FunctionComponent, useState, useRef, FC} from "react";
+import React, {FunctionComponent, useState, useRef, useEffect, FC} from "react";
 import {
     StatusBar,
     Modal,
@@ -15,37 +15,48 @@ import {
 } from "react-native";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 import styled from "styled-components/native";
-import {useNavigation} from "@react-navigation/native";
+import {useNavigation, useFocusEffect} from "@react-navigation/native";
 import {colors} from "../components/colors";
 import BigText from "../components/Texts/BigText";
 import RegularText from "../components/Texts/RegularText";
-import { CSSProp } from "styled-components";
+import {CSSProp} from "styled-components";
 import Pic from "../components/Pic";
-
+import EditProfile from "./EditProfile";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const windowWidth = Dimensions.get("window").width - 40;
 
-const totalStyles: CSSProp = { fontFamily: "TenorSans_400Regular"};
-const rowStyle: CSSProp = { flexDirection: "row", justifyContent: "space-between", alignItems: "center", paddingVertical: 10 };
-const grayBoxLine: { alignItems: string; flexDirection: string; marginBottom: number; justifyContent: string } = { flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 10};
-const grayBoxText: { fontFamily: string; color: string; fontSize: number; fontWeight: string } = { fontSize: 18, color: "#FFFFFF", fontWeight: "bold", fontFamily: "TenorSans_400Regular"};
-const personalDataText: { fontFamily: string; color: string; fontSize: number } = { fontSize: 16, color: "#FFFFFF", fontFamily: "TenorSans_400Regular"};
+const totalStyles: CSSProp = {fontFamily: "TenorSans_400Regular"};
+const rowStyle: CSSProp = {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingVertical: 10
+};
+const grayBoxLine: {
+    alignItems: string;
+    flexDirection: string;
+    marginBottom: number;
+    justifyContent: string
+} = {flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 10};
+const grayBoxText: { fontFamily: string; color: string; fontSize: number; fontWeight: string } = {
+    fontSize: 18,
+    color: "#FFFFFF",
+    fontWeight: "bold",
+    fontFamily: "TenorSans_400Regular"
+};
+const personalDataText: { fontFamily: string; color: string; fontSize: number } = {
+    fontSize: 16,
+    color: "#FFFFFF",
+    fontFamily: "TenorSans_400Regular"
+};
 
 const ProfileContainer = styled.ImageBackground`
   background-color: ${colors.secondary};
   justify-content: flex-start;
   width: 100%;
   height: 100%;
-`;
-
-const Overlay = styled.View`
-  background-color: rgba(14, 83, 80, 0.4);
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
 `;
 
 const ScrollableContent = styled(ScrollView)`
@@ -102,7 +113,6 @@ const CardBody = styled.View`
 const Profile: FC = () => {
 
 
-
     const flatListRef = useRef<FlatList>(null);
 
     const margins: number[] = [0, 40, 80];
@@ -113,15 +123,22 @@ const Profile: FC = () => {
     const [isModal2Visible, setModal2Visible] = useState<boolean>(false);
     const [activeCardIndex, setActiveCardIndex] = useState<number>(0);
 
-
-    const userProfile = {
+    const [isEditModalVisible, setEditModalVisible] = useState<boolean>(false);
+    const [userData, setUserData] = useState({
         name: "Михаил",
-        profilePicture: require('../assets/man.jpeg'),
         birthDate: "24.04.2004",
         gender: "M",
         weight: "95",
         height: "175",
         pressure: "120/90",
+    });
+
+    const userProfile = {
+        profilePicture: require('../assets/man.jpeg'),
+    };
+
+    const handleEditPress = () => {
+        navigation.navigate('EditProfile');
     };
 
     const showModal = () => {
@@ -141,42 +158,45 @@ const Profile: FC = () => {
 
             return (
                 <View>
-                    <CardContainer style={{alignSelf: "center", width: windowWidth}}>
-                        <TouchableOpacity onPress={onCloseModal}
-                                          style={{justifyContent: "flex-end", alignItems: "flex-end"}}>
-                            <MaterialCommunityIcons name="close" size={24} color="#000000"/>
-                        </TouchableOpacity>
+                    <View style={{marginTop: 100}}>
+                        <CardContainer style={{alignSelf: "center", width: windowWidth}}>
+                            <TouchableOpacity onPress={onCloseModal}
+                                              style={{
+                                                  justifyContent: "flex-end", alignItems: "flex-end"
+                                              }}>
+                                <MaterialCommunityIcons name="close" size={24} color="#000000"/>
+                            </TouchableOpacity>
 
-                        <BigText textStyles={({
-                            color: "#000000",
-                            fontSize: 24,
-                            textAlign: "left",
-                            ...totalStyles
-                        } as unknown) as StyleProp<TextStyle>}>{item.item.title}</BigText>
-                        <CardBody>
-                            <RegularText textStyles={({
-                                color: "rgba(109, 147, 149, 1)",
-                                fontSize: 16,
-                                textAlign: "left",
-                                ...totalStyles
-                            } as unknown) as StyleProp<TextStyle>}>{item.item.text1}</RegularText>
-                            <RegularText textStyles={({
+                            <BigText textStyles={({
                                 color: "#000000",
-                                fontSize: 16,
+                                fontSize: 24,
                                 textAlign: "left",
                                 ...totalStyles
-                            } as unknown) as StyleProp<TextStyle>}>{item.item.text2}</RegularText>
-                        </CardBody>
+                            } as unknown) as StyleProp<TextStyle>}>{item.item.title}</BigText>
+                            <CardBody>
+                                <RegularText textStyles={({
+                                    color: "rgba(109, 147, 149, 1)",
+                                    fontSize: 16,
+                                    textAlign: "left",
+                                    ...totalStyles
+                                } as unknown) as StyleProp<TextStyle>}>{item.item.text1}</RegularText>
+                                <RegularText textStyles={({
+                                    color: "#000000",
+                                    fontSize: 16,
+                                    textAlign: "left",
+                                    ...totalStyles
+                                } as unknown) as StyleProp<TextStyle>}>{item.item.text2}</RegularText>
+                            </CardBody>
 
-                    </CardContainer>
-
+                        </CardContainer>
+                    </View>
                 </View>
             );
         }
         const onMomentumScrollEnd = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
             const index = Math.floor(event.nativeEvent.contentOffset.x / windowWidth);
             setActiveCardIndex(index);
-            const offset = index * windowWidth + margins[index] ;
+            const offset = index * windowWidth + margins[index];
             flatListRef?.current?.scrollToOffset({offset, animated: true});
         };
 
@@ -207,14 +227,23 @@ const Profile: FC = () => {
         <>
             <StatusBar/>
             <ProfileContainer source={require('../assets/bgs/bg2.png')}>
-                <Overlay/>
+                <View style={{
+                    backgroundColor: 'rgba(14, 83, 80, 0.4)',
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                }}>
+                </View>
 
                 <ScrollableContent>
 
                     {/*user info*/}
                     <View style={{
                         flexDirection: "column",
-                        marginTop: 50,}}
+                        marginTop: 50,
+                    }}
                     >
                         <Image
                             source={userProfile.profilePicture}
@@ -232,13 +261,14 @@ const Profile: FC = () => {
                             justifyContent: "space-between",
                             alignItems: "center",
                             marginTop: 10,
+                            width: "100%",
                         }}>
                             <RegularText textStyles={({
                                 fontSize: 24,
                                 color: "white",
                                 ...totalStyles
                             } as unknown) as StyleProp<TextStyle>}>Личный кабинет</RegularText>
-                            <TouchableOpacity style={{marginLeft: "30%"}} onPress={showModal2}>
+                            <TouchableOpacity onPress={handleEditPress}>
                                 <MaterialCommunityIcons name="pencil" size={20} color="#FFFFFF"/>
                             </TouchableOpacity>
                         </View>
@@ -271,7 +301,7 @@ const Profile: FC = () => {
                                 marginRight: 5,
                                 textAlign: "left",
                                 ...totalStyles
-                            } as unknown) as StyleProp<TextStyle>}>{userProfile.name}</RegularText>
+                            } as unknown) as StyleProp<TextStyle>}>{userData.name}</RegularText>
                         </View>
 
                     </View>
@@ -279,15 +309,21 @@ const Profile: FC = () => {
                     <View style={{
                         flexDirection: "row",
                         alignItems: "center",
+                        justifyContent: "space-between",
                         marginTop: 20,
                     }}>
+                        <View style={{
+                            flexDirection: "row",
+                            alignItems: "center",
+                        }}>
                         <MaterialCommunityIcons name="bell" size={20} color="#FFFFFF"/>
                         <RegularText textStyles={({
                             fontSize: 16,
                             color: "#FFFFFF",
                             ...totalStyles
                         } as unknown) as StyleProp<TextStyle>}>Напоминания замеров</RegularText>
-                        <TouchableOpacity style={{marginLeft: "30%"}} onPress={showModal}>
+                        </View>
+                        <TouchableOpacity onPress={showModal}>
                             <MaterialCommunityIcons name="information-outline" size={20} color="#FFFFFF"/>
                         </TouchableOpacity>
 
@@ -332,29 +368,36 @@ const Profile: FC = () => {
                             padding: 10,
                         }}>
                             <View style={(rowStyle) as StyleProp<ViewStyle>}>
-                                <RegularText textStyles={(personalDataText) as StyleProp<ViewStyle>}>Дата рождения</RegularText>
-                                <RegularText textStyles={(personalDataText) as StyleProp<ViewStyle>}>{userProfile.birthDate}</RegularText>
+                                <RegularText textStyles={(personalDataText) as StyleProp<ViewStyle>}>Дата
+                                    рождения</RegularText>
+                                <RegularText
+                                    textStyles={(personalDataText) as StyleProp<ViewStyle>}>{userData.birthDate}</RegularText>
                             </View>
 
                             <View style={(rowStyle) as StyleProp<ViewStyle>}>
                                 <RegularText textStyles={(personalDataText) as StyleProp<ViewStyle>}>Пол</RegularText>
                                 <RegularText
-                                    textStyles={(personalDataText) as StyleProp<ViewStyle>}>{userProfile.gender}</RegularText>
+                                    textStyles={(personalDataText) as StyleProp<ViewStyle>}>{userData.gender}</RegularText>
                             </View>
 
                             <View style={(rowStyle) as StyleProp<ViewStyle>}>
                                 <RegularText textStyles={(personalDataText) as StyleProp<ViewStyle>}>Вес</RegularText>
-                                <RegularText textStyles={(personalDataText) as StyleProp<ViewStyle>}>{userProfile.weight} кг</RegularText>
+                                <RegularText
+                                    textStyles={(personalDataText) as StyleProp<ViewStyle>}>{userData.weight} кг</RegularText>
                             </View>
 
                             <View style={(rowStyle) as StyleProp<ViewStyle>}>
                                 <RegularText textStyles={(personalDataText) as StyleProp<ViewStyle>}>Рост</RegularText>
-                                <RegularText textStyles={(personalDataText) as StyleProp<ViewStyle>}>{userProfile.height} см</RegularText>
+                                <RegularText
+                                    textStyles={(personalDataText) as StyleProp<ViewStyle>}>{userData.height} см</RegularText>
                             </View>
 
                             <View style={(rowStyle) as StyleProp<ViewStyle>}>
-                                <RegularText textStyles={(personalDataText) as StyleProp<ViewStyle>}>Давление</RegularText>
-                                <RegularText textStyles={(personalDataText) as StyleProp<ViewStyle>}>{userProfile.pressure} мм рт.ст.</RegularText>
+                                <RegularText
+                                    textStyles={(personalDataText) as StyleProp<ViewStyle>}>Давление</RegularText>
+                                <RegularText
+                                    textStyles={(personalDataText) as StyleProp<ViewStyle>}>{userData.pressure} мм
+                                    рт.ст.</RegularText>
                             </View>
                         </View>
 
@@ -389,6 +432,8 @@ const Profile: FC = () => {
             <Modal visible={isModalVisible} animationType="slide" transparent>
                 <ModalContent/>
             </Modal>
+
+
         </>
     );
 };

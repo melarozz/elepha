@@ -50,7 +50,7 @@ const Login: React.FC = () => {
                         borderRadius: 15,
                         padding: 20,
                         width: "100%",
-                        height: "60%",
+                        height: 350,
                         justifyContent: "space-between",
                     }}>
                         <View>
@@ -125,7 +125,7 @@ const Login: React.FC = () => {
                             style={{
                                 width: "100%",
                                 height: "35%",
-                                marginTop: 30,
+
                                 marginLeft: "auto",
                                 marginRight: "auto",
                                 borderRadius: 15,
@@ -154,7 +154,7 @@ const Login: React.FC = () => {
                                 textAlign: "center",
                                 color: "#FFFFFF",
                                 backgroundColor: "transparent",
-                                marginTop: 30,
+                                marginTop: 10,
                                 fontFamily: "TenorSans_400Regular",
                             } as unknown) as StyleProp<TextStyle>}
                             onPress={() => navigation.navigate("Register")}
