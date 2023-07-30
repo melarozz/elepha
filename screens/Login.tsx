@@ -141,7 +141,7 @@ const Login: React.FC = () => {
                                     backgroundColor: "transparent",
                                     fontFamily: "TenorSans_400Regular",
                                 } as unknown) as StyleProp<TextStyle>}
-                                onPress={() => navigation.navigate("Rec")}
+                                onPress={() => navigation.navigate("Welcome")}
                             >
                                 Войти
                             </RegularButton>
