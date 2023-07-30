@@ -1,16 +1,15 @@
-import React, { FunctionComponent, useRef, useEffect } from "react";
+import React, { FunctionComponent } from "react";
 import { StatusBar } from "expo-status-bar";
-import styled from "styled-components/native";
 import { LinearGradient } from "expo-linear-gradient";
-import { colors } from "../components/colors";
 import BigText from "../components/Texts/BigText";
 import RegularText from "../components/Texts/RegularText";
 import RegularButton from "../components/Buttons/RegularButton";
 import { useNavigation } from "@react-navigation/native";
 import { useAssets } from "expo-asset";
-import { ImageBackground, ImageSourcePropType, View, Image, StyleProp, TextStyle, Platform } from "react-native";
-import Starfield from './stars';
+import { ImageBackground, ImageSourcePropType, View, Image, StyleProp, TextStyle } from "react-native";
+import LottieView from "lottie-react-native";
 
+const waves = require('../assets/whiteWaves.json');
 const Welcome: FunctionComponent = () => {
     const navigation = useNavigation<any>();
     const [assets, error] = useAssets([
@@ -21,7 +20,7 @@ const Welcome: FunctionComponent = () => {
 
     return (
         <>
-            <StatusBar style='light' />
+            <StatusBar style='light'/>
             {assets &&
                 <ImageBackground source={assets[0] as ImageSourcePropType} style={{
                     justifyContent: "space-between",
@@ -37,8 +36,7 @@ const Welcome: FunctionComponent = () => {
                             opacity: 0.3,
                         }}
                     />
-                    <Starfield style={{backgroundColor: "transparent"}}/>
-
+                    {/*<Starfield style={{backgroundColor: "transparent"}}/>*/}
                     <View style={{
                         justifyContent: "flex-start",
                         alignItems: "center",
@@ -90,8 +88,14 @@ const Welcome: FunctionComponent = () => {
                             Проверьте свой уровень стресса и оптимизируйте внутреннее состояние
                         </BigText>
 
+                        <LottieView
+                            source={waves}
+                            autoPlay={true}
+                            loop={true}
+                            speed={1.3}
+                            style={{width: '100%'}}
+                        />
                     </View>
-
 
                     <LinearGradient
                         colors={[
@@ -100,8 +104,8 @@ const Welcome: FunctionComponent = () => {
                             "rgba(108, 175, 167, 1)",
                             "rgba(150, 202, 200, 0.69)",
                         ]}
-                        start={{ x: 0, y: 0 }}
-                        end={{ x: 0, y: 1 }}
+                        start={{x: 0, y: 0}}
+                        end={{x: 0, y: 1}}
                         style={{
                             width: "70%",
                             height: "5%",
@@ -114,7 +118,6 @@ const Welcome: FunctionComponent = () => {
                             alignItems: "center",
                         }}
                     >
-
                         <RegularButton
                             textStyles={({
                                 fontSize: 18,
@@ -123,13 +126,11 @@ const Welcome: FunctionComponent = () => {
                                 backgroundColor: "transparent",
                                 fontFamily: "TenorSans_400Regular",
                             } as unknown) as StyleProp<TextStyle>}
-                                onPress={() => navigation.navigate("Rec")}> Полетели!
+                            onPress={() => navigation.navigate("Rec")}> Полетели!
                         </RegularButton>
                     </LinearGradient>
-
                 </ImageBackground>
             }
-
         </>
     );
 };

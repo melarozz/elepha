@@ -4,6 +4,7 @@ import {LinearGradient} from 'expo-linear-gradient';
 import RegularButton from "../components/Buttons/RegularButton";
 import RegularText from "../components/Texts/RegularText";
 import {useNavigation} from "@react-navigation/native";
+import LottieView from "lottie-react-native";
 
 const inputStyle = {
     width: '100%',
