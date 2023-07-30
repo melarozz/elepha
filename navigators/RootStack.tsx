@@ -8,7 +8,6 @@ import Welcome from '../screens/Welcome';
 import Reset from '../screens/Reset';
 import Login from '../screens/Login';
 import EditProfile from "../screens/EditProfile";
-import Edited from "../screens/Edited";
 import TabScreens from './../navigators/TabScreens';
 
 export type RootStackParamList = {
@@ -19,13 +18,10 @@ export type RootStackParamList = {
   Register: undefined;
   Profile: undefined;
   EditProfile: undefined;
-  Edited: undefined;
 };
 
-// Create the Stack Navigator
 const Stack = createStackNavigator<RootStackParamList>();
 
-// Define the RootStack component
 const RootStack: FC = () => {
   return (
     <NavigationContainer>
@@ -65,11 +61,7 @@ const RootStack: FC = () => {
             component={EditProfile}
             options={{ headerShown: false }}
         />
-        <Stack.Screen
-            name="Edited"
-            component={Edited}
-            options={{ headerShown: false }}
-        />
+
       </Stack.Navigator>
     </NavigationContainer>
   );

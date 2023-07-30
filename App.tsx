@@ -4,10 +4,10 @@ import {useFonts} from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import {StyleSheet} from 'react-native';
 import {useCallback} from 'react';
-import {fonts} from './utils/fonts';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 SplashScreen.preventAutoHideAsync();
 import { TenorSans_400Regular} from "@expo-google-fonts/tenor-sans";
+
 const App = () => {
 
     const [fontsLoaded] = useFonts({

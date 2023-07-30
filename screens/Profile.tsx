@@ -20,6 +20,7 @@ import {colors} from "../components/colors";
 import BigText from "../components/Texts/BigText";
 import RegularText from "../components/Texts/RegularText";
 import {CSSProp} from "styled-components";
+import * as ImagePicker from "expo-image-picker";
 import Pic from "../components/Pic";
 import EditProfile from "./EditProfile";
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -117,25 +118,16 @@ const Profile: FC = () => {
 
     const margins: number[] = [0, 40, 80];
 
-
     const navigation = useNavigation<any>();
+
     const [isModalVisible, setModalVisible] = useState<boolean>(false);
     const [isModal2Visible, setModal2Visible] = useState<boolean>(false);
     const [activeCardIndex, setActiveCardIndex] = useState<number>(0);
 
     const [isEditModalVisible, setEditModalVisible] = useState<boolean>(false);
-    const [userData, setUserData] = useState({
-        name: "Михаил",
-        birthDate: "24.04.2004",
-        gender: "M",
-        weight: "95",
-        height: "175",
-        pressure: "120/90",
-    });
 
-    const userProfile = {
-        profilePicture: require('../assets/man.jpeg'),
-    };
+
+
 
     const handleEditPress = () => {
         navigation.navigate('EditProfile');
@@ -147,6 +139,36 @@ const Profile: FC = () => {
     const showModal2 = () => {
         setModal2Visible(true);
     };
+
+    const [pic, setPic] = useState<string>("https://images.unsplash.com/photo-1526045612212-70caf35c14df");
+    const [name, setName] = useState<string>('Михаил');
+    const [birthDate, setBirthDate] = useState<string>('24.04.2004');
+    const [gender, setGender] = useState<string>('M');
+    const [weight, setWeight] = useState<string>("95");
+    const [height, setHeight] = useState<string>("175");
+    const [pressure, setPressure] = useState<string>('120/90');
+
+    const loadUserData = async () => {
+        try {
+            const userDataJSON = await AsyncStorage.getItem('userData');
+            if (userDataJSON !== null) {
+                const userData = JSON.parse(userDataJSON);
+                setPic(userData.pic);
+                setName(userData.name);
+                setBirthDate(userData.birthDate);
+                setGender(userData.gender);
+                setWeight(userData.weight);
+                setHeight(userData.height);
+                setPressure(userData.pressure);
+            }
+        } catch (error) {
+            // Handle error, if any
+        }
+    };
+
+    useEffect(() => {
+        void loadUserData();
+    }, []);
 
     const ModalContent = () => {
         const onCloseModal = () => {
@@ -245,16 +267,18 @@ const Profile: FC = () => {
                         marginTop: 50,
                     }}
                     >
-                        <Image
-                            source={userProfile.profilePicture}
-                            style={{
-                                width: 80,
-                                height: 80,
-                                borderRadius: 8,
-                                marginRight: "auto",
-                                marginLeft: "auto",
-                            }}
-                        />
+                        <View>
+                            <Image
+                                source={{uri: pic}}
+                                style={{
+                                    width: 80,
+                                    height: 80,
+                                    borderRadius: 8,
+                                    marginRight: "auto",
+                                    marginLeft: "auto",
+                                }}
+                            />
+                        </View>
                         <View style={{
                             flex: 1,
                             flexDirection: "row",
@@ -301,7 +325,7 @@ const Profile: FC = () => {
                                 marginRight: 5,
                                 textAlign: "left",
                                 ...totalStyles
-                            } as unknown) as StyleProp<TextStyle>}>{userData.name}</RegularText>
+                            } as unknown) as StyleProp<TextStyle>}>{name}</RegularText>
                         </View>
 
                     </View>
@@ -316,12 +340,12 @@ const Profile: FC = () => {
                             flexDirection: "row",
                             alignItems: "center",
                         }}>
-                        <MaterialCommunityIcons name="bell" size={20} color="#FFFFFF"/>
-                        <RegularText textStyles={({
-                            fontSize: 16,
-                            color: "#FFFFFF",
-                            ...totalStyles
-                        } as unknown) as StyleProp<TextStyle>}>Напоминания замеров</RegularText>
+                            <MaterialCommunityIcons name="bell" size={20} color="#FFFFFF"/>
+                            <RegularText textStyles={({
+                                fontSize: 16,
+                                color: "#FFFFFF",
+                                ...totalStyles
+                            } as unknown) as StyleProp<TextStyle>}>Напоминания замеров</RegularText>
                         </View>
                         <TouchableOpacity onPress={showModal}>
                             <MaterialCommunityIcons name="information-outline" size={20} color="#FFFFFF"/>
@@ -371,32 +395,32 @@ const Profile: FC = () => {
                                 <RegularText textStyles={(personalDataText) as StyleProp<ViewStyle>}>Дата
                                     рождения</RegularText>
                                 <RegularText
-                                    textStyles={(personalDataText) as StyleProp<ViewStyle>}>{userData.birthDate}</RegularText>
+                                    textStyles={(personalDataText) as StyleProp<ViewStyle>}>{birthDate}</RegularText>
                             </View>
 
                             <View style={(rowStyle) as StyleProp<ViewStyle>}>
                                 <RegularText textStyles={(personalDataText) as StyleProp<ViewStyle>}>Пол</RegularText>
                                 <RegularText
-                                    textStyles={(personalDataText) as StyleProp<ViewStyle>}>{userData.gender}</RegularText>
+                                    textStyles={(personalDataText) as StyleProp<ViewStyle>}>{gender}</RegularText>
                             </View>
 
                             <View style={(rowStyle) as StyleProp<ViewStyle>}>
                                 <RegularText textStyles={(personalDataText) as StyleProp<ViewStyle>}>Вес</RegularText>
                                 <RegularText
-                                    textStyles={(personalDataText) as StyleProp<ViewStyle>}>{userData.weight} кг</RegularText>
+                                    textStyles={(personalDataText) as StyleProp<ViewStyle>}>{weight} кг</RegularText>
                             </View>
 
                             <View style={(rowStyle) as StyleProp<ViewStyle>}>
                                 <RegularText textStyles={(personalDataText) as StyleProp<ViewStyle>}>Рост</RegularText>
                                 <RegularText
-                                    textStyles={(personalDataText) as StyleProp<ViewStyle>}>{userData.height} см</RegularText>
+                                    textStyles={(personalDataText) as StyleProp<ViewStyle>}>{height} см</RegularText>
                             </View>
 
                             <View style={(rowStyle) as StyleProp<ViewStyle>}>
                                 <RegularText
                                     textStyles={(personalDataText) as StyleProp<ViewStyle>}>Давление</RegularText>
                                 <RegularText
-                                    textStyles={(personalDataText) as StyleProp<ViewStyle>}>{userData.pressure} мм
+                                    textStyles={(personalDataText) as StyleProp<ViewStyle>}>{pressure} мм
                                     рт.ст.</RegularText>
                             </View>
                         </View>
@@ -439,4 +463,3 @@ const Profile: FC = () => {
 };
 
 export default Profile;
-
