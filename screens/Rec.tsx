@@ -43,7 +43,7 @@ const TopSection = styled.View`
 `;
 
 const Rec: FunctionComponent = () => {
-    const [selectedMood, setSelectedMood] = useState<"mood1" | "mood2" | "mood3">("mood1");
+    const [selectedMood, setSelectedMood] = useState<"ВОССТАНОВЛЕНИЕ" | "БАЛАНС" | "АКТИВАЦИЯ">("ВОССТАНОВЛЕНИЕ");
     const [isMoodSelectionVisible, setIsMoodSelectionVisible] = useState<boolean>(true);
 
     const [isPlaying, setIsPlaying] = useState<boolean>(false);
@@ -68,7 +68,7 @@ const Rec: FunctionComponent = () => {
 
     const handleResetMood = () => {
         setIsMoodSelectionVisible(true);
-        setSelectedMood("mood1");
+        setSelectedMood("ВОССТАНОВЛЕНИЕ");
     }
 
     return (
@@ -94,9 +94,9 @@ const Rec: FunctionComponent = () => {
                 </View>
                 <TopSection style={{
                     backgroundColor:
-                        selectedMood === "mood1"
+                        selectedMood === "ВОССТАНОВЛЕНИЕ"
                             ? "rgba(168, 168, 166, 0.3)"
-                            : selectedMood === "mood2"
+                            : selectedMood === "БАЛАНС"
                                 ? "rgba(252, 210, 185, 0.3)"
                                 : "rgba(220, 234, 192, 0.3)",
                 }}>
@@ -110,18 +110,18 @@ const Rec: FunctionComponent = () => {
                             marginLeft: 10,
                             fontFamily: "TenorSans_400Regular",
                             color:
-                                selectedMood === "mood1"
+                                selectedMood === "ВОССТАНОВЛЕНИЕ"
                                     ? "rgba(139, 223, 216, 1)"
-                                    : selectedMood === "mood2"
+                                    : selectedMood === "БАЛАНС"
                                         ? "rgba(252, 210, 185, 1)"
                                         : "rgba(180, 224, 85, 1)",
 
                         }}
-                    > {selectedMood === "mood1"
-                        ? "Матрица \n на восстановление"
-                        : selectedMood === "mood2"
-                            ? "Матрица \n на внутренний баланс"
-                            : "Матрица \n на активацию работы мозга"}
+                    >{selectedMood === "ВОССТАНОВЛЕНИЕ"
+                        ? "Матрица\nна восстановление"
+                        : selectedMood === "БАЛАНС"
+                            ? "Матрица\nна внутренний баланс"
+                            : "Матрица\nна активацию работы мозга"}
                     </RegularText>
 
 
@@ -145,9 +145,9 @@ const Rec: FunctionComponent = () => {
                         marginLeft: "5%",
                         marginTop: 5,
                         lineHeight: 20
-                    }}>{selectedMood === "mood1"
+                    }}>{selectedMood === "ВОССТАНОВЛЕНИЕ"
                         ? "Данная аудиоматрица:\n·обладает глубоким успокаивающим воздействием,\n·улучшает сон,\n·избавляет от депрессивных состояний,\n·восстанавливает работу ЦНС,\n·снимает состояние тревожности,\n·помогает формировать новые нейронные связи."
-                        : selectedMood === "mood2"
+                        : selectedMood === "БАЛАНС"
                             ? "Данная аудиоматрица:\n·помогает синхронизировать работу двух полушарий мозга,\n·для расширения сознания,\n·сгармонизировать общее самочувствие,\n·переносить психоэмоциональные перезагрузки,\n·обладает стресс-протекторным действием."
                             : "Данная аудиоматрица:\n·улучшает когнитивные способности,\n·повышает проводимость нервных импульсов для быстрого принятия решений,\n·увеличивается энергетический резерв мозга,\n·повышается работоспособность и мотивация."}</RegularText>
                 </TopSection>
@@ -188,7 +188,7 @@ const Rec: FunctionComponent = () => {
                     </RegularButton>
                 </LinearGradient>
 
-                {selectedMood === "mood1" && (
+                {selectedMood === "ВОССТАНОВЛЕНИЕ" && (
                     <Modal visible={isMoodSelectionVisible} animationType="fade">
                         <ImageBackground source={require('../assets/bgs/back1.png')} style={styles.backgroundImage}>
                             <ImageBackground
@@ -199,30 +199,30 @@ const Rec: FunctionComponent = () => {
                                 <View style={styles.modalContainer}>
                                     <TouchableOpacity
                                         onPress={() => {
-                                            setSelectedMood("mood1");
+                                            setSelectedMood("ВОССТАНОВЛЕНИЕ");
                                             setIsMoodSelectionVisible(false);
                                         }}
                                         style={styles.moodOption}
                                     >
-                                        <Text style={styles.moodOptionText}>Mood 1</Text>
+                                        <Text style={styles.moodOptionText}>ВОССТАНОВЛЕНИЕ</Text>
                                     </TouchableOpacity>
                                     <TouchableOpacity
                                         onPress={() => {
-                                            setSelectedMood("mood2");
+                                            setSelectedMood("БАЛАНС");
                                             setIsMoodSelectionVisible(false);
                                         }}
                                         style={styles.moodOption}
                                     >
-                                        <Text style={styles.moodOptionText}>Mood 2</Text>
+                                        <Text style={styles.moodOptionText}>БАЛАНС</Text>
                                     </TouchableOpacity>
                                     <TouchableOpacity
                                         onPress={() => {
-                                            setSelectedMood("mood3");
+                                            setSelectedMood("АКТИВАЦИЯ");
                                             setIsMoodSelectionVisible(false);
                                         }}
                                         style={styles.moodOption}
                                     >
-                                        <Text style={styles.moodOptionText}>Mood 3</Text>
+                                        <Text style={styles.moodOptionText}>АКТИВАЦИЯ</Text>
                                     </TouchableOpacity>
                                 </View>
                             </ImageBackground>
@@ -253,7 +253,10 @@ const styles = StyleSheet.create({
         borderRadius: 8,
     },
     moodOptionText: {
+        textAlign: 'center',
         fontSize: 18,
+        width: 200,
+        justifyContent: 'center',
         color: "#FFFFFF",
         fontFamily: "TenorSans_400Regular",
     },
