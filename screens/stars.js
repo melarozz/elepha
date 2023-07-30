@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { View, Animated, StyleSheet, Dimensions, Easing } from 'react-native'
 
 const NUM_LAYERS = 10
-const NUM_STARS = 150
+const NUM_STARS = 200
 
 export function getRandomInt(max) {
     return Math.floor(Math.random() * max);
