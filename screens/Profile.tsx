@@ -1,4 +1,4 @@
-import React, {FunctionComponent, useState, useRef, useEffect, FC} from "react";
+import React, {FunctionComponent, useState, useRef, useEffect, FC, useCallback} from "react";
 import {
     StatusBar,
     Modal,
@@ -24,6 +24,7 @@ import * as ImagePicker from "expo-image-picker";
 import Pic from "../components/Pic";
 import EditProfile from "./EditProfile";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {loadUserDataUtil} from "./utils";
 
 
 const windowWidth = Dimensions.get("window").width - 40;
@@ -112,21 +113,11 @@ const CardBody = styled.View`
 `;
 
 const Profile: FC = () => {
-
-
-    const flatListRef = useRef<FlatList>(null);
-
+    const flatListRef = useRef<FlatList>();
     const margins: number[] = [0, 40, 80];
-
     const navigation = useNavigation<any>();
-
     const [isModalVisible, setModalVisible] = useState<boolean>(false);
-    const [isModal2Visible, setModal2Visible] = useState<boolean>(false);
     const [activeCardIndex, setActiveCardIndex] = useState<number>(0);
-
-    const [isEditModalVisible, setEditModalVisible] = useState<boolean>(false);
-
-
 
 
     const handleEditPress = () => {
@@ -135,9 +126,6 @@ const Profile: FC = () => {
 
     const showModal = () => {
         setModalVisible(true);
-    };
-    const showModal2 = () => {
-        setModal2Visible(true);
     };
 
     const [pic, setPic] = useState<string>("https://images.unsplash.com/photo-1526045612212-70caf35c14df");
@@ -148,26 +136,8 @@ const Profile: FC = () => {
     const [height, setHeight] = useState<string>("175");
     const [pressure, setPressure] = useState<string>('120/90');
 
-    const loadUserData = async () => {
-        try {
-            const userDataJSON = await AsyncStorage.getItem('userData');
-            if (userDataJSON !== null) {
-                const userData = JSON.parse(userDataJSON);
-                setPic(userData.pic);
-                setName(userData.name);
-                setBirthDate(userData.birthDate);
-                setGender(userData.gender);
-                setWeight(userData.weight);
-                setHeight(userData.height);
-                setPressure(userData.pressure);
-            }
-        } catch (error) {
-            // Handle error, if any
-        }
-    };
-
     useEffect(() => {
-        void loadUserData();
+        void loadUserDataUtil(setPic, setName, setBirthDate, setGender, setWeight, setHeight, setPressure);
     }, []);
 
     const ModalContent = () => {

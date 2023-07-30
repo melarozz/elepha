@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useCallback} from 'react';
+import React, {useState, useEffect, useCallback, FC} from 'react';
 import {View, TextInput, Button, Alert, TouchableOpacity, Image, StyleSheet, ImageBackground} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -7,6 +7,8 @@ import {MaterialCommunityIcons} from "@expo/vector-icons";
 import {LinearGradient} from 'expo-linear-gradient';
 import RegularText from "../components/Texts/RegularText";
 import RegularButton from "../components/Buttons/RegularButton";
+import {RootStackScreenProps} from "../navigators/types";
+import {loadUserDataUtil} from "./utils";
 
 const InputStyle: {
     marginTop: number,
@@ -25,8 +27,8 @@ const InputStyle: {
 };
 
 
-const EditProfile = () => {
-    const navigation = useNavigation();
+const EditProfile: FC<RootStackScreenProps<'EditProfile'>> = ({navigation}) => {
+    // const navigation = useNavigation();
     const [pic, setPic] = useState<string>("https://images.unsplash.com/photo-1526045612212-70caf35c14df");
     const [name, setName] = useState<string>('Михаил');
     const [birthDate, setBirthDate] = useState<string>('24.04.2004');
@@ -37,42 +39,42 @@ const EditProfile = () => {
 
 
     useEffect(() => {
-        loadUserData();
-    }, []);
+        loadUserDataUtil(
+            setPic,
+            setName,
+            setBirthDate,
+            setGender,
+            setWeight,
+            setHeight,
+            setPressure
+        ).then();
+    }, [
+        setPic,
+        setName,
+        setBirthDate,
+        setGender,
+        setWeight,
+        setHeight,
+        setPressure
+    ]);
 
-    const handleImageSelection = async () => {
+    const handleImageSelection = useCallback(async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.All,
             allowsEditing: true,
             aspect: [4, 4],
             quality: 1,
         });
-        console.log(result);
 
-        if (!await result.canceled) {
-            setPic(result.assets[0].uri);
-        }
-    }
-    const loadUserData = async () => {
-        try {
-            const userDataJSON = await AsyncStorage.getItem('userData');
-            if (userDataJSON !== null) {
-                const userData = JSON.parse(userDataJSON);
-                setPic(userData.pic);
-                setName(userData.name);
-                setBirthDate(userData.birthDate);
-                setGender(userData.gender);
-                setWeight(userData.weight);
-                setHeight(userData.height);
-                setPressure(userData.pressure);
+        if (!result.canceled) {
+            if (result.assets) {
+                setPic(result.assets[0].uri);
             }
-        } catch (error) {
-            // Handle error, if any
         }
-    };
+    }, []);
 
 
-    const saveUserData = async () => {
+    const saveUserData = useCallback(async () => {
         try {
             const userData = {
                 name,
@@ -83,16 +85,17 @@ const EditProfile = () => {
                 height,
                 pressure,
             };
-
+            console.log(userData)
             const userDataJSON = JSON.stringify(userData);
             await AsyncStorage.setItem('userData', userDataJSON);
+            console.log(await AsyncStorage.getItem('userData'))
             navigation.navigate('Profile');
         } catch (error) {
             // Handle error, if any
         }
-    };
+    }, [name, pic, birthDate, gender, weight, height, pressure]);
 
-    const handleCancel = () => {
+    const handleCancel = useCallback(() => {
         Alert.alert(
             "Вы уверены?",
             "Изменения не будут сохранены",
@@ -104,16 +107,15 @@ const EditProfile = () => {
                     }
                 },
                 {
-                    text: "Да, сохранить",
+                    text: "Да, уйти",
                     onPress: () => {
-                        loadUserData();
                         navigation.navigate('Profile');
                     }
                 }
             ],
             {cancelable: false}
         );
-    };
+    }, []);
 
     return (
         <ImageBackground
@@ -227,7 +229,7 @@ const EditProfile = () => {
                             style={{
                                 width: "50%",
                                 height: "15%",
-                                marginTop : 20,
+                                marginTop: 20,
                                 marginLeft: "auto",
                                 marginRight: "auto",
                                 borderRadius: 15,
@@ -236,7 +238,10 @@ const EditProfile = () => {
                             }}
                         >
                             <RegularButton onPress={saveUserData}>
-                                <RegularText  textStyles={{fontFamily: "TenorSans_400Regular", color: "white"}}> Сохранить </RegularText>
+                                <RegularText textStyles={{
+                                    fontFamily: "TenorSans_400Regular",
+                                    color: "white"
+                                }}> Сохранить </RegularText>
                             </RegularButton>
                         </LinearGradient>
                         <LinearGradient
@@ -251,7 +256,7 @@ const EditProfile = () => {
                             style={{
                                 width: "50%",
                                 height: "15%",
-                                marginTop : 20,
+                                marginTop: 20,
                                 marginLeft: "auto",
                                 marginRight: "auto",
                                 borderRadius: 15,
@@ -260,7 +265,10 @@ const EditProfile = () => {
                             }}
                         >
                             <RegularButton onPress={handleCancel}>
-                                <RegularText  textStyles={{fontFamily: "TenorSans_400Regular", color: "white"}}> Отменить </RegularText>
+                                <RegularText textStyles={{
+                                    fontFamily: "TenorSans_400Regular",
+                                    color: "white"
+                                }}> Отменить </RegularText>
                             </RegularButton>
                         </LinearGradient>
                     </View>
