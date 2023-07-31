@@ -129,15 +129,19 @@ const Profile: FC = () => {
     };
 
     const [pic, setPic] = useState<string>("https://images.unsplash.com/photo-1526045612212-70caf35c14df");
-    const [name, setName] = useState<string>('Михаил');
-    const [birthDate, setBirthDate] = useState<string>('24.04.2004');
-    const [gender, setGender] = useState<string>('M');
-    const [weight, setWeight] = useState<string>("95");
-    const [height, setHeight] = useState<string>("175");
-    const [pressure, setPressure] = useState<string>('120/90');
+    const [name, setName] = useState<string>('');
+    const [email, setEmail] = useState<string>('');
+    const [mobile, setMobile] = useState<string>('');
+    const [lastName, setLastName] = useState<string>('');
+    const [company, setCompany] = useState<string>('');
+    const [height, setHeight] = useState<string>('');
+    const [weight, setWeight] = useState<string>('');
+    const [pulse, setPulse] = useState<string>('');
+    const [gender, setGender] = useState<string>('');
+    const [birthDate, setBirthDate] = useState<string>('');
 
     useEffect(() => {
-        void loadUserDataUtil(setPic, setName, setBirthDate, setGender, setWeight, setHeight, setPressure);
+        void loadUserDataUtil(setPic, setName, setLastName, setBirthDate, setGender, setCompany,setWeight, setHeight,  setPulse);
     }, []);
 
     const ModalContent = () => {
@@ -298,6 +302,38 @@ const Profile: FC = () => {
                             } as unknown) as StyleProp<TextStyle>}>{name}</RegularText>
                         </View>
 
+                        <View style={{
+                            flex: 1,
+                            flexDirection: "row",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                        }}>
+                            <RegularText textStyles={({
+                                fontSize: 18,
+                                color: "#FFFFFF",
+                                marginRight: 5,
+                                marginTop: 10,
+                                ...totalStyles
+                            } as unknown) as StyleProp<TextStyle>}>Фамилия</RegularText>
+                        </View>
+
+                        <View style={{
+                            justifyContent: 'flex-start',
+                            flex: 1,
+                            alignItems: "flex-start",
+                            backgroundColor: "rgba(168, 168, 166, 0.3)",
+                            borderRadius: 15,
+                            marginTop: 10,
+                        }}>
+                            <RegularText textStyles={({
+                                fontSize: 18,
+                                color: "#FFFFFF",
+                                marginRight: 5,
+                                textAlign: "left",
+                                ...totalStyles
+                            } as unknown) as StyleProp<TextStyle>}>{lastName}</RegularText>
+                        </View>
+
                     </View>
 
                     <View style={{
@@ -375,6 +411,12 @@ const Profile: FC = () => {
                             </View>
 
                             <View style={(rowStyle) as StyleProp<ViewStyle>}>
+                                <RegularText textStyles={(personalDataText) as StyleProp<ViewStyle>}>Компания</RegularText>
+                                <RegularText
+                                    textStyles={(personalDataText) as StyleProp<ViewStyle>}>{company}</RegularText>
+                            </View>
+
+                            <View style={(rowStyle) as StyleProp<ViewStyle>}>
                                 <RegularText textStyles={(personalDataText) as StyleProp<ViewStyle>}>Вес</RegularText>
                                 <RegularText
                                     textStyles={(personalDataText) as StyleProp<ViewStyle>}>{weight} кг</RegularText>
@@ -388,10 +430,9 @@ const Profile: FC = () => {
 
                             <View style={(rowStyle) as StyleProp<ViewStyle>}>
                                 <RegularText
-                                    textStyles={(personalDataText) as StyleProp<ViewStyle>}>Давление</RegularText>
+                                    textStyles={(personalDataText) as StyleProp<ViewStyle>}>Средний пульс</RegularText>
                                 <RegularText
-                                    textStyles={(personalDataText) as StyleProp<ViewStyle>}>{pressure} мм
-                                    рт.ст.</RegularText>
+                                    textStyles={(personalDataText) as StyleProp<ViewStyle>}>{pulse} уд/мин</RegularText>
                             </View>
                         </View>
 

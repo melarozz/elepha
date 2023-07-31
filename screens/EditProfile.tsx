@@ -1,5 +1,15 @@
 import React, {useState, useEffect, useCallback, FC} from 'react';
-import {View, TextInput, Button, Alert, TouchableOpacity, Image, StyleSheet, ImageBackground} from 'react-native';
+import {
+    View,
+    TextInput,
+    Button,
+    Alert,
+    TouchableOpacity,
+    Image,
+    StyleSheet,
+    ImageBackground,
+    ScrollView, StyleProp, TextStyle, ViewStyle
+} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as ImagePicker from "expo-image-picker";
@@ -9,22 +19,43 @@ import RegularText from "../components/Texts/RegularText";
 import RegularButton from "../components/Buttons/RegularButton";
 import {RootStackScreenProps} from "../navigators/types";
 import {loadUserDataUtil} from "./utils";
+import styled from "styled-components/native";
+import {CSSProp} from "styled-components";
 
-const InputStyle: {
-    marginTop: number,
-    marginLeft: number,
-    marginRight: number,
-    backgroundColor: string,
-    color: string,
-    fontFamily: string,
-} = {
-    marginTop: 10,
-    marginLeft: 10,
-    marginRight: 10,
-    backgroundColor: "rgba(255,255,255,0.1)",
-    color: "white",
+const totalStyles: CSSProp = {fontFamily: "TenorSans_400Regular"};
+const rowStyle: CSSProp = {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingVertical: 10
+};
+const grayBoxLine: {
+    alignItems: string;
+    flexDirection: string;
+    marginBottom: number;
+    justifyContent: string
+} = {flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 10};
+const grayBoxText: { fontFamily: string; color: string; fontSize: number; fontWeight: string } = {
+    fontSize: 18,
+    color: "#FFFFFF",
+    fontWeight: "bold",
+    fontFamily: "TenorSans_400Regular"
+};
+const personalDataText: { fontFamily: string; color: string; fontSize: number} = {
+    fontSize: 16,
+    color: "#FFFFFF",
     fontFamily: "TenorSans_400Regular",
 };
+
+const personalDataInput: { paddingHorizontal: number, fontFamily: string; color: string; fontSize: number, backgroundColor: string, borderRadius: number } = {
+    paddingHorizontal: 10,
+    fontSize: 16,
+    color: "#FFFFFF",
+    fontFamily: "TenorSans_400Regular",
+    backgroundColor: "rgba(255,255,255,0.2)",
+    borderRadius: 15,
+};
+
 
 
 const EditProfile: FC<RootStackScreenProps<'EditProfile'>> = ({navigation}) => {
@@ -35,27 +66,37 @@ const EditProfile: FC<RootStackScreenProps<'EditProfile'>> = ({navigation}) => {
     const [gender, setGender] = useState<string>('M');
     const [weight, setWeight] = useState<string>("95");
     const [height, setHeight] = useState<string>("175");
-    const [pressure, setPressure] = useState<string>('120/90');
+    const [email, setEmail] = useState<string>('pochta@mail.ru');
+    const [mobile, setMobile] = useState<string>('+79990001122');
+    const [lastName, setLastName] = useState<string>('Иванов');
+    const [company, setCompany] = useState<string>('Название компании');
+    const [pulse, setPulse] = useState<string>('80');
+
 
 
     useEffect(() => {
         loadUserDataUtil(
             setPic,
             setName,
+            setLastName,
             setBirthDate,
             setGender,
+            setCompany,
             setWeight,
             setHeight,
-            setPressure
+            setPulse
+
         ).then();
     }, [
         setPic,
         setName,
+        setLastName,
         setBirthDate,
         setGender,
+        setCompany,
         setWeight,
         setHeight,
-        setPressure
+        setPulse
     ]);
 
     const handleImageSelection = useCallback(async () => {
@@ -77,13 +118,17 @@ const EditProfile: FC<RootStackScreenProps<'EditProfile'>> = ({navigation}) => {
     const saveUserData = useCallback(async () => {
         try {
             const userData = {
-                name,
                 pic,
+                name,
+                lastName,
                 birthDate,
                 gender,
+                company,
                 weight,
                 height,
-                pressure,
+                pulse,
+
+
             };
             console.log(userData)
             const userDataJSON = JSON.stringify(userData);
@@ -93,7 +138,7 @@ const EditProfile: FC<RootStackScreenProps<'EditProfile'>> = ({navigation}) => {
         } catch (error) {
             // Handle error, if any
         }
-    }, [name, pic, birthDate, gender, weight, height, pressure]);
+    }, [pic, name,lastName, birthDate, gender, company, weight, height, pulse ]);
 
     const handleCancel = useCallback(() => {
         Alert.alert(
@@ -118,163 +163,284 @@ const EditProfile: FC<RootStackScreenProps<'EditProfile'>> = ({navigation}) => {
     }, []);
 
     return (
-        <ImageBackground
-            source={require('../assets/bgs/back1.png')}
-            style={{
-                flex: 1,
-                justifyContent: 'center',
-                alignItems: 'center',
-            }}
-        >
+
             <ImageBackground
                 source={require('../assets/bgs/bg2.png')}
                 style={{
-                    ...StyleSheet.absoluteFillObject,
-                    justifyContent: 'center',
-                    alignItems: 'center',
+                    justifyContent: 'flex-start',
+                    width: "100%",
+                    height: "100%",
                 }}
-                imageStyle={{opacity: 0.4}}
+                imageStyle={{opacity: 0.8}}
             >
-                <View
-                    style={{
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        width: "100%",
-                    }}
-                >
-                    <View>
-                        <Image
-                            source={{uri: pic}}
-                            style={{
-                                width: 80,
-                                height: 80,
-                                borderRadius: 8,
-                                marginRight: "auto",
-                                marginLeft: "auto",
-                            }}
-                        />
-                        <TouchableOpacity onPress={handleImageSelection}>
-
-                            <View style={{
-                                position: "absolute",
-                                alignSelf: "center",
-                                marginTop: 5,
-                            }}>
-                                <MaterialCommunityIcons name="camera" size={24} color="white"/>
-                            </View>
-                        </TouchableOpacity>
-                    </View>
-                </View>
                 <View style={{
-                    marginTop: 50,
-                    width: "70%",
+                    backgroundColor: 'rgba(14, 83, 80, 0.4)',
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
                 }}>
-                    <View
-                        style={{
-                            borderRadius: 15,
-                            backgroundColor: 'rgba(168, 168, 166, 0.3)',
-                        }}
-                    >
-                        <TextInput
-                            style={InputStyle}
-                            placeholder="Имя"
-                            value={name}
-                            onChangeText={(text) => setName(text)}
-                        />
-
-                        <TextInput
-                            style={InputStyle}
-                            placeholder="Дата рождения"
-                            value={birthDate}
-                            onChangeText={(text) => setBirthDate(text)}
-                        />
-
-                        <TextInput
-                            style={InputStyle}
-                            placeholder="Пол"
-                            value={gender}
-                            onChangeText={(text) => setGender(text)}
-                        />
-
-                        <TextInput
-                            style={InputStyle}
-                            placeholder="Вес"
-                            value={weight}
-                            onChangeText={(text) => setWeight(text)}
-                        />
-
-                        <TextInput
-                            style={InputStyle}
-                            placeholder="Рост"
-                            value={height}
-                            onChangeText={(text) => setHeight(text)}
-                        />
-
-                        <TextInput
-                            style={InputStyle}
-                            placeholder="Давление"
-                            value={pressure}
-                            onChangeText={(text) => setPressure(text)}
-                        />
-
-                        <LinearGradient
-                            colors={[
-                                "rgba(100, 135, 136, 1)",
-                                "rgba(117, 160, 161, 1)",
-                                "rgba(108, 175, 167, 1)",
-                                "rgba(150, 202, 200, 0.69)",
-                            ]}
-                            start={{x: 0, y: 0}}
-                            end={{x: 0, y: 1}}
-                            style={{
-                                width: "50%",
-                                height: "15%",
-                                marginTop: 20,
-                                marginLeft: "auto",
-                                marginRight: "auto",
-                                borderRadius: 15,
-                                justifyContent: "center",
-                                alignItems: "center",
-                            }}
-                        >
-                            <RegularButton onPress={saveUserData}>
-                                <RegularText textStyles={{
-                                    fontFamily: "TenorSans_400Regular",
-                                    color: "white"
-                                }}> Сохранить </RegularText>
-                            </RegularButton>
-                        </LinearGradient>
-                        <LinearGradient
-                            colors={[
-                                "rgba(100, 135, 136, 1)",
-                                "rgba(117, 160, 161, 1)",
-                                "rgba(108, 175, 167, 1)",
-                                "rgba(150, 202, 200, 0.69)",
-                            ]}
-                            start={{x: 0, y: 0}}
-                            end={{x: 0, y: 1}}
-                            style={{
-                                width: "50%",
-                                height: "15%",
-                                marginTop: 20,
-                                marginLeft: "auto",
-                                marginRight: "auto",
-                                borderRadius: 15,
-                                justifyContent: "center",
-                                alignItems: "center",
-                            }}
-                        >
-                            <RegularButton onPress={handleCancel}>
-                                <RegularText textStyles={{
-                                    fontFamily: "TenorSans_400Regular",
-                                    color: "white"
-                                }}> Отменить </RegularText>
-                            </RegularButton>
-                        </LinearGradient>
-                    </View>
                 </View>
+
+                <ScrollView style={{
+                    flex: 1,
+                    padding: 20,
+                }}>
+
+
+                    {/*user info*/}
+                    <View style={{
+                        flexDirection: "column",
+                        marginTop: 50,
+                    }}
+                    >
+                        <View>
+                            <Image
+                                source={{uri: pic}}
+                                style={{
+                                    width: 80,
+                                    height: 80,
+                                    borderRadius: 8,
+                                    marginRight: "auto",
+                                    marginLeft: "auto",
+                                }}
+                            />
+                            <TouchableOpacity onPress={handleImageSelection}>
+
+                                <View style={{
+                                    position: "absolute",
+                                    alignSelf: "center",
+                                    marginTop: 5,
+                                }}>
+                                    <MaterialCommunityIcons name="camera" size={24} color="white"/>
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+
+                        <View style={{
+                            flex: 1,
+
+                            flexDirection: "row",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                            marginTop: 35,
+                        }}>
+                            <RegularText textStyles={({
+                                fontSize: 18,
+                                color: "#FFFFFF",
+                                marginRight: 5,
+                                marginTop: 10,
+                                ...totalStyles
+                            } as unknown) as StyleProp<TextStyle>}>Имя</RegularText>
+
+                        </View>
+
+                        <View style={{
+                            justifyContent: 'center',
+                            flex: 1,
+                            alignItems: "flex-start",
+                            height: 30,
+                            backgroundColor: "rgba(168, 168, 166, 0.3)",
+                            borderRadius: 15,
+                            marginTop: 10,
+
+                        }}>
+                            <TextInput
+                                style={{...personalDataInput, marginLeft: 10}}
+                                placeholder="Имя"
+                                value={name}
+                                onChangeText={(text) => setName(text)}
+                            />
+
+                        </View>
+
+                        <View style={{
+                            flex: 1,
+                            flexDirection: "row",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                        }}>
+                            <RegularText textStyles={({
+                                fontSize: 18,
+                                color: "#FFFFFF",
+                                marginRight: 5,
+                                marginTop: 10,
+                                ...totalStyles
+                            } as unknown) as StyleProp<TextStyle>}>Фамилия</RegularText>
+                        </View>
+
+                        <View style={{
+                            justifyContent: 'center',
+                            flex: 1,
+                            alignItems: "flex-start",
+                            backgroundColor: "rgba(168, 168, 166, 0.3)",
+                            height: 30,
+                            borderRadius: 15,
+                            marginTop: 10,
+                        }}>
+                            <TextInput
+                                style={{...personalDataInput, marginLeft: 10}}
+                                placeholder="Фамилия"
+                                value={lastName}
+                                onChangeText={(text) => setLastName(text)}
+                            />
+
+                        </View>
+
+                    </View>
+
+
+                    {/*detailed user info*/}
+                    <View style={{marginTop: 20}}>
+                        <RegularText textStyles={{
+                            fontSize: 20,
+                            color: "#FFFFFF",
+                            fontWeight: "bold",
+                            fontFamily: "TenorSans_400Regular",
+                        }}>Личные данные</RegularText>
+                        <View style={{
+                            backgroundColor: "rgba(168, 168, 166, 0.3)",
+                            borderRadius: 15,
+                            marginTop: 20,
+                            padding: 10,
+                        }}>
+                            <View style={(rowStyle) as StyleProp<ViewStyle>}>
+                                <RegularText textStyles={(personalDataText) as StyleProp<ViewStyle>}>Дата
+                                    рождения</RegularText>
+                                <TextInput
+                                    style={personalDataInput}
+                                    placeholder="Дата рождения"
+                                    value={birthDate}
+                                    onChangeText={(text) => setBirthDate(text)}
+                                />
+
+                            </View>
+
+                            <View style={(rowStyle) as StyleProp<ViewStyle>}>
+                                <RegularText textStyles={(personalDataText) as StyleProp<ViewStyle>}>Пол</RegularText>
+                                <TextInput
+                                    style={personalDataInput}
+                                    placeholder="Пол"
+                                    value={gender}
+                                    onChangeText={(text) => setGender(text)}
+                                />
+
+                            </View>
+
+                            <View style={(rowStyle) as StyleProp<ViewStyle>}>
+                                <RegularText textStyles={(personalDataText) as StyleProp<ViewStyle>}>Компания</RegularText>
+                                <TextInput
+                                    style={personalDataInput}
+                                    placeholder="Компания"
+                                    value={company}
+                                    onChangeText={(text) => setCompany(text)}
+                                />
+
+                            </View>
+
+                            <View style={(rowStyle) as StyleProp<ViewStyle>}>
+                                <RegularText textStyles={(personalDataText) as StyleProp<ViewStyle>}>Вес</RegularText>
+                                <TextInput
+                                    style={personalDataInput}
+                                    placeholder="Вес"
+                                    value={weight}
+                                    onChangeText={(text) => setWeight(text)}
+                                />
+
+                            </View>
+
+                            <View style={(rowStyle) as StyleProp<ViewStyle>}>
+                                <RegularText textStyles={(personalDataText) as StyleProp<ViewStyle>}>Рост</RegularText>
+                                <TextInput
+                                    style={personalDataInput}
+                                    placeholder="Рост"
+                                    value={height}
+                                    onChangeText={(text) => setHeight(text)}
+                                />
+
+                            </View>
+
+                            <View style={(rowStyle) as StyleProp<ViewStyle>}>
+                                <RegularText
+                                    textStyles={(personalDataText) as StyleProp<ViewStyle>}>Средний пульс</RegularText>
+                                <TextInput
+                                    style={personalDataInput}
+                                    placeholder="Средний пульс"
+                                    value={pulse}
+                                    onChangeText={(text) => setPulse(text)}
+                                />
+                            </View>
+                        </View>
+
+                        <View style={{
+                            marginTop: 20,
+                            height: 100,
+                            justifyContent: "flex-start",
+                            alignItems: "center"
+                        }}>
+                            <LinearGradient
+                                colors={[
+                                    "rgba(100, 135, 136, 1)",
+                                    "rgba(117, 160, 161, 1)",
+                                    "rgba(108, 175, 167, 1)",
+                                    "rgba(150, 202, 200, 0.69)",
+                                ]}
+                                start={{x: 0, y: 0}}
+                                end={{x: 0, y: 1}}
+                                style={{
+                                    width: "100%",
+                                    height: "45%",
+                                    marginTop: 20,
+                                    marginLeft: "auto",
+                                    marginRight: "auto",
+                                    borderRadius: 15,
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                }}
+                            >
+                                <RegularButton onPress={saveUserData}>
+                                    <RegularText textStyles={{
+                                        fontFamily: "TenorSans_400Regular",
+                                        color: "white"
+                                    }}> Сохранить </RegularText>
+                                </RegularButton>
+                            </LinearGradient>
+
+                            <LinearGradient
+                                colors={[
+                                    "rgba(100, 135, 136, 1)",
+                                    "rgba(117, 160, 161, 1)",
+                                    "rgba(108, 175, 167, 1)",
+                                    "rgba(150, 202, 200, 0.69)",
+                                ]}
+                                start={{x: 0, y: 0}}
+                                end={{x: 0, y: 1}}
+                                style={{
+                                    width: "100%",
+                                    height: "45%",
+                                    marginTop: 20,
+                                    marginLeft: "auto",
+                                    marginRight: "auto",
+                                    borderRadius: 15,
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                }}
+                            >
+                                <RegularButton onPress={handleCancel}>
+                                    <RegularText textStyles={{
+                                        fontFamily: "TenorSans_400Regular",
+                                        color: "white"
+                                    }}> Отменить </RegularText>
+                                </RegularButton>
+                            </LinearGradient>
+
+                        </View>
+
+                    </View>
+                </ScrollView>
             </ImageBackground>
-        </ImageBackground>
+
     );
 };
 

@@ -3,11 +3,14 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 export async function loadUserDataUtil(
     setPic: (string) => void,
     setName: (string) => void,
+    setLastName: (string) => void,
     setBirthDate: (string) => void,
     setGender: (string) => void,
+    setCompany: (string) => void,
     setWeight: (string) => void,
     setHeight: (number) => void,
-    setPressure: (string) => void
+    setPulse: (string) => void
+
 ) {
     try {
         const userDataJSON = await AsyncStorage.getItem('userData');
@@ -19,7 +22,9 @@ export async function loadUserDataUtil(
             setGender(userData.gender);
             setWeight(userData.weight);
             setHeight(userData.height);
-            setPressure(userData.pressure);
+            setPulse(userData.pulse);
+            setLastName(userData.lastName);
+            setCompany(userData.company);
         }
     } catch (error) {
         // Handle error, if any

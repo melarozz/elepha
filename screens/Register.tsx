@@ -8,7 +8,7 @@ import LottieView from "lottie-react-native";
 
 const inputStyle = {
     width: '100%',
-    height: 40,
+    height: "4%",
     borderColor: 'white',
     borderWidth: 1,
     marginBottom: 10,
@@ -24,6 +24,14 @@ const Register: React.FC = () => {
     const [name, setName] = useState<string>('');
     const [email, setEmail] = useState<string>('');
     const [mobile, setMobile] = useState<string>('');
+    const [lastName, setLastName] = useState<string>('');
+    const [company, setCompany] = useState<string>('');
+    const [height, setHeight] = useState<string>('');
+    const [weight, setWeight] = useState<string>('');
+    const [pulse, setPulse] = useState<string>('');
+    const [gender, setGender] = useState<string>('');
+    const [birthDate, setBirthDate] = useState<string>('');
+
     const [password, setPassword] = useState<string>('');
     const [confirmPassword, setConfirmPassword] = useState<string>('');
     const [showConfirmationModal, setShowConfirmationModal] = useState<boolean>(false);
@@ -67,7 +75,7 @@ const Register: React.FC = () => {
                         backgroundColor: 'rgba(195, 195, 193, 0.3)',
                         borderRadius: 15,
                         padding: 20,
-                        width: "100%",
+                        width: "100%"
                     }}>
                         <RegularText textStyles={{
                             fontSize: 24,
@@ -83,6 +91,31 @@ const Register: React.FC = () => {
                             value={name}
                             onChangeText={setName}
                         />
+
+                        <TextInput
+                            style={(inputStyle) as StyleProp<TextStyle>}
+                            placeholder="Фамилия"
+                            placeholderTextColor="white"
+                            value={lastName}
+                            onChangeText={setLastName}
+                        />
+
+                        <TextInput
+                            style={(inputStyle) as StyleProp<TextStyle>}
+                            placeholder="Пол"
+                            placeholderTextColor="white"
+                            value={gender}
+                            onChangeText={setGender}
+                        />
+
+                        <TextInput
+                            style={(inputStyle) as StyleProp<TextStyle>}
+                            placeholder="Дата рождения"
+                            placeholderTextColor="white"
+                            value={birthDate}
+                            onChangeText={setBirthDate}
+                        />
+
                         <TextInput
                             style={(inputStyle) as StyleProp<TextStyle>}
                             placeholder="Email"
@@ -92,14 +125,48 @@ const Register: React.FC = () => {
                             keyboardType="email-address"
                             autoCapitalize="none"
                         />
+
                         <TextInput
                             style={(inputStyle) as StyleProp<TextStyle>}
-                            placeholder="Мобильный номер"
+                            placeholder="Номер телефона"
                             placeholderTextColor="white"
                             value={mobile}
                             onChangeText={setMobile}
                             keyboardType="phone-pad"
                         />
+
+                        <TextInput
+                            style={(inputStyle) as StyleProp<TextStyle>}
+                            placeholder="Компания"
+                            placeholderTextColor="white"
+                            value={company}
+                            onChangeText={setCompany}
+                        />
+
+                        <TextInput
+                            style={(inputStyle) as StyleProp<TextStyle>}
+                            placeholder="Рост"
+                            placeholderTextColor="white"
+                            value={height}
+                            onChangeText={setHeight}
+                        />
+
+                        <TextInput
+                            style={(inputStyle) as StyleProp<TextStyle>}
+                            placeholder="Вес"
+                            placeholderTextColor="white"
+                            value={weight}
+                            onChangeText={setWeight}
+                        />
+
+                        <TextInput
+                            style={(inputStyle) as StyleProp<TextStyle>}
+                            placeholder="Средний пульс"
+                            placeholderTextColor="white"
+                            value={pulse}
+                            onChangeText={setPulse}
+                        />
+
                         <TextInput
                             style={(inputStyle) as StyleProp<TextStyle>}
                             placeholder="Пароль"
@@ -127,8 +194,8 @@ const Register: React.FC = () => {
                             end={{x: 0, y: 1}}
                             style={{
                                 width: "70%",
-                                height: "15%",
-                                marginTop: 30,
+                                height: "10%",
+                                marginTop: 10,
                                 marginLeft: "auto",
                                 marginRight: "auto",
                                 borderRadius: 15,
@@ -151,7 +218,7 @@ const Register: React.FC = () => {
                         </LinearGradient>
                         <View style={{
                             flexDirection: "row",
-                            marginTop: 30,
+                            marginTop: 5,
                             width: "100%",
                         }}>
                             <RegularButton
