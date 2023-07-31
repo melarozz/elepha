@@ -154,7 +154,7 @@ const Profile: FC = () => {
 
             return (
                 <View>
-                    <View style={{marginTop: 100}}>
+                    <View style={{marginTop:100}}>
                         <CardContainer style={{alignSelf: "center", width: windowWidth}}>
                             <TouchableOpacity onPress={onCloseModal}
                                               style={{
