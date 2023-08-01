@@ -6,65 +6,17 @@ import {colors} from "../components/colors";
 import BigText from "../components/Texts/BigText";
 import RegularText from "../components/Texts/RegularText";
 import RegularButton from "../components/Buttons/RegularButton";
-
-import {ImageBackground, View, StyleSheet, Modal, TouchableOpacity, Text} from "react-native";
+import RecContainer from "./RecContainer";
+import {ImageBackground, View, StyleSheet, Modal, TouchableOpacity, Text, Dimensions} from "react-native";
 
 import MusicPlayer from "../components/MusicPlayer";
 
-const RecContainer = styled(ImageBackground)`
-  background-color: ${colors.secondary};
-  justify-content: flex-start;
-  width: 100%;
-  height: 105%;
-`;
-
-const Overlay = styled.View`
-  background-color: rgba(14, 83, 80, 0.4);
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-`;
-
-const TopSection = styled.View`
-  position: relative;
-  width: 90%;
-  margin-left: auto;
-  margin-right: auto;
-  border-radius: 10px;
-  flex: 1;
-  max-height: 60%;
-  justify-content: flex-start;
-  align-items: flex-start;
-  background-color: rgba(168, 168, 166, 0.3);
-  margin-top: 10px;
-  margin-bottom: 20px;
-`;
-
+const windowHeight = Dimensions.get("window").height;
 const Rec: FunctionComponent = () => {
     const [selectedMood, setSelectedMood] = useState<"ВОССТАНОВЛЕНИЕ" | "БАЛАНС" | "АКТИВАЦИЯ">("ВОССТАНОВЛЕНИЕ");
     const [isMoodSelectionVisible, setIsMoodSelectionVisible] = useState<boolean>(true);
 
-    const [isPlaying, setIsPlaying] = useState<boolean>(false);
-    const [isRepeatEnabled, setIsRepeatEnabled] = useState<boolean>(false);
 
-    const handlePlayPausePress = () => {
-        setIsPlaying(!isPlaying);
-
-    };
-
-    const handlePreviousPress = () => {
-        // Implement logic to play the previous track
-    };
-
-    const handleNextPress = () => {
-        // Implement logic to play the next track
-    };
-
-    const handleRepeatPress = () => {
-        setIsRepeatEnabled(!isRepeatEnabled);
-    };
 
     const handleResetMood = () => {
         setIsMoodSelectionVisible(true);
@@ -74,203 +26,12 @@ const Rec: FunctionComponent = () => {
     return (
         <>
             <StatusBar style="light"/>
-
-            <RecContainer source={require('../assets/bgs/bg2.png')}>
-                <Overlay/>
-                <View style={styles.container1}>
-                    <BigText
-                        textStyles={{
-                            width: "80%",
-                            textAlign: "left",
-                            color: "#C4C4C4",
-                            marginLeft: 10,
-                            fontFamily: "TenorSans_400Regular",
-                            fontSize: 24,
-
-                        }}
-                    >
-                        Рекомендации
-                    </BigText>
-                </View>
-                <TopSection style={{
-                    backgroundColor:
-                        selectedMood === "ВОССТАНОВЛЕНИЕ"
-                            ? "rgba(168, 168, 166, 0.3)"
-                            : selectedMood === "БАЛАНС"
-                                ? "rgba(252, 210, 185, 0.3)"
-                                : "rgba(220, 234, 192, 0.3)",
-                }}>
-
-                    <RegularText
-                        textStyles={{
-                            fontSize: 20,
-                            width: "100%",
-                            textAlign: "left",
-                            marginTop: "5%",
-                            marginLeft: 10,
-                            fontFamily: "TenorSans_400Regular",
-                            color:
-                                selectedMood === "ВОССТАНОВЛЕНИЕ"
-                                    ? "rgba(139, 223, 216, 1)"
-                                    : selectedMood === "БАЛАНС"
-                                        ? "rgba(252, 210, 185, 1)"
-                                        : "rgba(180, 224, 85, 1)",
-
-                        }}
-                    >{selectedMood === "ВОССТАНОВЛЕНИЕ"
-                        ? "Матрица\nна восстановление"
-                        : selectedMood === "БАЛАНС"
-                            ? "Матрица\nна внутренний баланс"
-                            : "Матрица\nна активацию работы мозга"}
-                    </RegularText>
-
-
-                    <MusicPlayer
-                        trackName="Sample Track"
-                        isRepeatEnabled={isRepeatEnabled}
-                        isPlaying={isPlaying}
-                        onPlayPausePress={handlePlayPausePress}
-                        onPreviousPress={handlePreviousPress}
-                        onNextPress={handleNextPress}
-                        onRepeatPress={handleRepeatPress}
-                        currentTime={"1:07"}
-                        duration={"3:57"}
-                    />
-
-                    <RegularText textStyles={{
-                        fontFamily: "TenorSans_400Regular",
-                        color: "white",
-                        fontSize: 14,
-                        textAlign: "left",
-                        marginLeft: "5%",
-                        marginTop: 5,
-                        lineHeight: 20
-                    }}>{selectedMood === "ВОССТАНОВЛЕНИЕ"
-                        ? "Данная аудиоматрица:\n·обладает глубоким успокаивающим воздействием,\n·улучшает сон,\n·избавляет от депрессивных состояний,\n·восстанавливает работу ЦНС,\n·снимает состояние тревожности,\n·помогает формировать новые нейронные связи."
-                        : selectedMood === "БАЛАНС"
-                            ? "Данная аудиоматрица:\n·помогает синхронизировать работу двух полушарий мозга,\n·для расширения сознания,\n·сгармонизировать общее самочувствие,\n·переносить психоэмоциональные перезагрузки,\n·обладает стресс-протекторным действием."
-                            : "Данная аудиоматрица:\n·улучшает когнитивные способности,\n·повышает проводимость нервных импульсов для быстрого принятия решений,\n·увеличивается энергетический резерв мозга,\n·повышается работоспособность и мотивация."}</RegularText>
-                </TopSection>
-
-
-                <LinearGradient
-                    colors={[
-                        "rgba(100, 135, 136, 1)",
-                        "rgba(117, 160, 161, 1)",
-                        "rgba(108, 175, 167, 1)",
-                        "rgba(150, 202, 200, 0.69)",
-                    ]}
-                    start={{x: 0, y: 0}}
-                    end={{x: 0, y: 1}}
-                    style={{
-                        width: "90%",
-                        height: "5%",
-                        marginLeft: "auto",
-                        marginRight: "auto",
-                        marginTop: 5,
-                        borderRadius: 15,
-                        justifyContent: "center",
-                        alignItems: "center",
-                    }}
-                >
-
-                    <RegularButton
-                        btnStyles={{marginTop: 5}}
-                        textStyles={{
-                            fontSize: 18,
-                            textAlign: "center",
-                            color: "#FFFFFF",
-                            backgroundColor: "transparent",
-                            fontFamily: "TenorSans_400Regular",
-
-                        }}
-                        onPress={handleResetMood}> Изменить состояние
-                    </RegularButton>
-                </LinearGradient>
-
-                {selectedMood === "ВОССТАНОВЛЕНИЕ" && (
-                    <Modal visible={isMoodSelectionVisible} animationType="fade">
-                        <ImageBackground source={require('../assets/bgs/back1.png')} style={styles.backgroundImage}>
-                            <ImageBackground
-                                source={require('../assets/bgs/bg2.png')}
-                                style={styles.overlay}
-                                imageStyle={{opacity: 0.4}}
-                            >
-                                <View style={styles.modalContainer}>
-                                    <TouchableOpacity
-                                        onPress={() => {
-                                            setSelectedMood("ВОССТАНОВЛЕНИЕ");
-                                            setIsMoodSelectionVisible(false);
-                                        }}
-                                        style={styles.moodOption}
-                                    >
-                                        <Text style={styles.moodOptionText}>ВОССТАНОВЛЕНИЕ</Text>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity
-                                        onPress={() => {
-                                            setSelectedMood("БАЛАНС");
-                                            setIsMoodSelectionVisible(false);
-                                        }}
-                                        style={styles.moodOption}
-                                    >
-                                        <Text style={styles.moodOptionText}>БАЛАНС</Text>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity
-                                        onPress={() => {
-                                            setSelectedMood("АКТИВАЦИЯ");
-                                            setIsMoodSelectionVisible(false);
-                                        }}
-                                        style={styles.moodOption}
-                                    >
-                                        <Text style={styles.moodOptionText}>АКТИВАЦИЯ</Text>
-                                    </TouchableOpacity>
-                                </View>
-                            </ImageBackground>
-                        </ImageBackground>
-                    </Modal>
-                )}
-            </RecContainer>
-
+            <View style={{flex:1, justifyContent: 'space-between'}}>
+            <RecContainer selectedMood={selectedMood} onResetMood={handleResetMood} setSelectedMood={setSelectedMood}/>
+            </View>
         </>
     );
 };
 
-const styles = StyleSheet.create({
-    container1: {
-        marginTop: "25%",
-        justifyContent: "flex-start",
-        alignItems: "flex-start",
-    },
-    modalContainer: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-    },
-    moodOption: {
-        padding: 20,
-        backgroundColor: "rgba(139, 223, 216, 0.5)",
-        margin: 10,
-        borderRadius: 8,
-    },
-    moodOptionText: {
-        textAlign: 'center',
-        fontSize: 18,
-        width: 200,
-        justifyContent: 'center',
-        color: "#FFFFFF",
-        fontFamily: "TenorSans_400Regular",
-    },
-    backgroundImage: {
-        flex: 1,
-        resizeMode: 'cover',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    overlay: {
-        ...StyleSheet.absoluteFillObject,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-});
 
 export default Rec;
