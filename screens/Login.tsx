@@ -4,6 +4,7 @@ import {View, Text, TextInput, TouchableOpacity, StyleSheet, ImageBackground, St
 import {LinearGradient} from 'expo-linear-gradient';
 import RegularButton from "../components/Buttons/RegularButton";
 import {useNavigation} from "@react-navigation/native";
+import {colors} from "../components/colors";
 
 const Login: React.FC = () => {
     const [email, setEmail] = useState<string>();
@@ -113,26 +114,16 @@ const Login: React.FC = () => {
                         </View>
 
                         <View>
-                        <LinearGradient
-                            colors={[
-                                "rgba(100, 135, 136, 1)",
-                                "rgba(117, 160, 161, 1)",
-                                "rgba(108, 175, 167, 1)",
-                                "rgba(150, 202, 200, 0.69)",
-                            ]}
-                            start={{x: 0, y: 0}}
-                            end={{x: 0, y: 1}}
-                            style={{
+                            <View style={{
                                 width: "100%",
                                 height: "35%",
-
+                                backgroundColor: colors.blue,
                                 marginLeft: "auto",
                                 marginRight: "auto",
                                 borderRadius: 15,
                                 justifyContent: "center",
-                                alignItems: "center",
-                            }}
-                        >
+                                alignItems: "center",}}>
+
                             <RegularButton
                                 textStyles={({
                                     fontSize: 18,
@@ -145,7 +136,7 @@ const Login: React.FC = () => {
                             >
                                 Войти
                             </RegularButton>
-                        </LinearGradient>
+                            </View>
 
 
                         <RegularButton

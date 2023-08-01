@@ -4,6 +4,7 @@ import RegularButton from "../components/Buttons/RegularButton";
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from 'expo-linear-gradient';
 import RegularText from "../components/Texts/RegularText";
+import {colors} from "../components/colors";
 
 const Reset: React.FC = () => {
   const navigation = useNavigation<any>();
@@ -87,38 +88,31 @@ const Reset: React.FC = () => {
                 flex: 1,
                 justifyContent: "center",
               }}>
-              <LinearGradient
-              colors={[
-                "rgba(100, 135, 136, 1)",
-                "rgba(117, 160, 161, 1)",
-                "rgba(108, 175, 167, 1)",
-                "rgba(150, 202, 200, 0.69)",
-              ]}
-              start={{ x: 0, y: 0 }}
-              end={{ x: 0, y: 1 }}
-              style={{
-                width: "100%",
-                height: "25%",
-                marginLeft: "auto",
-                marginRight: "auto",
-                borderRadius: 15,
-                alignItems: "center",
-                marginTop: 20,
-              }}
-            >
-              <RegularButton
-                textStyles={({
-                  fontSize: 18,
-                  textAlign: "center",
-                  color: "#FFFFFF",
-                  backgroundColor: "transparent",
-                  fontFamily: "TenorSans_400Regular",
-                } as unknown) as StyleProp<TextStyle>}
-                onPress={handleConfirm}
-              >
-                Подтвердить
-              </RegularButton>
-              </LinearGradient>
+                <View style={{
+                  width: "100%",
+                  height: "40%",
+                  backgroundColor: colors.blue,
+                  marginLeft: "auto",
+                  marginRight: "auto",
+                  borderRadius: 15,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  marginTop: 20,
+                }}>
+
+                  <RegularButton
+                      textStyles={({
+                        fontSize: 18,
+                        textAlign: "center",
+                        color: "#FFFFFF",
+                        backgroundColor: "transparent",
+                        fontFamily: "TenorSans_400Regular",
+                      } as unknown) as StyleProp<TextStyle>}
+                      onPress={handleConfirm}
+                  >
+                    Подтвердить
+                  </RegularButton>
+                </View>
               </View>
             </>
           ) : (
@@ -143,26 +137,18 @@ const Reset: React.FC = () => {
                 autoCapitalize="none"
               />
               <View>
-                <LinearGradient
-                    colors={[
-                      "rgba(100, 135, 136, 1)",
-                      "rgba(117, 160, 161, 1)",
-                      "rgba(108, 175, 167, 1)",
-                      "rgba(150, 202, 200, 0.69)",
-                    ]}
-                    start={{x: 0, y: 0}}
-                    end={{x: 0, y: 1}}
-                    style={{
-                      width: "100%",
-                      height: "35%",
-                      marginTop: 10,
-                      marginLeft: "auto",
-                      marginRight: "auto",
-                      borderRadius: 15,
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                >
+                <View style={{
+                  width: "100%",
+                  height: "40%",
+                  backgroundColor: colors.blue,
+                  marginLeft: "auto",
+                  marginRight: "auto",
+                  borderRadius: 15,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  marginTop: 30,
+                }}>
+
                   <RegularButton
                       textStyles={({
                         fontSize: 18,
@@ -175,7 +161,7 @@ const Reset: React.FC = () => {
                   >
                     Сбросить
                   </RegularButton>
-                </LinearGradient>
+                </View>
               </View>
 
             </>

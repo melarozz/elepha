@@ -70,9 +70,9 @@ const RecContainer = ({selectedMood, onResetMood, setSelectedMood}) => {
                              }}>
                 <Overlay/>
                 <View style={{
-                        marginTop: "25%",
-                        justifyContent: "flex-start",
-                        alignItems: "flex-start",
+                    marginTop: "25%",
+                    justifyContent: "flex-start",
+                    alignItems: "flex-start",
                 }}>
                     <BigText
                         textStyles={{
@@ -90,7 +90,6 @@ const RecContainer = ({selectedMood, onResetMood, setSelectedMood}) => {
                 </View>
 
 
-
                 <TopSection style={{
                     backgroundColor:
                         selectedMood === "ВОССТАНОВЛЕНИЕ"
@@ -99,8 +98,6 @@ const RecContainer = ({selectedMood, onResetMood, setSelectedMood}) => {
                                 ? "rgba(252, 210, 185, 0.3)"
                                 : "rgba(220, 234, 192, 0.3)",
                 }}>
-
-
 
 
                     <RegularText
@@ -127,9 +124,6 @@ const RecContainer = ({selectedMood, onResetMood, setSelectedMood}) => {
                     </RegularText>
 
 
-
-
-
                     <RegularText textStyles={{
                         fontFamily: "TenorSans_400Regular",
                         color: "white",
@@ -148,25 +142,22 @@ const RecContainer = ({selectedMood, onResetMood, setSelectedMood}) => {
                 <MusicPlayer mood={selectedMood}/>
 
 
-                <LinearGradient
-                    colors={[
-                        "rgba(100, 135, 136, 1)",
-                        "rgba(117, 160, 161, 1)",
-                        "rgba(108, 175, 167, 1)",
-                        "rgba(150, 202, 200, 0.69)",
-                    ]}
-                    start={{x: 0, y: 0}}
-                    end={{x: 0, y: 1}}
-                    style={{
-                        width: "90%",
-                        height: "5%",
-                        marginLeft: "auto",
-                        marginRight: "auto",
-                        marginTop: 5,
-                        borderRadius: 15,
-                        justifyContent: "center",
-                        alignItems: "center",
-                    }}
+                <View style={{
+                    width: "85%",
+                    height: "5%",
+                    marginLeft: "auto",
+                    marginRight: "auto",
+                    marginTop: 5,
+                    borderRadius: 15,
+                    justifyContent: "center",
+                    alignItems: "center",
+                    backgroundColor:
+                        selectedMood === "ВОССТАНОВЛЕНИЕ"
+                            ? "rgba(168, 168, 166, 0.3)"
+                            : selectedMood === "БАЛАНС"
+                                ? "rgba(252, 210, 185, 0.3)"
+                                : "rgba(220, 234, 192, 0.3)",
+                }}
                 >
 
                     <RegularButton
@@ -181,7 +172,7 @@ const RecContainer = ({selectedMood, onResetMood, setSelectedMood}) => {
                         }}
                         onPress={handleResetMood}> Изменить состояние
                     </RegularButton>
-                </LinearGradient>
+                </View>
 
                 {selectedMood === "ВОССТАНОВЛЕНИЕ" && (
                     <Modal visible={isMoodSelectionVisible} animationType="fade">

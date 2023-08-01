@@ -21,6 +21,7 @@ import {RootStackScreenProps} from "../navigators/types";
 import {loadUserDataUtil} from "./utils";
 import styled from "styled-components/native";
 import {CSSProp} from "styled-components";
+import {colors} from "../components/colors";
 
 const totalStyles: CSSProp = {fontFamily: "TenorSans_400Regular"};
 const rowStyle: CSSProp = {
@@ -379,15 +380,7 @@ const EditProfile: FC<RootStackScreenProps<'EditProfile'>> = ({navigation}) => {
                             justifyContent: "flex-start",
                             alignItems: "center"
                         }}>
-                            <LinearGradient
-                                colors={[
-                                    "rgba(100, 135, 136, 1)",
-                                    "rgba(117, 160, 161, 1)",
-                                    "rgba(108, 175, 167, 1)",
-                                    "rgba(150, 202, 200, 0.69)",
-                                ]}
-                                start={{x: 0, y: 0}}
-                                end={{x: 0, y: 1}}
+                            <View
                                 style={{
                                     width: "100%",
                                     height: "45%",
@@ -397,6 +390,7 @@ const EditProfile: FC<RootStackScreenProps<'EditProfile'>> = ({navigation}) => {
                                     borderRadius: 15,
                                     justifyContent: "center",
                                     alignItems: "center",
+                                    backgroundColor: "rgba(168, 168, 166, 0.3)",
                                 }}
                             >
                                 <RegularButton onPress={saveUserData}>
@@ -405,17 +399,9 @@ const EditProfile: FC<RootStackScreenProps<'EditProfile'>> = ({navigation}) => {
                                         color: "white"
                                     }}> Сохранить </RegularText>
                                 </RegularButton>
-                            </LinearGradient>
+                            </View>
 
-                            <LinearGradient
-                                colors={[
-                                    "rgba(100, 135, 136, 1)",
-                                    "rgba(117, 160, 161, 1)",
-                                    "rgba(108, 175, 167, 1)",
-                                    "rgba(150, 202, 200, 0.69)",
-                                ]}
-                                start={{x: 0, y: 0}}
-                                end={{x: 0, y: 1}}
+                            <View
                                 style={{
                                     width: "100%",
                                     height: "45%",
@@ -425,6 +411,7 @@ const EditProfile: FC<RootStackScreenProps<'EditProfile'>> = ({navigation}) => {
                                     borderRadius: 15,
                                     justifyContent: "center",
                                     alignItems: "center",
+                                    backgroundColor: "rgba(168, 168, 166, 0.3)",
                                 }}
                             >
                                 <RegularButton onPress={handleCancel}>
@@ -433,7 +420,7 @@ const EditProfile: FC<RootStackScreenProps<'EditProfile'>> = ({navigation}) => {
                                         color: "white"
                                     }}> Отменить </RegularText>
                                 </RegularButton>
-                            </LinearGradient>
+                            </View>
 
                         </View>
 

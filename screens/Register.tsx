@@ -1,13 +1,16 @@
 import React, {useState} from 'react';
-import {View, TextInput, StyleSheet, ImageBackground, Modal, StyleProp, TextStyle} from 'react-native';
+import {View, TextInput, StyleSheet, ImageBackground, Modal, StyleProp, TextStyle, Dimensions} from 'react-native';
 import {LinearGradient} from 'expo-linear-gradient';
 import RegularButton from "../components/Buttons/RegularButton";
 import RegularText from "../components/Texts/RegularText";
 import {useNavigation} from "@react-navigation/native";
 import LottieView from "lottie-react-native";
+import {colors} from "../components/colors";
+
+const windowWidth = Dimensions.get("window").width - 100;
 
 const inputStyle = {
-    width: '100%',
+    width: windowWidth,
     height: "4%",
     borderColor: 'white',
     borderWidth: 1,
@@ -183,39 +186,31 @@ const Register: React.FC = () => {
                             onChangeText={setConfirmPassword}
                             secureTextEntry
                         />
-                        <LinearGradient
-                            colors={[
-                                "rgba(100, 135, 136, 1)",
-                                "rgba(117, 160, 161, 1)",
-                                "rgba(108, 175, 167, 1)",
-                                "rgba(150, 202, 200, 0.69)",
-                            ]}
-                            start={{x: 0, y: 0}}
-                            end={{x: 0, y: 1}}
-                            style={{
-                                width: "70%",
-                                height: "10%",
-                                marginTop: 10,
-                                marginLeft: "auto",
-                                marginRight: "auto",
-                                borderRadius: 15,
-                                justifyContent: "center",
-                                alignItems: "center",
-                            }}
-                        >
+                        <View style={{
+                            width: "100%",
+                            height: "10%",
+                            backgroundColor: colors.blue,
+                            marginLeft: "auto",
+                            marginRight: "auto",
+                            borderRadius: 15,
+                            justifyContent: "center",
+                            alignItems: "center",
+                            marginTop: 30,
+                        }}>
+
                             <RegularButton
-                                textStyles={{
+                                textStyles={({
                                     fontSize: 18,
                                     textAlign: "center",
                                     color: "#FFFFFF",
                                     backgroundColor: "transparent",
                                     fontFamily: "TenorSans_400Regular",
-                                }}
+                                } as unknown) as StyleProp<TextStyle>}
                                 onPress={handleRegister}
                             >
                                 Зарегистрироваться
                             </RegularButton>
-                        </LinearGradient>
+                        </View>
                         <View style={{
                             flexDirection: "row",
                             marginTop: 5,
@@ -277,39 +272,31 @@ const Register: React.FC = () => {
                                     onChangeText={setConfirmationCode}
                                     keyboardType="numeric"
                                 />
-                                <LinearGradient
-                                    colors={[
-                                        "rgba(100, 135, 136, 1)",
-                                        "rgba(117, 160, 161, 1)",
-                                        "rgba(108, 175, 167, 1)",
-                                        "rgba(150, 202, 200, 0.69)",
-                                    ]}
-                                    start={{x: 0, y: 0}}
-                                    end={{x: 0, y: 1}}
-                                    style={{
-                                        width: "100%",
-                                        height: "5%",
-                                        marginTop: 30,
-                                        marginLeft: "auto",
-                                        marginRight: "auto",
-                                        borderRadius: 15,
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                    }}
-                                >
+                                <View style={{
+                                    width: windowWidth,
+                                    height: "5%",
+                                    backgroundColor: colors.blue,
+                                    marginLeft: "auto",
+                                    marginRight: "auto",
+                                    borderRadius: 15,
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                    marginTop: 30,
+                                }}>
+
                                     <RegularButton
-                                        textStyles={{
+                                        textStyles={({
                                             fontSize: 18,
                                             textAlign: "center",
                                             color: "#FFFFFF",
                                             backgroundColor: "transparent",
                                             fontFamily: "TenorSans_400Regular",
-                                        }}
+                                        } as unknown) as StyleProp<TextStyle>}
                                         onPress={handleConfirm}
                                     >
                                         Подтвердить
                                     </RegularButton>
-                                </LinearGradient>
+                                </View>
                             </View>
                         </ImageBackground>
                     </ImageBackground>

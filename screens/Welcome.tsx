@@ -8,6 +8,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useAssets } from "expo-asset";
 import { ImageBackground, ImageSourcePropType, View, Image, StyleProp, TextStyle } from "react-native";
 import LottieView from "lottie-react-native";
+import {colors} from "../components/colors";
 
 const waves = require('../assets/whiteWaves.json');
 const Welcome: FunctionComponent = () => {
@@ -36,7 +37,7 @@ const Welcome: FunctionComponent = () => {
                             opacity: 0.3,
                         }}
                     />
-                    {/*<Starfield style={{backgroundColor: "transparent"}}/>*/}
+
                     <View style={{
                         justifyContent: "flex-start",
                         alignItems: "center",
@@ -97,15 +98,7 @@ const Welcome: FunctionComponent = () => {
                         />
                     </View>
 
-                    <LinearGradient
-                        colors={[
-                            "rgba(100, 135, 136, 1)",
-                            "rgba(117, 160, 161, 1)",
-                            "rgba(108, 175, 167, 1)",
-                            "rgba(150, 202, 200, 0.69)",
-                        ]}
-                        start={{x: 0, y: 0}}
-                        end={{x: 0, y: 1}}
+                    <View
                         style={{
                             width: "70%",
                             height: "5%",
@@ -116,6 +109,7 @@ const Welcome: FunctionComponent = () => {
                             borderRadius: 15,
                             justifyContent: "center",
                             alignItems: "center",
+                            backgroundColor: colors.blue
                         }}
                     >
                         <RegularButton
@@ -128,7 +122,7 @@ const Welcome: FunctionComponent = () => {
                             } as unknown) as StyleProp<TextStyle>}
                             onPress={() => navigation.navigate("Rec")}> Полетели!
                         </RegularButton>
-                    </LinearGradient>
+                    </View>
                 </ImageBackground>
             }
         </>
