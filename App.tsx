@@ -7,6 +7,10 @@ import {useCallback} from 'react';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 SplashScreen.preventAutoHideAsync();
 import { TenorSans_400Regular} from "@expo-google-fonts/tenor-sans";
+import { LogBox } from 'react-native';
+
+LogBox.ignoreAllLogs(); // This will ignore all logs, including warnings
+
 
 const App = () => {
 

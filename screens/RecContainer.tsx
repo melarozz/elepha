@@ -21,7 +21,7 @@ const Overlay = styled.View`
 const TopSection = styled.View`
   position: relative;
   width: 90%;
-  height: 50%;
+  height: 40%;
   margin-left: auto;
   margin-right: auto;
   border-radius: 10px;
@@ -88,6 +88,9 @@ const RecContainer = ({selectedMood, onResetMood, setSelectedMood}) => {
                         Рекомендации
                     </BigText>
                 </View>
+
+
+
                 <TopSection style={{
                     backgroundColor:
                         selectedMood === "ВОССТАНОВЛЕНИЕ"
@@ -96,6 +99,9 @@ const RecContainer = ({selectedMood, onResetMood, setSelectedMood}) => {
                                 ? "rgba(252, 210, 185, 0.3)"
                                 : "rgba(220, 234, 192, 0.3)",
                 }}>
+
+
+
 
                     <RegularText
                         textStyles={{
@@ -121,17 +127,8 @@ const RecContainer = ({selectedMood, onResetMood, setSelectedMood}) => {
                     </RegularText>
 
 
-                    <MusicPlayer
-                        trackName="Sample Track"
-                        isRepeatEnabled={isRepeatEnabled}
-                        isPlaying={isPlaying}
-                        onPlayPausePress={handlePlayPausePress}
-                        onPreviousPress={handlePreviousPress}
-                        onNextPress={handleNextPress}
-                        onRepeatPress={handleRepeatPress}
-                        currentTime={"1:07"}
-                        duration={"3:57"}
-                    />
+
+
 
                     <RegularText textStyles={{
                         fontFamily: "TenorSans_400Regular",
@@ -147,6 +144,8 @@ const RecContainer = ({selectedMood, onResetMood, setSelectedMood}) => {
                             ? "Данная аудиоматрица:\n• помогает синхронизировать работу двух полушарий мозга,\n• для расширения сознания,\n• сгармонизировать общее самочувствие,\n• переносить психоэмоциональные перезагрузки,\n• обладает стресс-протекторным действием."
                             : "Данная аудиоматрица:\n• улучшает когнитивные способности,\n• повышает проводимость нервных импульсов для быстрого принятия решений,\n• увеличивается энергетический резерв мозга,\n• повышается работоспособность и мотивация."}</RegularText>
                 </TopSection>
+
+                <MusicPlayer mood={selectedMood}/>
 
 
                 <LinearGradient

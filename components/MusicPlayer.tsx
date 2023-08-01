@@ -1,144 +1,103 @@
-import React from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { View, TouchableOpacity, StyleSheet } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome'; 
-import RegularText from "./Texts/RegularText";
+import LottieView from 'lottie-react-native';
+import { Audio } from 'expo-av';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
-interface MusicPlayerProps {
-  trackName: string;
-  isRepeatEnabled: boolean;
-  isPlaying: boolean;
-  onPlayPausePress: () => void;
-  onPreviousPress: () => void;
-  onNextPress: () => void;
-  onRepeatPress: () => void;
-  currentTime: string;
-  duration: string;
-}
+const MusicPlayer = ({ mood }) => {
+    const animationRef = useRef(null);
+    const [isPlaying, setIsPlaying] = useState(false);
+    const [sound, setSound] = useState(null);
 
-interface TimeSliderI {
-  currentTime: string,
-  duration: string,
-}
+    const playPause = async () => {
+        if (animationRef.current && sound) {
+            if (isPlaying) {
+                animationRef.current.pause();
+                await sound.pauseAsync();
+            } else {
+                animationRef.current.play();
+                await sound.playAsync();
+            }
+            setIsPlaying((prev) => !prev);
+        }
+    };
 
-const TimeSlider = ( { currentTime, duration }: TimeSliderI ) => {
-  const sliderWidth = 200; 
-  
-  const [minsStr, secStr]=currentTime.split(":");
-  const [totminsStr, totsecStr]=duration.split(":");
-  const totalTime = parseInt(minsStr) * 60 + parseInt(secStr);
-  const totalTimeDur = parseInt(totminsStr) * 60 + parseInt(totsecStr);
+    let animationSource: any;
+    if (mood === 'ВОССТАНОВЛЕНИЕ') {
+        animationSource = require('../assets/bubble.json');
+    } else if (mood === 'БАЛАНС') {
+        animationSource = require('../assets/bubble_or.json');
+    } else if (mood === 'АКТИВАЦИЯ') {
+        animationSource = require('../assets/bubble_gr.json');
+    }
 
-  const progress = ( totalTime / totalTimeDur) * sliderWidth;
+    let audioFile: any;
+    if (mood === 'ВОССТАНОВЛЕНИЕ') {
+        audioFile = require('../assets/music/sample3.mp3');
+    } else if (mood === 'БАЛАНС') {
+        audioFile = require('../assets/music/sample3.mp3');
+    } else if (mood === 'АКТИВАЦИЯ') {
+        audioFile = require('../assets/music/sample3.mp3');
+    }
 
-  return (
-    <View style={styles.sliderContainer}>
-    
-       <RegularText textStyles={{color: "#FFFFFF"}}>{currentTime}</RegularText>
-      <View style={[styles.sliderTrack, { width: sliderWidth }]}>
-        <View style={[styles.sliderProgress, { width: progress }]} />
-      </View>
-      <RegularText textStyles={{color: "#FFFFFF"}}>{duration}</RegularText>
-    </View>
-  );
+    useEffect(() => {
+        const loadAudio = async () => {
+            try {
+                if (sound) {
+                    await sound.unloadAsync();
+                }
+                const { sound: newSound } = await Audio.Sound.createAsync(
+                    audioFile
+                );
+                setSound(newSound);
+            } catch (error) {
+                console.error('Error loading audio:', error);
+            }
+        };
+
+        loadAudio();
+
+        return () => {
+            if (sound) {
+                sound.unloadAsync();
+            }
+        };
+    }, [mood]);
+
+    useEffect(() => {
+        if (animationRef.current && sound) {
+            animationRef.current.pause();
+            sound.pauseAsync();
+            setIsPlaying(false);
+        }
+    }, [mood]);
+
+    return (
+        <View style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+        }}>
+            <TouchableOpacity onPress={playPause} style={{
+                justifyContent: 'center',
+                alignItems: 'center',
+                width: 200,
+                height: 200,
+            }}>
+                <LottieView
+                    ref={animationRef}
+                    source={animationSource}
+                    style={{
+                        width: 200,
+                        height: 200,
+                        position: 'absolute',
+                        opacity: 0.7,
+                    }}
+                    loop
+                />
+                <Icon name={isPlaying ? 'pause' : 'play'} size={30} color="white" style={{position: 'absolute',}} />
+            </TouchableOpacity>
+        </View>
+    );
 };
-
-const MusicPlayer: React.FC<MusicPlayerProps> = ({
-  trackName,
-  isRepeatEnabled,
-  isPlaying,
-  onPlayPausePress,
-  onPreviousPress,
-  onNextPress,
-  onRepeatPress,
-  currentTime,
-  duration,
-}) => {
-  return (
-    <View style={styles.container}>
-      <View style={styles.topContainer}>
-        <RegularText textStyles={{color: "rgba(253, 253, 194, 1)"}}> {trackName} </RegularText>
-        <TouchableOpacity onPress={onRepeatPress} style={styles.iconButton}>
-          <Icon name="retweet" size={24} color="white" />
-        </TouchableOpacity>
-      </View>
-
-      {/* Center */}
-      <View style={styles.centerContainer}>
-        <TouchableOpacity onPress={onPreviousPress} style={styles.iconButton}>
-          <Icon name="backward" size={24} color="white" />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={onPlayPausePress} style={styles.iconButton}>
-          {isPlaying ? (
-            <Icon name="pause" size={24} color="white" />
-          ) : (
-            <Icon name="play" size={24} color="white" />
-          )}
-        </TouchableOpacity>
-        <TouchableOpacity onPress={onNextPress} style={styles.iconButton}>
-          <Icon name="forward" size={24} color="white" />
-        </TouchableOpacity>
-      </View>
-      
-      {/* Bottom */}
-      <View style={styles.bottomContainer}>
-        <TimeSlider currentTime={currentTime} duration={duration} />
-      </View>
-      
-    </View>
-  );
-};
-
-const styles = StyleSheet.create({
-  container: {
-    width: "90%",
-    height: 110,
-    backgroundColor: 'rgba(14, 83, 80, 0.69)',
-    borderRadius: 10,
-    paddingHorizontal: 5,
-    marginLeft: "auto",
-    marginRight: "auto",
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  centerContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between', 
-    alignItems: 'center',
-    padding: 5, 
-  },
-  iconButton: {
-    padding: 5, 
-  },
-  sliderContainer: {
-    marginTop: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: 5, 
-  },
-  sliderTrack: {
-    flex: 1,
-    height: 4,
-    backgroundColor: 'rgba(37, 52, 64, 1)',
-  },
-  sliderProgress: {
-    height: 4,
-    backgroundColor: '#FFFFFF', 
-  },
-  topContainer: {
-    width: "100%",
-    marginTop: 0,
-    flexDirection: 'row',
-    justifyContent: 'space-between', 
-    alignItems: 'center',
-    padding: 0, 
-  },
-  bottomContainer: {
-    width: "100%",
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center'
-  },
-});
 
 export default MusicPlayer;
