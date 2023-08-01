@@ -9,7 +9,8 @@ import {
     ScrollView,
     StyleProp,
     TextStyle,
-    ViewStyle
+    ViewStyle,
+    Modal
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as ImagePicker from 'expo-image-picker';
@@ -21,6 +22,7 @@ import {loadUserDataUtil} from './utils';
 import {CSSProp} from 'styled-components';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { format } from 'date-fns';
+import GenderModal from "./GenderModal";
 
 
 
@@ -69,6 +71,7 @@ const EditProfile: FC<RootStackScreenProps<'EditProfile'>> = ({navigation}) => {
     const [pulse, setPulse] = useState<string>('80');
 
     const [isDatePickerVisible, setDatePickerVisible] = useState<boolean>(false);
+    const [isGenderModalVisible, setGenderModalVisible] = useState<boolean>(false);
 
 
     useEffect(() => {
@@ -108,6 +111,10 @@ const EditProfile: FC<RootStackScreenProps<'EditProfile'>> = ({navigation}) => {
         setBirthDate(formattedDate);
         hideDatePicker();
     }, []);
+
+    const toggleGenderModal = () => {
+        setGenderModalVisible(!isGenderModalVisible);
+    }
 
 
 
@@ -350,14 +357,14 @@ const EditProfile: FC<RootStackScreenProps<'EditProfile'>> = ({navigation}) => {
 
                         <View style={(rowStyle) as StyleProp<ViewStyle>}>
                             <RegularText textStyles={(personalDataText) as StyleProp<ViewStyle>}>Пол</RegularText>
-                            <TextInput
-                                style={personalDataInput}
-                                placeholder="Пол"
-                                value={gender}
-                                onChangeText={(text) => setGender(text)}
-                            />
-
+                            <TouchableOpacity onPress={toggleGenderModal}>
+                                <View style={personalDataInput}>
+                                    <RegularText
+                                        textStyles={(personalDataText) as StyleProp<ViewStyle>}>{gender === 'M' ? 'Мужской' : 'Женский'}</RegularText>
+                                </View>
+                            </TouchableOpacity>
                         </View>
+
 
                         <View style={(rowStyle) as StyleProp<ViewStyle>}>
                             <RegularText textStyles={(personalDataText) as StyleProp<ViewStyle>}>Компания</RegularText>
@@ -456,6 +463,18 @@ const EditProfile: FC<RootStackScreenProps<'EditProfile'>> = ({navigation}) => {
 
                 </View>
             </ScrollView>
+
+            <GenderModal
+                isVisible={isGenderModalVisible}
+                onFemalePress={() => {
+                    setGender('F');
+                    setGenderModalVisible(false);
+                }}
+                onMalePress={() => {
+                    setGender('M');
+                    setGenderModalVisible(false);
+                }}
+            />
         </ImageBackground>
 
     );

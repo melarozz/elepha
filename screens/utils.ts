@@ -8,7 +8,7 @@ export async function loadUserDataUtil(
     setGender: (string) => void,
     setCompany: (string) => void,
     setWeight: (string) => void,
-    setHeight: (number) => void,
+    setHeight: (string) => void,
     setPulse: (string) => void
 
 ) {

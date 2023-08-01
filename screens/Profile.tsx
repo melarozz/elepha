@@ -407,7 +407,7 @@ const Profile: FC = () => {
                             <View style={(rowStyle) as StyleProp<ViewStyle>}>
                                 <RegularText textStyles={(personalDataText) as StyleProp<ViewStyle>}>Пол</RegularText>
                                 <RegularText
-                                    textStyles={(personalDataText) as StyleProp<ViewStyle>}>{gender}</RegularText>
+                                    textStyles={(personalDataText) as StyleProp<ViewStyle>}>{gender === 'M' ? 'Мужской' : 'Женский'}</RegularText>
                             </View>
 
                             <View style={(rowStyle) as StyleProp<ViewStyle>}>
