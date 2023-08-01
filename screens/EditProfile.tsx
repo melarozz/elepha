@@ -2,26 +2,20 @@ import React, {useState, useEffect, useCallback, FC} from 'react';
 import {
     View,
     TextInput,
-    Button,
     Alert,
     TouchableOpacity,
     Image,
-    StyleSheet,
     ImageBackground,
     ScrollView, StyleProp, TextStyle, ViewStyle
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as ImagePicker from "expo-image-picker";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
-import {LinearGradient} from 'expo-linear-gradient';
 import RegularText from "../components/Texts/RegularText";
 import RegularButton from "../components/Buttons/RegularButton";
 import {RootStackScreenProps} from "../navigators/types";
 import {loadUserDataUtil} from "./utils";
-import styled from "styled-components/native";
 import {CSSProp} from "styled-components";
-import {colors} from "../components/colors";
 
 const totalStyles: CSSProp = {fontFamily: "TenorSans_400Regular"};
 const rowStyle: CSSProp = {
@@ -29,18 +23,6 @@ const rowStyle: CSSProp = {
     justifyContent: "space-between",
     alignItems: "center",
     paddingVertical: 10
-};
-const grayBoxLine: {
-    alignItems: string;
-    flexDirection: string;
-    marginBottom: number;
-    justifyContent: string
-} = {flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 10};
-const grayBoxText: { fontFamily: string; color: string; fontSize: number; fontWeight: string } = {
-    fontSize: 18,
-    color: "#FFFFFF",
-    fontWeight: "bold",
-    fontFamily: "TenorSans_400Regular"
 };
 const personalDataText: { fontFamily: string; color: string; fontSize: number} = {
     fontSize: 16,
