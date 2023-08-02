@@ -21,9 +21,8 @@ import {RootStackScreenProps} from '../navigators/types';
 import {loadUserDataUtil} from './utils';
 import {CSSProp} from 'styled-components';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
-import { format } from 'date-fns';
+import {format} from 'date-fns';
 import GenderModal from "./GenderModal";
-
 
 
 const totalStyles: CSSProp = {fontFamily: "TenorSans_400Regular"};
@@ -55,6 +54,19 @@ const personalDataInput: {
     borderRadius: 15,
 };
 
+const grayBoxLine: {
+    alignItems: string;
+    flexDirection: string;
+    marginBottom: number;
+    justifyContent: string
+} = {flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 10};
+const grayBoxText: { fontFamily: string; color: string; fontSize: number; fontWeight: string } = {
+    fontSize: 18,
+    color: "#FFFFFF",
+    fontWeight: "bold",
+    fontFamily: "TenorSans_400Regular"
+};
+
 
 const EditProfile: FC<RootStackScreenProps<'EditProfile'>> = ({navigation}) => {
 
@@ -69,8 +81,14 @@ const EditProfile: FC<RootStackScreenProps<'EditProfile'>> = ({navigation}) => {
     const [lastName, setLastName] = useState<string>('Иванов');
     const [company, setCompany] = useState<string>('Название компании');
     const [pulse, setPulse] = useState<string>('80');
+    const [push1, setPush1] = useState<string>('10:30');
+    const [push2, setPush2] = useState<string>('15:00');
+    const [push3, setPush3] = useState<string>('20:00');
 
     const [isDatePickerVisible, setDatePickerVisible] = useState<boolean>(false);
+    const [isPush1TimePickerVisible, setPush1TimePickerVisible] = useState<boolean>(false);
+    const [isPush2TimePickerVisible, setPush2TimePickerVisible] = useState<boolean>(false);
+    const [isPush3TimePickerVisible, setPush3TimePickerVisible] = useState<boolean>(false);
     const [isGenderModalVisible, setGenderModalVisible] = useState<boolean>(false);
 
 
@@ -79,6 +97,9 @@ const EditProfile: FC<RootStackScreenProps<'EditProfile'>> = ({navigation}) => {
             setPic,
             setName,
             setLastName,
+            setPush1,
+            setPush2,
+            setPush3,
             setBirthDate,
             setGender,
             setCompany,
@@ -90,6 +111,9 @@ const EditProfile: FC<RootStackScreenProps<'EditProfile'>> = ({navigation}) => {
         setPic,
         setName,
         setLastName,
+        setPush1,
+        setPush2,
+        setPush3,
         setBirthDate,
         setGender,
         setCompany,
@@ -102,9 +126,31 @@ const EditProfile: FC<RootStackScreenProps<'EditProfile'>> = ({navigation}) => {
         setDatePickerVisible(true);
     };
 
+
     const hideDatePicker = () => {
         setDatePickerVisible(false);
     };
+
+    const showTimePicker = useCallback((item: string) => {
+        if (item === 'push1') {
+            setPush1TimePickerVisible(true);
+        } else if (item === 'push2') {
+            setPush2TimePickerVisible(true);
+        } else if (item === 'push3') {
+            setPush3TimePickerVisible(true);
+        }
+    }, []);
+
+    const hideTimePicker = useCallback((item: string) => {
+        if (item === 'push1') {
+            setPush1TimePickerVisible(false);
+        } else if (item === 'push2') {
+            setPush2TimePickerVisible(false);
+        } else if (item === 'push3') {
+            setPush3TimePickerVisible(false);
+        }
+    }, []);
+
 
     const handleDatePicker = useCallback((date: Date) => {
         const formattedDate = format(date, 'dd.MM.yyyy');
@@ -112,10 +158,25 @@ const EditProfile: FC<RootStackScreenProps<'EditProfile'>> = ({navigation}) => {
         hideDatePicker();
     }, []);
 
+    const handleTimePicker = useCallback((time: Date, item: String) => {
+        const formattedTime = format(time, 'HH:mm');
+        if (item === 'push1') {
+            setPush1(formattedTime);
+            hideTimePicker('push1');
+        } else if (item === 'push2') {
+            setPush2(formattedTime);
+            hideTimePicker('push2');
+        } else if (item === 'push3') {
+            setPush3(formattedTime);
+            hideTimePicker('push3');
+        }
+
+    }, []);
+
+
     const toggleGenderModal = () => {
         setGenderModalVisible(!isGenderModalVisible);
     }
-
 
 
     const handleImageSelection = useCallback(async () => {
@@ -140,13 +201,15 @@ const EditProfile: FC<RootStackScreenProps<'EditProfile'>> = ({navigation}) => {
                 pic,
                 name,
                 lastName,
+                push1,
+                push2,
+                push3,
                 birthDate,
                 gender,
                 company,
                 weight,
                 height,
                 pulse,
-
 
             };
             console.log(userData)
@@ -157,7 +220,7 @@ const EditProfile: FC<RootStackScreenProps<'EditProfile'>> = ({navigation}) => {
         } catch (error) {
             // Handle error, if any
         }
-    }, [pic, name, lastName, birthDate, gender, company, weight, height, pulse]);
+    }, [pic, name, lastName, push1, push2, push3, birthDate, gender, company, weight, height, pulse]);
 
     const handleCancel = useCallback(() => {
         Alert.alert(
@@ -183,6 +246,7 @@ const EditProfile: FC<RootStackScreenProps<'EditProfile'>> = ({navigation}) => {
 
     return (
 
+
         <ImageBackground
             source={require('../assets/bgs/bg2.png')}
             style={{
@@ -205,6 +269,7 @@ const EditProfile: FC<RootStackScreenProps<'EditProfile'>> = ({navigation}) => {
             <ScrollView style={{
                 flex: 1,
                 padding: 20,
+
             }}>
 
 
@@ -243,7 +308,7 @@ const EditProfile: FC<RootStackScreenProps<'EditProfile'>> = ({navigation}) => {
                         flexDirection: "row",
                         justifyContent: "space-between",
                         alignItems: "center",
-                        marginTop: 35,
+                        marginTop: 10,
                     }}>
                         <RegularText textStyles={({
                             fontSize: 18,
@@ -262,7 +327,7 @@ const EditProfile: FC<RootStackScreenProps<'EditProfile'>> = ({navigation}) => {
                         height: 30,
                         backgroundColor: "rgba(168, 168, 166, 0.3)",
                         borderRadius: 15,
-                        marginTop: 10,
+                        marginTop: 5,
 
                     }}>
                         <TextInput
@@ -296,7 +361,7 @@ const EditProfile: FC<RootStackScreenProps<'EditProfile'>> = ({navigation}) => {
                         backgroundColor: "rgba(168, 168, 166, 0.3)",
                         height: 30,
                         borderRadius: 15,
-                        marginTop: 10,
+                        marginTop: 5,
                     }}>
                         <TextInput
                             style={{...personalDataInput, marginLeft: 10}}
@@ -307,11 +372,94 @@ const EditProfile: FC<RootStackScreenProps<'EditProfile'>> = ({navigation}) => {
 
                     </View>
 
+                    <View style={{
+                        flexDirection: "row",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        marginTop: 10,
+                    }}>
+                        <View style={{
+                            flexDirection: "row",
+                            alignItems: "center",
+                        }}>
+                            <MaterialCommunityIcons name="bell" size={20} color="#FFFFFF"/>
+                            <RegularText textStyles={({
+                                fontSize: 16,
+                                color: "#FFFFFF",
+                                ...totalStyles
+                            } as unknown) as StyleProp<TextStyle>}>Напоминания замеров</RegularText>
+                        </View>
+
+                    </View>
+
+                    {/*time*/}
+                    <View style={{
+                        backgroundColor: "rgba(168, 168, 166, 0.3)",
+                        borderRadius: 15,
+                        marginTop: 5,
+                        padding: 10,
+                    }}>
+                        <View style={(grayBoxLine) as StyleProp<ViewStyle>}>
+                            <RegularText textStyles={(grayBoxText) as StyleProp<ViewStyle>}>Утро</RegularText>
+                            <TouchableOpacity onPress={() => showTimePicker('push1')}>
+                                <View style={personalDataInput}>
+                                    <RegularText textStyles={(personalDataText) as StyleProp<ViewStyle>}>
+                                        {push1}
+                                    </RegularText>
+                                </View>
+                            </TouchableOpacity>
+
+                            <DateTimePickerModal
+                                isVisible={isPush1TimePickerVisible}
+                                mode="time"
+                                is24Hour={true}
+                                onConfirm={(time) => handleTimePicker(time, 'push1')}
+                                onCancel={() => hideTimePicker('push1')}
+                            />
+                        </View>
+
+                        <View style={(grayBoxLine) as StyleProp<ViewStyle>}>
+                            <RegularText textStyles={(grayBoxText) as StyleProp<ViewStyle>}>День</RegularText>
+                            <TouchableOpacity onPress={() => showTimePicker('push2')}>
+                                <View style={personalDataInput}>
+                                    <RegularText textStyles={(personalDataText) as StyleProp<ViewStyle>}>
+                                        {push2}
+                                    </RegularText>
+                                </View>
+                            </TouchableOpacity>
+
+                            <DateTimePickerModal
+                                isVisible={isPush2TimePickerVisible}
+                                mode="time"
+                                is24Hour={true}
+                                onConfirm={(time) => handleTimePicker(time, 'push2')}
+                                onCancel={() => hideTimePicker('push2')}
+                            />
+                        </View>
+
+                        <View style={(grayBoxLine) as StyleProp<ViewStyle>}>
+                            <RegularText textStyles={(grayBoxText) as StyleProp<ViewStyle>}>Вечер</RegularText>
+                            <TouchableOpacity onPress={() => showTimePicker('push3')}>
+                                <View style={personalDataInput}>
+                                    <RegularText textStyles={(personalDataText) as StyleProp<ViewStyle>}>
+                                        {push3}
+                                    </RegularText>
+                                </View>
+                            </TouchableOpacity>
+
+                            <DateTimePickerModal
+                                isVisible={isPush3TimePickerVisible}
+                                mode="time"
+                                is24Hour={true}
+                                onConfirm={(time) => handleTimePicker(time, 'push3')}
+                                onCancel={() => hideTimePicker('push3')}
+                            />
+                        </View>
+                    </View>
                 </View>
 
-
                 {/*detailed user info*/}
-                <View style={{marginTop: 20}}>
+                <View style={{marginTop: 10}}>
                     <RegularText textStyles={{
                         fontSize: 20,
                         color: "#FFFFFF",
@@ -321,11 +469,10 @@ const EditProfile: FC<RootStackScreenProps<'EditProfile'>> = ({navigation}) => {
                     <View style={{
                         backgroundColor: "rgba(168, 168, 166, 0.3)",
                         borderRadius: 15,
-                        marginTop: 20,
+                        marginTop: 5,
                         padding: 10,
                     }}>
                         <View>
-
                             <View style={(rowStyle) as StyleProp<ViewStyle>}>
                                 <RegularText textStyles={(personalDataText) as StyleProp<ViewStyle>}>Дата
                                     рождения</RegularText>
@@ -339,8 +486,6 @@ const EditProfile: FC<RootStackScreenProps<'EditProfile'>> = ({navigation}) => {
                                     }}>
                                         <RegularText
                                             textStyles={(personalDataText) as StyleProp<ViewStyle>}>{birthDate}</RegularText>
-
-
                                     </View>
                                 </TouchableOpacity>
                             </View>
@@ -350,7 +495,6 @@ const EditProfile: FC<RootStackScreenProps<'EditProfile'>> = ({navigation}) => {
                                 mode="date"
                                 onConfirm={handleDatePicker}
                                 onCancel={hideDatePicker}
-
                             />
                         </View>
 
@@ -412,7 +556,7 @@ const EditProfile: FC<RootStackScreenProps<'EditProfile'>> = ({navigation}) => {
                     </View>
 
                     <View style={{
-                        marginTop: 20,
+                        marginTop: 10,
                         height: 100,
                         justifyContent: "flex-start",
                         alignItems: "center"
@@ -420,8 +564,8 @@ const EditProfile: FC<RootStackScreenProps<'EditProfile'>> = ({navigation}) => {
                         <View
                             style={{
                                 width: "100%",
-                                height: "45%",
-                                marginTop: 20,
+                                height: 35,
+                                marginTop: 10,
                                 marginLeft: "auto",
                                 marginRight: "auto",
                                 borderRadius: 15,
@@ -441,8 +585,8 @@ const EditProfile: FC<RootStackScreenProps<'EditProfile'>> = ({navigation}) => {
                         <View
                             style={{
                                 width: "100%",
-                                height: "45%",
-                                marginTop: 20,
+                                height: 35,
+                                marginTop: 10,
                                 marginLeft: "auto",
                                 marginRight: "auto",
                                 borderRadius: 15,
@@ -457,7 +601,9 @@ const EditProfile: FC<RootStackScreenProps<'EditProfile'>> = ({navigation}) => {
                                     color: "white"
                                 }}> Отменить </RegularText>
                             </RegularButton>
+
                         </View>
+
 
                     </View>
 
@@ -475,7 +621,9 @@ const EditProfile: FC<RootStackScreenProps<'EditProfile'>> = ({navigation}) => {
                     setGenderModalVisible(false);
                 }}
             />
+
         </ImageBackground>
+
 
     );
 };

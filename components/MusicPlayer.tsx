@@ -1,10 +1,11 @@
-import React, { useRef, useState, useEffect } from 'react';
-import { View, TouchableOpacity, StyleSheet } from 'react-native';
+import React, {useRef, useState, useEffect} from 'react';
+import {View, TouchableOpacity, StyleSheet} from 'react-native';
 import LottieView from 'lottie-react-native';
-import { Audio } from 'expo-av';
+import {Audio} from 'expo-av';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-const MusicPlayer = ({ mood }) => {
+const MusicPlayer = ({mood, windowHeight}) => {
+
     const animationRef = useRef(null);
     const [isPlaying, setIsPlaying] = useState(false);
     const [sound, setSound] = useState(null);
@@ -21,6 +22,8 @@ const MusicPlayer = ({ mood }) => {
             setIsPlaying((prev) => !prev);
         }
     };
+
+    const lottieSize = windowHeight * 0.23;
 
     let animationSource: any;
     if (mood === 'ВОССТАНОВЛЕНИЕ') {
@@ -46,7 +49,7 @@ const MusicPlayer = ({ mood }) => {
                 if (sound) {
                     await sound.unloadAsync();
                 }
-                const { sound: newSound } = await Audio.Sound.createAsync(
+                const {sound: newSound} = await Audio.Sound.createAsync(
                     audioFile
                 );
                 setSound(newSound);
@@ -80,21 +83,21 @@ const MusicPlayer = ({ mood }) => {
             <TouchableOpacity onPress={playPause} style={{
                 justifyContent: 'center',
                 alignItems: 'center',
-                width: 200,
-                height: 200,
+                width: lottieSize,
+                height: lottieSize,
             }}>
                 <LottieView
                     ref={animationRef}
                     source={animationSource}
                     style={{
-                        width: 200,
-                        height: 200,
+                        width: lottieSize,
+                        height: lottieSize,
                         position: 'absolute',
                         opacity: 0.7,
                     }}
                     loop
                 />
-                <Icon name={isPlaying ? 'pause' : 'play'} size={30} color="white" style={{position: 'absolute',}} />
+                <Icon name={isPlaying ? 'pause' : 'play'} size={30} color="white" style={{position: 'absolute',}}/>
             </TouchableOpacity>
         </View>
     );

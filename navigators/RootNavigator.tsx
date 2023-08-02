@@ -8,6 +8,7 @@ import Register from "../screens/Register";
 import Reset from "../screens/Reset";
 import TabScreens from "./TabScreens";
 import EditProfile from "../screens/EditProfile";
+import ComingSoon from "../screens/ComingSoon";
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
 const screenOptions = {
@@ -52,6 +53,11 @@ const RootNavigator: FC = () => {
                 options={screenOptions}
                 name="EditProfile"
                 component={EditProfile}
+            />
+            <RootStack.Screen
+                options={screenOptions}
+                name="ComingSoon"
+                component={ComingSoon}
             />
 
         </RootStack.Navigator>

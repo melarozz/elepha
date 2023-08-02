@@ -22,6 +22,7 @@ export type RootStackParamList = {
     TabScreens: undefined;
     EditProfile: undefined;
     Edited: undefined;
+    ComingSoon: undefined;
 
 };
 

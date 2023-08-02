@@ -1,12 +1,12 @@
-import React, { FunctionComponent } from "react";
-import { StatusBar } from "expo-status-bar";
-import { LinearGradient } from "expo-linear-gradient";
+import React, {FunctionComponent} from "react";
+import {StatusBar} from "expo-status-bar";
+import {LinearGradient} from "expo-linear-gradient";
 import BigText from "../components/Texts/BigText";
 import RegularText from "../components/Texts/RegularText";
 import RegularButton from "../components/Buttons/RegularButton";
-import { useNavigation } from "@react-navigation/native";
-import { useAssets } from "expo-asset";
-import { ImageBackground, ImageSourcePropType, View, Image, StyleProp, TextStyle } from "react-native";
+import {useNavigation} from "@react-navigation/native";
+import {useAssets} from "expo-asset";
+import {ImageBackground, ImageSourcePropType, View, Image, StyleProp, TextStyle} from "react-native";
 import LottieView from "lottie-react-native";
 import {colors} from "../components/colors";
 
@@ -120,7 +120,7 @@ const Welcome: FunctionComponent = () => {
                                 backgroundColor: "transparent",
                                 fontFamily: "TenorSans_400Regular",
                             } as unknown) as StyleProp<TextStyle>}
-                            onPress={() => navigation.navigate("Rec")}> Полетели!
+                            onPress={() => navigation.navigate("Login")}> Полетели!
                         </RegularButton>
                     </View>
                 </ImageBackground>

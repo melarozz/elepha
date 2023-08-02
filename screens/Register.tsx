@@ -9,11 +9,12 @@ import {colors} from "../components/colors";
 import RNPickerSelect from 'react-native-picker-select';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import GenderModal from "./GenderModal";
+
 const windowWidth = Dimensions.get("window").width - 100;
 
 const options = [
-    { label: 'Option 1', value: 'M' },
-    { label: 'Option 2', value: 'F' },
+    {label: 'Option 1', value: 'M'},
+    {label: 'Option 2', value: 'F'},
 ];
 
 const inputStyle = {
@@ -27,8 +28,6 @@ const inputStyle = {
     fontFamily: "TenorSans_400Regular",
     color: "white"
 };
-
-
 
 
 const Register: React.FC = () => {
@@ -75,7 +74,6 @@ const Register: React.FC = () => {
     const toggleGenderModal = () => {
         setGenderModalVisible(!isGenderModalVisible);
     }
-
 
 
     return (
@@ -148,20 +146,19 @@ const Register: React.FC = () => {
                         </View>
 
 
-
                         <View style={(inputStyle) as StyleProp<TextStyle>}>
-                        <RegularButton
-                            textStyles={({
-                                textAlign: "left",
-                                width: windowWidth,
-                                padding: 5,
-                                fontFamily: "TenorSans_400Regular",
-                                color: "white"
-                            } as unknown) as StyleProp<TextStyle>}
-                            onPress={() => setDatePickerVisible(true)} // Show the date picker modal when the button is pressed
-                        >
-                            {birthDate ? new Date(birthDate).toLocaleDateString() : "Выбрать дату рождения"} {/* Display the selected date or the default text */}
-                        </RegularButton>
+                            <RegularButton
+                                textStyles={({
+                                    textAlign: "left",
+                                    width: windowWidth,
+                                    padding: 5,
+                                    fontFamily: "TenorSans_400Regular",
+                                    color: "white"
+                                } as unknown) as StyleProp<TextStyle>}
+                                onPress={() => setDatePickerVisible(true)} // Show the date picker modal when the button is pressed
+                            >
+                                {birthDate ? new Date(birthDate).toLocaleDateString() : "Выбрать дату рождения"} {/* Display the selected date or the default text */}
+                            </RegularButton>
                         </View>
 
                         <TextInput

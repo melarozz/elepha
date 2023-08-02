@@ -28,7 +28,8 @@ const Login: React.FC = () => {
             style={{
                 flex: 1,
                 justifyContent: 'center',
-                alignItems: 'center',}}
+                alignItems: 'center',
+            }}
         >
             <ImageBackground
                 source={require('../assets/bgs/bg2.png')}
@@ -55,29 +56,6 @@ const Login: React.FC = () => {
                         justifyContent: "space-between",
                     }}>
                         <View>
-                        <TextInput
-                            style={({
-                                width: '100%',
-                                height: 40,
-                                borderColor: 'white',
-                                borderWidth: 1,
-                                marginBottom: 10,
-                                paddingHorizontal: 10,
-                                borderRadius: 15,
-                                fontFamily: "TenorSans_400Regular",
-                                color: "white",
-                            } as unknown) as StyleProp<TextStyle>}
-                            placeholder="Email"
-                            placeholderTextColor="white"
-                            value={email}
-                            onChangeText={setEmail}
-                            keyboardType="email-address"
-                            autoCapitalize="none"
-                        />
-
-                        <View style={{
-                            position: "relative",
-                        }}>
                             <TextInput
                                 style={({
                                     width: '100%',
@@ -90,27 +68,50 @@ const Login: React.FC = () => {
                                     fontFamily: "TenorSans_400Regular",
                                     color: "white",
                                 } as unknown) as StyleProp<TextStyle>}
-                                placeholder="Пароль"
+                                placeholder="Email"
                                 placeholderTextColor="white"
-                                value={password}
-                                onChangeText={handlePasswordChange}
-                                secureTextEntry
+                                value={email}
+                                onChangeText={setEmail}
+                                keyboardType="email-address"
+                                autoCapitalize="none"
                             />
-                            {showForgotPassword && (
-                                <RegularButton
-                                    textStyles={({
-                                        fontSize: 18,
-                                        textAlign: "center",
-                                        color: "#FFFFFF",
-                                        backgroundColor: "transparent",
+
+                            <View style={{
+                                position: "relative",
+                            }}>
+                                <TextInput
+                                    style={({
+                                        width: '100%',
+                                        height: 40,
+                                        borderColor: 'white',
+                                        borderWidth: 1,
+                                        marginBottom: 10,
+                                        paddingHorizontal: 10,
+                                        borderRadius: 15,
                                         fontFamily: "TenorSans_400Regular",
+                                        color: "white",
                                     } as unknown) as StyleProp<TextStyle>}
-                                    onPress={() => navigation.navigate("Reset")}
-                                >
-                                    Забыли пароль?
-                                </RegularButton>
-                            )}
-                        </View>
+                                    placeholder="Пароль"
+                                    placeholderTextColor="white"
+                                    value={password}
+                                    onChangeText={handlePasswordChange}
+                                    secureTextEntry
+                                />
+                                {showForgotPassword && (
+                                    <RegularButton
+                                        textStyles={({
+                                            fontSize: 18,
+                                            textAlign: "center",
+                                            color: "#FFFFFF",
+                                            backgroundColor: "transparent",
+                                            fontFamily: "TenorSans_400Regular",
+                                        } as unknown) as StyleProp<TextStyle>}
+                                        onPress={() => navigation.navigate("Reset")}
+                                    >
+                                        Забыли пароль?
+                                    </RegularButton>
+                                )}
+                            </View>
                         </View>
 
                         <View>
@@ -122,7 +123,23 @@ const Login: React.FC = () => {
                                 marginRight: "auto",
                                 borderRadius: 15,
                                 justifyContent: "center",
-                                alignItems: "center",}}>
+                                alignItems: "center",
+                            }}>
+
+                                <RegularButton
+                                    textStyles={({
+                                        fontSize: 18,
+                                        textAlign: "center",
+                                        color: "#FFFFFF",
+                                        backgroundColor: "transparent",
+                                        fontFamily: "TenorSans_400Regular",
+                                    } as unknown) as StyleProp<TextStyle>}
+                                    onPress={() => navigation.navigate("Rec")}
+                                >
+                                    Войти
+                                </RegularButton>
+                            </View>
+
 
                             <RegularButton
                                 textStyles={({
@@ -130,29 +147,14 @@ const Login: React.FC = () => {
                                     textAlign: "center",
                                     color: "#FFFFFF",
                                     backgroundColor: "transparent",
+                                    marginTop: 10,
                                     fontFamily: "TenorSans_400Regular",
                                 } as unknown) as StyleProp<TextStyle>}
-                                onPress={() => navigation.navigate("Welcome")}
+                                onPress={() => navigation.navigate("Register")}
                             >
-                                Войти
+                                Регистрация
                             </RegularButton>
-                            </View>
-
-
-                        <RegularButton
-                            textStyles={({
-                                fontSize: 18,
-                                textAlign: "center",
-                                color: "#FFFFFF",
-                                backgroundColor: "transparent",
-                                marginTop: 10,
-                                fontFamily: "TenorSans_400Regular",
-                            } as unknown) as StyleProp<TextStyle>}
-                            onPress={() => navigation.navigate("Register")}
-                        >
-                            Регистрация
-                        </RegularButton>
-                    </View>
+                        </View>
                     </View>
                 </View>
             </ImageBackground>

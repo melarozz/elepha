@@ -139,9 +139,12 @@ const Profile: FC = () => {
     const [pulse, setPulse] = useState<string>('');
     const [gender, setGender] = useState<string>('');
     const [birthDate, setBirthDate] = useState<string>('');
+    const [push1, setPush1] = useState<string>('');
+    const [push2, setPush2] = useState<string>('');
+    const [push3, setPush3] = useState<string>('');
 
     useEffect(() => {
-        void loadUserDataUtil(setPic, setName, setLastName, setBirthDate, setGender, setCompany,setWeight, setHeight,  setPulse);
+        void loadUserDataUtil(setPic, setName, setLastName, setPush1, setPush2, setPush3, setBirthDate, setGender, setCompany, setWeight, setHeight, setPulse);
     }, []);
 
     const ModalContent = () => {
@@ -154,7 +157,7 @@ const Profile: FC = () => {
 
             return (
                 <View>
-                    <View style={{marginTop:100}}>
+                    <View style={{marginTop: 50}}>
                         <CardContainer style={{alignSelf: "center", width: windowWidth}}>
                             <TouchableOpacity onPress={onCloseModal}
                                               style={{
@@ -368,17 +371,17 @@ const Profile: FC = () => {
                     }}>
                         <View style={(grayBoxLine) as StyleProp<ViewStyle>}>
                             <RegularText textStyles={(grayBoxText) as StyleProp<ViewStyle>}>Утро</RegularText>
-                            <RegularText textStyles={(grayBoxText) as StyleProp<ViewStyle>}>10:30 </RegularText>
+                            <RegularText textStyles={(grayBoxText) as StyleProp<ViewStyle>}>{push1} </RegularText>
                         </View>
 
                         <View style={(grayBoxLine) as StyleProp<ViewStyle>}>
                             <RegularText textStyles={(grayBoxText) as StyleProp<ViewStyle>}>День</RegularText>
-                            <RegularText textStyles={(grayBoxText) as StyleProp<ViewStyle>}>13:30 </RegularText>
+                            <RegularText textStyles={(grayBoxText) as StyleProp<ViewStyle>}>{push2} </RegularText>
                         </View>
 
                         <View style={(grayBoxLine) as StyleProp<ViewStyle>}>
                             <RegularText textStyles={(grayBoxText) as StyleProp<ViewStyle>}>Вечер</RegularText>
-                            <RegularText textStyles={(grayBoxText) as StyleProp<ViewStyle>}>20:00 </RegularText>
+                            <RegularText textStyles={(grayBoxText) as StyleProp<ViewStyle>}>{push3} </RegularText>
                         </View>
 
                     </View>
@@ -411,7 +414,8 @@ const Profile: FC = () => {
                             </View>
 
                             <View style={(rowStyle) as StyleProp<ViewStyle>}>
-                                <RegularText textStyles={(personalDataText) as StyleProp<ViewStyle>}>Компания</RegularText>
+                                <RegularText
+                                    textStyles={(personalDataText) as StyleProp<ViewStyle>}>Компания</RegularText>
                                 <RegularText
                                     textStyles={(personalDataText) as StyleProp<ViewStyle>}>{company}</RegularText>
                             </View>
