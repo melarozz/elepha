@@ -1,8 +1,7 @@
-export type User = {
-    name: string,
-    birthDate: string,
-    gender: string,
-    weight: string,
-    height: string,
-    pressure: string,
-};
+import {User} from "./types";
+import {getApiBase} from "../utils/env";
+export async function createUser(data: User) {
+    const endpoint = '/auth/users/';
+
+
+}
