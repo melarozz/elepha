@@ -356,9 +356,7 @@ const Profile: FC = () => {
                         <TouchableOpacity onPress={showModal}>
                             <MaterialCommunityIcons name="information-outline" size={20} color="#FFFFFF"/>
                         </TouchableOpacity>
-
                     </View>
-
                     {/*time*/}
                     <View style={{
                         backgroundColor: "rgba(168, 168, 166, 0.3)",
