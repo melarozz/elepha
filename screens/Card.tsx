@@ -2,7 +2,6 @@
 import React from 'react';
 import {View, Text, Dimensions, StyleProp, TextStyle, TouchableOpacity} from 'react-native';
 import {Card} from 'react-native-elements';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import RegularText from "../components/Texts/RegularText";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 import BigText from "../components/Texts/BigText";

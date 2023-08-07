@@ -1,29 +1,24 @@
-import React, {FunctionComponent, useState, useRef, useEffect, FC, useCallback} from "react";
+import React, { useState, useRef, useEffect, FC} from "react";
 import {
     StatusBar,
     Modal,
     TouchableOpacity,
     FlatList,
     View,
-    Text,
+
     Image,
-    TextInput,
+
     ScrollView,
-    StyleSheet,
+
     Dimensions,
-    StyleProp, TextStyle, NativeSyntheticEvent, NativeScrollEvent, ListRenderItem, FlatListProps, ViewStyle
+    StyleProp, TextStyle,  ViewStyle
 } from "react-native";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 import styled from "styled-components/native";
 import {useNavigation, useFocusEffect} from "@react-navigation/native";
 import {colors} from "../components/colors";
-import BigText from "../components/Texts/BigText";
 import RegularText from "../components/Texts/RegularText";
 import {CSSProp} from "styled-components";
-import * as ImagePicker from "expo-image-picker";
-import Pic from "../components/Pic";
-import EditProfile from "./EditProfile";
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {loadUserDataUtil} from "./utils";
 import HorizontalCard from "./Card";
 
@@ -95,30 +90,10 @@ const cardsData = [
 ];
 
 
-const ModalContainer = styled.View`
-  flex: 1;
-  background-color: rgba(150, 202, 200, 0.69);
-`;
-
-const CardContainer = styled.View`
-  height: 500px;
-  margin: 20px;
-  padding: 20px;
-  background-color: ${colors.white};
-  border-radius: 10px;
-  justify-content: flex-start;
-`;
-
-const CardBody = styled.View`
-  margin-top: 11px;
-`;
-
 const Profile: FC = () => {
-    const flatListRef = useRef<FlatList>();
-    const margins: number[] = [0, 40, 80];
     const navigation = useNavigation<any>();
     const [isModalVisible, setModalVisible] = useState<boolean>(false);
-    const [activeCardIndex, setActiveCardIndex] = useState<number>(0);
+
 
 
     const handleEditPress = () => {
@@ -158,14 +133,6 @@ const Profile: FC = () => {
     useEffect(() => {
         void loadUserDataUtil(setPic, setName, setLastName, setPush1, setPush2, setPush3, setBirthDate, setGender, setCompany, setWeight, setHeight, setPulse);
     }, []);
-
-    const cardData = [
-        { iconName: 'meditation', title: 'Card 1', subtitle: 'Description 1' },
-        { iconName: 'star', title: 'Card 2', subtitle: 'Description 2' },
-        { iconName: 'heart', title: 'Card 3', subtitle: 'Description 3' },
-        { iconName: 'star', title: 'Card 4', subtitle: 'Description 4' },
-        // Add more card data here
-    ];
 
 
     return (
