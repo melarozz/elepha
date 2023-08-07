@@ -76,8 +76,6 @@ const EditProfile: FC<RootStackScreenProps<'EditProfile'>> = ({navigation}) => {
     const [gender, setGender] = useState<string>('M');
     const [weight, setWeight] = useState<string>("95");
     const [height, setHeight] = useState<string>("175");
-    const [email, setEmail] = useState<string>('pochta@mail.ru');
-    const [mobile, setMobile] = useState<string>('+79990001122');
     const [lastName, setLastName] = useState<string>('Иванов');
     const [company, setCompany] = useState<string>('Название компании');
     const [pulse, setPulse] = useState<string>('80');

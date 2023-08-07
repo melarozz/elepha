@@ -11,11 +11,6 @@ const Login: React.FC = () => {
     const [password, setPassword] = useState<string>();
     const [showForgotPassword, setShowForgotPassword] = useState<boolean>(true);
 
-    const handleLogin = () => {
-        console.log('Email:', email);
-        console.log('Password:', password);
-    };
-
     const handlePasswordChange = (text: string) => {
         setPassword(text);
         setShowForgotPassword(text.length === 0);

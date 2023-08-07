@@ -30,9 +30,9 @@ export async function loadUserDataUtil(
             setWeight(userData.weight);
             setHeight(userData.height);
             setPulse(userData.pulse);
-
         }
     } catch (error) {
         // Handle error, if any
     }
 }
+

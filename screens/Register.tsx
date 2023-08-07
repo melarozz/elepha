@@ -9,6 +9,8 @@ import {colors} from "../components/colors";
 import RNPickerSelect from 'react-native-picker-select';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import GenderModal from "./GenderModal";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import {createUser} from "../Api";
 
 const windowWidth = Dimensions.get("window").width - 100;
 
@@ -48,17 +50,68 @@ const Register: React.FC = () => {
     const [showConfirmationModal, setShowConfirmationModal] = useState<boolean>(false);
     const [confirmationCode, setConfirmationCode] = useState<string>('');
 
-    const handleRegister = () => {
+    const saveUserData = useCallback(async () => {
+        try {
+            // const userData = {
+            //     name,
+            //     lastName,
+            //     birthDate,
+            //     gender,
+            //     company,
+            //     weight,
+            //     height,
+            //     pulse,
+            //     email,
+            //     password,
+            //     mobile,
+            //     username: 'sfdfv',
+            //     pressure: 'rdfv',
+            // };
+            const userData = { // жсон с данными, который мы отправляем на бек
+                name: 'adawdawd',
+                lastName: 'awdawdawd',
+                birthDate: '2003-02-30',
+                gender: "M",
+                company: 'awdawdaw',
+                weight: '111',
+                height: '111',
+                pulse: '111',
+                email: 'daneel3@gmail.com',
+                password: 'awdawdawd',
+                mobile: '+79059030557',
+                username: 'sfdfv',
+                pressure: '111'
+            };
+            await createUser(userData);
+            const userDataJSON = JSON.stringify(userData);
+            await AsyncStorage.setItem('userData', userDataJSON);
+            // console.log()
+            await AsyncStorage.getItem('userData')
+        } catch (error) {
+           console.log(error);
+        }
+    }, [
+        name, lastName, birthDate,
+        gender, company, weight,
+        height, pulse, mobile,
+        password, email
+    ]);
+
+
+    const handleRegister = useCallback(async () => {
         setShowConfirmationModal(!showConfirmationModal);
-    };
+        await saveUserData();
+    }, [
+        saveUserData,
+        setShowConfirmationModal,
+        showConfirmationModal
+    ]);
+
     const handleConfirm = () => {
         setConfirmationCode('');
         navigation.navigate("Login");
     };
 
-    const handleGenderChange = (gender) => {
-        setGender(gender);
-    };
     const [isDatePickerVisible, setDatePickerVisible] = useState<boolean>(false);
 
     const handleDatePickerConfirm = useCallback((date: Date) => {
@@ -74,7 +127,6 @@ const Register: React.FC = () => {
     const toggleGenderModal = () => {
         setGenderModalVisible(!isGenderModalVisible);
     }
-
 
     return (
         <ImageBackground

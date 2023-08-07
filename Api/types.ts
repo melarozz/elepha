@@ -1,8 +1,15 @@
 export type User = {
     name: string,
     birthDate: string,
+    lastName: string,
     gender: string,
-    weight: string,
-    height: string,
-    pressure: string,
+    weight: string | number,
+    company: string,
+    height: string | number,
+    pulse: string | number,
+    pressure: string | number,
+    password: string,
+    email: string,
+    username: string,
+    mobile: string,
 };
