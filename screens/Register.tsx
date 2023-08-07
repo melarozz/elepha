@@ -11,6 +11,7 @@ import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import GenderModal from "./GenderModal";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {createUser} from "../Api";
+import {format} from "date-fns";
 
 const windowWidth = Dimensions.get("window").width - 100;
 
@@ -35,6 +36,9 @@ const inputStyle = {
 const Register: React.FC = () => {
     const navigation = useNavigation<unknown>();
     const [name, setName] = useState<string>('');
+    const [push1, setPush1] = useState<string>('10:30');
+    const [push2, setPush2] = useState<string>('15:00');
+    const [push3, setPush3] = useState<string>('20:00');
     const [email, setEmail] = useState<string>('');
     const [mobile, setMobile] = useState<string>('');
     const [lastName, setLastName] = useState<string>('');
@@ -52,46 +56,47 @@ const Register: React.FC = () => {
 
     const saveUserData = useCallback(async () => {
         try {
-            // const userData = {
-            //     name,
-            //     lastName,
-            //     birthDate,
-            //     gender,
-            //     company,
-            //     weight,
-            //     height,
-            //     pulse,
-            //     email,
-            //     password,
-            //     mobile,
-            //     username: 'sfdfv',
-            //     pressure: 'rdfv',
-            // };
-            const userData = { // жсон с данными, который мы отправляем на бек
-                name: 'adawdawd',
-                lastName: 'awdawdawd',
-                birthDate: '2003-02-30',
-                gender: "M",
-                company: 'awdawdaw',
-                weight: '111',
-                height: '111',
-                pulse: '111',
-                email: 'daneel3@gmail.com',
-                password: 'awdawdawd',
-                mobile: '+79059030557',
-                username: 'sfdfv',
-                pressure: '111'
+            const userData = {
+                name,
+                lastName,
+                push1,
+                push2,
+                push3,
+                birthDate,
+                gender,
+                company,
+                weight,
+                height,
+                pulse,
+                email,
+                password,
+                mobile,
             };
+            // const userData = { // жсон с данными, который мы отправляем на бек
+            //     name: 'adawdawd',
+            //     lastName: 'awdawdawd',
+            //     birthDate: '2003-02-30',
+            //     gender: "M",
+            //     company: 'awdawdaw',
+            //     weight: '111',
+            //     height: '111',
+            //     pulse: '111',
+            //     email: 'daneel3@gmail.com',
+            //     password: 'awdawdawd',
+            //     mobile: '+79059030557',
+            //     username: 'sfdfv',
+            //     pressure: '111'
+            // };
             await createUser(userData);
             const userDataJSON = JSON.stringify(userData);
             await AsyncStorage.setItem('userData', userDataJSON);
             // console.log()
             await AsyncStorage.getItem('userData')
         } catch (error) {
-           console.log(error);
+            console.log(error);
         }
     }, [
-        name, lastName, birthDate,
+        name, lastName, push1, push2, push3, birthDate,
         gender, company, weight,
         height, pulse, mobile,
         password, email
@@ -115,7 +120,8 @@ const Register: React.FC = () => {
     const [isDatePickerVisible, setDatePickerVisible] = useState<boolean>(false);
 
     const handleDatePickerConfirm = useCallback((date: Date) => {
-        setBirthDate(date.toISOString()); // Store the selected date in ISO string format
+        const formattedDate = format(date, 'dd-MM-yyyy');
+        setBirthDate(formattedDate);
         setDatePickerVisible(false); // Close the date picker modal
     }, []);
 
@@ -209,7 +215,7 @@ const Register: React.FC = () => {
                                 } as unknown) as StyleProp<TextStyle>}
                                 onPress={() => setDatePickerVisible(true)} // Show the date picker modal when the button is pressed
                             >
-                                {birthDate ? new Date(birthDate).toLocaleDateString() : "Выбрать дату рождения"} {/* Display the selected date or the default text */}
+                                {birthDate ? birthDate : "Выбрать дату рождения"} {/* Display the selected date or the default text */}
                             </RegularButton>
                         </View>
 

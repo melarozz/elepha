@@ -51,6 +51,7 @@
     "react-native-audio": "~4.3.0",
     "react-native-audio-recorder-player": "^3.5.3",
     "react-native-canvas": "^0.1.39",
+    "react-native-elements": "^3.4.3",
     "react-native-fs": "^2.20.0",
     "react-native-gender-picker-modal": "^0.1.0",
     "react-native-gesture-handler": "~2.12.0",

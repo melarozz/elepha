@@ -208,7 +208,6 @@ const EditProfile: FC<RootStackScreenProps<'EditProfile'>> = ({navigation}) => {
                 weight,
                 height,
                 pulse,
-
             };
             console.log(userData)
             const userDataJSON = JSON.stringify(userData);

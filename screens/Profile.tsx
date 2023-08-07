@@ -25,6 +25,7 @@ import Pic from "../components/Pic";
 import EditProfile from "./EditProfile";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {loadUserDataUtil} from "./utils";
+import HorizontalCard from "./Card";
 
 
 const windowWidth = Dimensions.get("window").width - 40;
@@ -124,9 +125,20 @@ const Profile: FC = () => {
         navigation.navigate('EditProfile');
     };
 
+    const handleScroll = (event) => {
+        const contentOffset = event.nativeEvent.contentOffset.x;
+        const cardWidth = windowWidth * 0.7; // Adjust this based on your card width
+        const newActiveCardIndex = Math.floor(contentOffset / cardWidth);
+        setActiveCardIndex(newActiveCardIndex);
+    };
+
     const showModal = () => {
         setModalVisible(true);
     };
+    const hideModal = () => {
+        setModalVisible(false);
+    };
+
 
     const [pic, setPic] = useState<string>("https://images.unsplash.com/photo-1526045612212-70caf35c14df");
     const [name, setName] = useState<string>('');
@@ -147,79 +159,13 @@ const Profile: FC = () => {
         void loadUserDataUtil(setPic, setName, setLastName, setPush1, setPush2, setPush3, setBirthDate, setGender, setCompany, setWeight, setHeight, setPulse);
     }, []);
 
-    const ModalContent = () => {
-        const onCloseModal = () => {
-            setModalVisible(false);
-            setActiveCardIndex(0);
-        };
-
-        const renderItem = (item: any, index: number): JSX.Element => {
-
-            return (
-                <View>
-                    <View style={{marginTop: 50}}>
-                        <CardContainer style={{alignSelf: "center", width: windowWidth}}>
-                            <TouchableOpacity onPress={onCloseModal}
-                                              style={{
-                                                  justifyContent: "flex-end", alignItems: "flex-end"
-                                              }}>
-                                <MaterialCommunityIcons name="close" size={24} color="#000000"/>
-                            </TouchableOpacity>
-
-                            <BigText textStyles={({
-                                color: "#000000",
-                                fontSize: 24,
-                                textAlign: "left",
-                                ...totalStyles
-                            } as unknown) as StyleProp<TextStyle>}>{item.item.title}</BigText>
-                            <CardBody>
-                                <RegularText textStyles={({
-                                    color: "rgba(109, 147, 149, 1)",
-                                    fontSize: 16,
-                                    textAlign: "left",
-                                    ...totalStyles
-                                } as unknown) as StyleProp<TextStyle>}>{item.item.text1}</RegularText>
-                                <RegularText textStyles={({
-                                    color: "#000000",
-                                    fontSize: 16,
-                                    textAlign: "left",
-                                    ...totalStyles
-                                } as unknown) as StyleProp<TextStyle>}>{item.item.text2}</RegularText>
-                            </CardBody>
-
-                        </CardContainer>
-                    </View>
-                </View>
-            );
-        }
-        const onMomentumScrollEnd = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-            const index = Math.floor(event.nativeEvent.contentOffset.x / windowWidth);
-            setActiveCardIndex(index);
-            const offset = index * windowWidth + margins[index];
-            flatListRef?.current?.scrollToOffset({offset, animated: true});
-        };
-
-        return (
-            <ModalContainer>
-                <FlatList
-                    ref={flatListRef}
-                    data={cardsData}
-                    horizontal
-                    pagingEnabled
-                    keyExtractor={(item, index) => index.toString()}
-                    renderItem={renderItem as any}
-                    getItemLayout={(data, index) => ({
-                        length: windowWidth,
-                        offset: windowWidth * index + margins[index],
-                        index,
-                    })}
-                    initialScrollIndex={activeCardIndex}
-                    onMomentumScrollEnd={onMomentumScrollEnd}
-                />
-
-            </ModalContainer>
-        );
-    };
+    const cardData = [
+        { iconName: 'meditation', title: 'Card 1', subtitle: 'Description 1' },
+        { iconName: 'star', title: 'Card 2', subtitle: 'Description 2' },
+        { iconName: 'heart', title: 'Card 3', subtitle: 'Description 3' },
+        { iconName: 'star', title: 'Card 4', subtitle: 'Description 4' },
+        // Add more card data here
+    ];
 
 
     return (
@@ -467,7 +413,27 @@ const Profile: FC = () => {
             </ProfileContainer>
 
             <Modal visible={isModalVisible} animationType="slide" transparent>
-                <ModalContent/>
+                <View style={{
+                    backgroundColor: "rgba(150, 202, 200, 0.69)",
+                    height: "100%"
+                }}>
+                    <ScrollView
+                        horizontal={true}
+                        onScroll={handleScroll}
+                        pagingEnabled={false}
+                        showsHorizontalScrollIndicator={false}
+                    >
+                        {cardsData.map((card, index) => (
+                            <HorizontalCard
+                                key={index}
+                                title={card.title}
+                                subtitle1={card.text1}
+                                subtitle2={card.text2}
+                                onClose = {hideModal}
+                            />
+                        ))}
+                    </ScrollView>
+                </View>
             </Modal>
 
 
