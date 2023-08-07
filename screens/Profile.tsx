@@ -100,7 +100,7 @@ const Profile: FC = () => {
         navigation.navigate('EditProfile');
     };
 
-    const handleScroll = (event) => {
+    {/*const handleScroll = (event) => {
         const contentOffset = event.nativeEvent.contentOffset.x;
         const cardWidth = windowWidth * 0.7; // Adjust this based on your card width
         const newActiveCardIndex = Math.floor(contentOffset / cardWidth);
@@ -112,7 +112,7 @@ const Profile: FC = () => {
     };
     const hideModal = () => {
         setModalVisible(false);
-    };
+    };*/}
 
 
     const [pic, setPic] = useState<string>("https://images.unsplash.com/photo-1526045612212-70caf35c14df");
@@ -252,6 +252,8 @@ const Profile: FC = () => {
 
                     </View>
 
+                    {/*
+
                     <View style={{
                         flexDirection: "row",
                         alignItems: "center",
@@ -273,7 +275,8 @@ const Profile: FC = () => {
                             <MaterialCommunityIcons name="information-outline" size={20} color="#FFFFFF"/>
                         </TouchableOpacity>
                     </View>
-                    {/*time*/}
+
+
                     <View style={{
                         backgroundColor: "rgba(168, 168, 166, 0.3)",
                         borderRadius: 15,
@@ -296,6 +299,7 @@ const Profile: FC = () => {
                         </View>
 
                     </View>
+                    */}
 
                     {/*detailed user info*/}
                     <View style={{marginTop: 20}}>
@@ -379,6 +383,7 @@ const Profile: FC = () => {
                 </ScrollableContent>
             </ProfileContainer>
 
+            {/*
             <Modal visible={isModalVisible} animationType="slide" transparent>
                 <View style={{
                     backgroundColor: "rgba(150, 202, 200, 0.69)",
@@ -402,6 +407,7 @@ const Profile: FC = () => {
                     </ScrollView>
                 </View>
             </Modal>
+            */}
 
 
         </>

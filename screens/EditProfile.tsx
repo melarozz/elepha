@@ -178,18 +178,22 @@ const EditProfile: FC<RootStackScreenProps<'EditProfile'>> = ({navigation}) => {
 
 
     const handleImageSelection = useCallback(async () => {
+        console.log("0");
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.All,
             allowsEditing: true,
             aspect: [4, 4],
             quality: 1,
         });
+        console.log("1");
 
         if (!result.canceled) {
             if (result.assets) {
                 setPic(result.assets[0].uri);
+                console.log("3");
             }
         }
+
     }, []);
 
 
@@ -287,16 +291,17 @@ const EditProfile: FC<RootStackScreenProps<'EditProfile'>> = ({navigation}) => {
                                 marginLeft: "auto",
                             }}
                         />
-                        <TouchableOpacity onPress={handleImageSelection}>
+
 
                             <View style={{
-                                position: "absolute",
                                 alignSelf: "center",
                                 marginTop: 5,
                             }}>
+                                <TouchableOpacity onPress={handleImageSelection}>
                                 <MaterialCommunityIcons name="camera" size={24} color="white"/>
+                                </TouchableOpacity>
                             </View>
-                        </TouchableOpacity>
+
                     </View>
 
                     <View style={{
@@ -369,6 +374,8 @@ const EditProfile: FC<RootStackScreenProps<'EditProfile'>> = ({navigation}) => {
 
                     </View>
 
+                    {/*
+
                     <View style={{
                         flexDirection: "row",
                         alignItems: "center",
@@ -389,7 +396,7 @@ const EditProfile: FC<RootStackScreenProps<'EditProfile'>> = ({navigation}) => {
 
                     </View>
 
-                    {/*time*/}
+
                     <View style={{
                         backgroundColor: "rgba(168, 168, 166, 0.3)",
                         borderRadius: 15,
@@ -452,7 +459,7 @@ const EditProfile: FC<RootStackScreenProps<'EditProfile'>> = ({navigation}) => {
                                 onCancel={() => hideTimePicker('push3')}
                             />
                         </View>
-                    </View>
+                    </View>*/}
                 </View>
 
                 {/*detailed user info*/}

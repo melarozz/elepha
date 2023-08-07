@@ -1,5 +1,15 @@
 import React, {useState, useCallback} from 'react';
-import {View, TextInput, StyleSheet, ImageBackground, Modal, StyleProp, TextStyle, Dimensions} from 'react-native';
+import {
+    View,
+    TextInput,
+    StyleSheet,
+    ImageBackground,
+    Modal,
+    StyleProp,
+    TextStyle,
+    Dimensions,
+    TouchableOpacity
+} from 'react-native';
 import {LinearGradient} from 'expo-linear-gradient';
 import RegularButton from "../components/Buttons/RegularButton";
 import RegularText from "../components/Texts/RegularText";
@@ -12,6 +22,8 @@ import GenderModal from "./GenderModal";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {createUser} from "../Api";
 import {format} from "date-fns";
+import {MaterialCommunityIcons} from "@expo/vector-icons";
+import PulseInfo from "./PulseInfo";
 
 const windowWidth = Dimensions.get("window").width - 100;
 
@@ -35,6 +47,7 @@ const inputStyle = {
 
 const Register: React.FC = () => {
     const navigation = useNavigation<unknown>();
+    const [pic, setPic] = useState<string>("https://images.unsplash.com/photo-1526045612212-70caf35c14df");
     const [name, setName] = useState<string>('');
     const [push1, setPush1] = useState<string>('10:30');
     const [push2, setPush2] = useState<string>('15:00');
@@ -57,6 +70,7 @@ const Register: React.FC = () => {
     const saveUserData = useCallback(async () => {
         try {
             const userData = {
+                pic,
                 name,
                 lastName,
                 push1,
@@ -96,7 +110,7 @@ const Register: React.FC = () => {
             console.log(error);
         }
     }, [
-        name, lastName, push1, push2, push3, birthDate,
+        pic, name, lastName, push1, push2, push3, birthDate,
         gender, company, weight,
         height, pulse, mobile,
         password, email
@@ -132,6 +146,11 @@ const Register: React.FC = () => {
     const [isGenderModalVisible, setGenderModalVisible] = useState<boolean>(false);
     const toggleGenderModal = () => {
         setGenderModalVisible(!isGenderModalVisible);
+    }
+
+    const [isPulseModalVisible, setPulseModalVisible] = useState<boolean>(false);
+    const togglePulseModal = () => {
+        setPulseModalVisible(!isGenderModalVisible);
     }
 
     return (
@@ -199,7 +218,7 @@ const Register: React.FC = () => {
                                 } as unknown) as StyleProp<TextStyle>}
                                 onPress={() => setGenderModalVisible(true)}
                             >
-                                {gender ? gender : 'Выбрать пол'}
+                                {gender ? gender : 'Пол'}
                             </RegularButton>
                         </View>
 
@@ -215,7 +234,7 @@ const Register: React.FC = () => {
                                 } as unknown) as StyleProp<TextStyle>}
                                 onPress={() => setDatePickerVisible(true)} // Show the date picker modal when the button is pressed
                             >
-                                {birthDate ? birthDate : "Выбрать дату рождения"} {/* Display the selected date or the default text */}
+                                {birthDate ? birthDate : "Дата рождения"} {/* Display the selected date or the default text */}
                             </RegularButton>
                         </View>
 
@@ -238,13 +257,6 @@ const Register: React.FC = () => {
                             keyboardType="phone-pad"
                         />
 
-                        <TextInput
-                            style={(inputStyle) as StyleProp<TextStyle>}
-                            placeholder="Компания"
-                            placeholderTextColor="white"
-                            value={company}
-                            onChangeText={setCompany}
-                        />
 
                         <TextInput
                             style={(inputStyle) as StyleProp<TextStyle>}
@@ -262,13 +274,28 @@ const Register: React.FC = () => {
                             onChangeText={setWeight}
                         />
 
+                        <View style={{
+                            flexDirection: "row",
+                        }}>
                         <TextInput
-                            style={(inputStyle) as StyleProp<TextStyle>}
+                            style={({...inputStyle, height:30}) as StyleProp<TextStyle>}
                             placeholder="Средний пульс"
                             placeholderTextColor="white"
                             value={pulse}
                             onChangeText={setPulse}
                         />
+                            <View style={{
+                                justifyContent: "center",
+                                marginLeft: 10,
+                            }}>
+                        <TouchableOpacity onPress={() => setPulseModalVisible(true)}>
+                            <MaterialCommunityIcons name="information-outline" size={20} color="#FFFFFF"/>
+                        </TouchableOpacity>
+                            </View>
+                        </View>
+
+                        {/*onPress={() => setGenderModalVisible(true)}*/}
+
 
                         <TextInput
                             style={(inputStyle) as StyleProp<TextStyle>}
@@ -419,6 +446,8 @@ const Register: React.FC = () => {
                         setGenderModalVisible(false);
                     }}
                 />
+
+                <PulseInfo isVisible={isPulseModalVisible} setIsVisible={setPulseModalVisible}/>
 
             </ImageBackground>
         </ImageBackground>
