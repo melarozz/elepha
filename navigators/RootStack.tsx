@@ -9,7 +9,7 @@ import Reset from '../screens/Reset';
 import Login from '../screens/Login';
 import EditProfile from "../screens/EditProfile";
 import TabScreens from './../navigators/TabScreens';
-import ComingSoon from "../screens/ComingSoon";
+import Feedback from "../screens/Feedback";
 
 export type RootStackParamList = {
   Welcome: undefined;
@@ -19,7 +19,7 @@ export type RootStackParamList = {
   Register: undefined;
   Profile: undefined;
   EditProfile: undefined;
-  ComingSoon: undefined;
+  Feedback: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -64,8 +64,8 @@ const RootStack: FC = () => {
             options={{ headerShown: false }}
         />
         <Stack.Screen
-            name="ComingSoon"
-            component={ComingSoon}
+            name="Feedback"
+            component={Feedback}
             options={{ headerShown: false }}
         />
 

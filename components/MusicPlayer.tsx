@@ -3,12 +3,21 @@ import {View, TouchableOpacity, StyleSheet} from 'react-native';
 import LottieView from 'lottie-react-native';
 import {Audio} from 'expo-av';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import RegularText from "./Texts/RegularText";
+
+const formatTime = (timeInMillis) => {
+    const totalSeconds = Math.floor(timeInMillis / 1000);
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+};
 
 const MusicPlayer = ({mood, windowHeight}) => {
 
     const animationRef = useRef(null);
     const [isPlaying, setIsPlaying] = useState(false);
     const [sound, setSound] = useState(null);
+    const [currentTime, setCurrentTime] = useState(0);
 
     const playPause = async () => {
         if (animationRef.current && sound) {
@@ -44,6 +53,7 @@ const MusicPlayer = ({mood, windowHeight}) => {
     }
 
     useEffect(() => {
+        setCurrentTime(0);
         const loadAudio = async () => {
             try {
                 if (sound) {
@@ -68,6 +78,20 @@ const MusicPlayer = ({mood, windowHeight}) => {
     }, [mood]);
 
     useEffect(() => {
+
+        const updateCurrentTime = setInterval(async () => {
+            if (isPlaying && sound) {
+                const status = await sound.getStatusAsync();
+                setCurrentTime(status.positionMillis);
+            }
+        }, 100);
+
+        return () => {
+            clearInterval(updateCurrentTime);
+        };
+    }, [isPlaying, sound]);
+
+    useEffect(() => {
         if (animationRef.current && sound) {
             animationRef.current.pause();
             sound.pauseAsync();
@@ -80,6 +104,7 @@ const MusicPlayer = ({mood, windowHeight}) => {
             justifyContent: 'center',
             alignItems: 'center',
         }}>
+
             <TouchableOpacity onPress={playPause} style={{
                 justifyContent: 'center',
                 alignItems: 'center',
@@ -97,8 +122,18 @@ const MusicPlayer = ({mood, windowHeight}) => {
                     }}
                     loop
                 />
+
                 <Icon name={isPlaying ? 'pause' : 'play'} size={30} color="white" style={{position: 'absolute',}}/>
+
             </TouchableOpacity>
+
+            <RegularText textStyles={{
+                fontSize: 20,
+                color: "#FFFFFF",
+                fontWeight: "bold",
+                fontFamily: "TenorSans_400Regular",
+            }}>{formatTime(currentTime)}</RegularText>
+
         </View>
     );
 };

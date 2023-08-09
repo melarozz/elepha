@@ -23,7 +23,7 @@ const linkingConfiguration: LinkingOptions<RootStackParamList> = {
       Reset: '/Reset',
       EditProfile: '/EditProfile',
       Edited: "/Edited",
-      ComingSoon: "/ComingSoon",
+      Feedback: "/Feedback",
     },
     initialRouteName: 'Login',
   },

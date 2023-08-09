@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Rec from '../screens/Rec';
 import Profile from '../screens/Profile';
 import EditProfile from "../screens/EditProfile";
-import ComingSoon from "../screens/ComingSoon";
+import Feedback from "../screens/Feedback";
 
 const Tab = createBottomTabNavigator();
 
@@ -59,7 +59,7 @@ const TabScreens = () => {
     <Tab.Navigator tabBar={(props) => <CustomTabBar {...props} />}>
       <Tab.Screen name="Home4" component={Profile} options={{ headerShown: false}} />
       <Tab.Screen name="Home2" component={Rec} options={{ headerShown: false }} />
-      <Tab.Screen name="Home3" component={ComingSoon} options={{ headerShown: false }} />
+      <Tab.Screen name="Home3" component={Feedback} options={{ headerShown: false }} />
     </Tab.Navigator>
   );
 };
