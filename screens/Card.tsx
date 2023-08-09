@@ -1,6 +1,6 @@
 //card.tsx
 import React from 'react';
-import {View, Text, Dimensions, StyleProp, TextStyle, TouchableOpacity} from 'react-native';
+import {View, Dimensions, StyleProp, TextStyle, TouchableOpacity} from 'react-native';
 import {Card} from 'react-native-elements';
 import RegularText from "../components/Texts/RegularText";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
@@ -11,11 +11,10 @@ const windowHeight = Dimensions.get("window").height;
 
 
 const HorizontalCard = ({title, subtitle1, subtitle2, onClose}) => {
-    const cardBackgroundColor = "white";
 
     return (
         <Card containerStyle={{
-            backgroundColor: cardBackgroundColor,
+            backgroundColor: "white",
             borderRadius: 15,
             width: windowWidth * 0.8,
             height: 500,

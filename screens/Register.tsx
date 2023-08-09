@@ -10,13 +10,10 @@ import {
     Dimensions,
     TouchableOpacity
 } from 'react-native';
-import {LinearGradient} from 'expo-linear-gradient';
 import RegularButton from "../components/Buttons/RegularButton";
 import RegularText from "../components/Texts/RegularText";
 import {useNavigation} from "@react-navigation/native";
-import LottieView from "lottie-react-native";
 import {colors} from "../components/colors";
-import RNPickerSelect from 'react-native-picker-select';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import GenderModal from "./GenderModal";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -26,11 +23,6 @@ import {MaterialCommunityIcons} from "@expo/vector-icons";
 import PulseInfo from "./PulseInfo";
 
 const windowWidth = Dimensions.get("window").width - 100;
-
-const options = [
-    {label: 'Option 1', value: 'M'},
-    {label: 'Option 2', value: 'F'},
-];
 
 const inputStyle = {
     width: windowWidth,
@@ -66,6 +58,11 @@ const Register: React.FC = () => {
     const [confirmPassword, setConfirmPassword] = useState<string>('');
     const [showConfirmationModal, setShowConfirmationModal] = useState<boolean>(false);
     const [confirmationCode, setConfirmationCode] = useState<string>('');
+
+
+    const [isGenderModalVisible, setGenderModalVisible] = useState<boolean>(false);
+    const [isPulseModalVisible, setPulseModalVisible] = useState<boolean>(false);
+    const [isDatePickerVisible, setDatePickerVisible] = useState<boolean>(false);
 
     const saveUserData = useCallback(async () => {
         try {
@@ -131,27 +128,17 @@ const Register: React.FC = () => {
         navigation.navigate("Login");
     };
 
-    const [isDatePickerVisible, setDatePickerVisible] = useState<boolean>(false);
 
     const handleDatePickerConfirm = useCallback((date: Date) => {
         const formattedDate = format(date, 'dd-MM-yyyy');
         setBirthDate(formattedDate);
-        setDatePickerVisible(false); // Close the date picker modal
+        setDatePickerVisible(false);
     }, []);
 
     const handleDatePickerCancel = useCallback(() => {
-        setDatePickerVisible(false); // Close the date picker modal without selecting a date
+        setDatePickerVisible(false);
     }, []);
 
-    const [isGenderModalVisible, setGenderModalVisible] = useState<boolean>(false);
-    const toggleGenderModal = () => {
-        setGenderModalVisible(!isGenderModalVisible);
-    }
-
-    const [isPulseModalVisible, setPulseModalVisible] = useState<boolean>(false);
-    const togglePulseModal = () => {
-        setPulseModalVisible(!isGenderModalVisible);
-    }
 
     return (
         <ImageBackground

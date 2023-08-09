@@ -59,23 +59,38 @@ export async function getToken(data: User, token: string) {
     const formData = new FormData();
     formData.append("document", blob);
 
-    return axios({
-        headers: {
-            Authorization: 'Bearer ' + token
-        },
-        method: 'post',
-        url: getApiBase() + endpoint,
-        data: formData,
-    });
+    try {
+        const res = await axios.post(  // пост запрос на сервер
+            getApiBase() + endpoint, // урла
+            formData,// данные
+            {
+                headers:{
+                    Authorization: 'Bearer ' + token
+                }
+            }
+        )
+        console.log(res.statusText)
+    } catch (error) {
+        console.log(error)
+    }
+
 }
 
 export async function getUser(token: string) {
     const endpoint = '/auth/users/';
-    return axios({
-        headers: {
-            Authorization: 'Bearer ' + token
-        },
-        method: 'get',
-        url: getApiBase() + endpoint,
-    });
+
+    try {
+        const res = await axios.get(  // гет запрос на сервер
+            getApiBase() + endpoint, // урла
+            {
+                headers: {
+                    Authorization: 'Bearer ' + token
+                },
+            }
+        )
+        console.log(res.statusText);
+        return res;
+    } catch (error) {
+        console.log(error)
+    }
 }

@@ -1,6 +1,5 @@
-// Make sure to import the correct modules and types
+
 import React, {FC} from 'react';
-import { FunctionComponent } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Register from '../screens/Register';

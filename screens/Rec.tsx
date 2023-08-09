@@ -10,9 +10,7 @@ import {
     Modal,
     TouchableOpacity,
     Text,
-    ScrollView,
-    SafeAreaView,
-    StatusBar, Dimensions
+    ScrollView, Dimensions
 } from "react-native";
 
 import MusicPlayer from "../components/MusicPlayer";
@@ -50,9 +48,6 @@ const Rec: FunctionComponent = () => {
     }
 
     const [isMoodSelectionVisible, setIsMoodSelectionVisible] = useState(true);
-    const [isPlaying, setIsPlaying] = useState<boolean>(false);
-    const [isRepeatEnabled, setIsRepeatEnabled] = useState<boolean>(false);
-
 
     return (
         <>
@@ -275,14 +270,9 @@ const Rec: FunctionComponent = () => {
                                 </ImageBackground>
                             </ImageBackground>
                         </Modal>
-
                     )}
                 </ScrollView>
-
-
             </ImageBackground>
-
-
         </>
 
     );

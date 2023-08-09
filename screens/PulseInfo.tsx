@@ -14,7 +14,6 @@ const personalDataText: { fontFamily: string; color: string; fontSize: number, t
 const PulseInfo = ({isVisible, setIsVisible}) => {
     return (
         <Modal visible={isVisible} animationType="fade" transparent>
-
             <View style={{
                 flex: 1,
                 justifyContent: 'center',

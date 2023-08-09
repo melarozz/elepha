@@ -5,7 +5,7 @@ import {Audio} from 'expo-av';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import RegularText from "./Texts/RegularText";
 
-const formatTime = (timeInMillis) => {
+const formatTime = (timeInMillis: number) => {
     const totalSeconds = Math.floor(timeInMillis / 1000);
     const minutes = Math.floor(totalSeconds / 60);
     const seconds = totalSeconds % 60;
@@ -32,6 +32,7 @@ const MusicPlayer = ({mood, windowHeight}) => {
         }
     };
 
+
     const lottieSize = windowHeight * 0.23;
 
     let animationSource: any;
@@ -43,31 +44,29 @@ const MusicPlayer = ({mood, windowHeight}) => {
         animationSource = require('../assets/bubble_gr.json');
     }
 
-    let audioFile: any;
-    if (mood === 'ВОССТАНОВЛЕНИЕ') {
-        audioFile = require('../assets/music/sample3.mp3');
-    } else if (mood === 'БАЛАНС') {
-        audioFile = require('../assets/music/sample3.mp3');
-    } else if (mood === 'АКТИВАЦИЯ') {
-        audioFile = require('../assets/music/sample3.mp3');
-    }
+
+
 
     useEffect(() => {
         setCurrentTime(0);
+
         const loadAudio = async () => {
             try {
                 if (sound) {
                     await sound.unloadAsync();
                 }
-                const {sound: newSound} = await Audio.Sound.createAsync(
-                    audioFile
+                console.log("1");
+
+                const { sound: newSound } = await Audio.Sound.createAsync(
+                    { uri: 'http://playertest.longtailvideo.com/adaptive/wowzaid3/playlist.m3u8' },
+                    { shouldPlay: false }
                 );
+
                 setSound(newSound);
             } catch (error) {
                 console.error('Error loading audio:', error);
             }
         };
-
         loadAudio();
 
         return () => {

@@ -5,7 +5,6 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import Rec from '../screens/Rec';
 import Profile from '../screens/Profile';
-import EditProfile from "../screens/EditProfile";
 import Feedback from "../screens/Feedback";
 
 const Tab = createBottomTabNavigator();

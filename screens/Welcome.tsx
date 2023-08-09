@@ -6,7 +6,16 @@ import RegularText from "../components/Texts/RegularText";
 import RegularButton from "../components/Buttons/RegularButton";
 import {useNavigation} from "@react-navigation/native";
 import {useAssets} from "expo-asset";
-import {ImageBackground, ImageSourcePropType, View, Image, StyleProp, TextStyle} from "react-native";
+import {
+    ImageBackground,
+    ImageSourcePropType,
+    View,
+    Image,
+    StyleProp,
+    TextStyle,
+    ViewStyle,
+    ImageStyle
+} from "react-native";
 import LottieView from "lottie-react-native";
 import {colors} from "../components/colors";
 
@@ -21,38 +30,38 @@ const Welcome: FunctionComponent = () => {
 
     return (
         <>
-            <StatusBar style='light'/>
+
             {assets &&
-                <ImageBackground source={assets[0] as ImageSourcePropType} style={{
+                <ImageBackground source={assets[0] as ImageSourcePropType} style={({
                     justifyContent: "space-between",
                     width: "100%",
                     height: "100%",
-                }}>
+                }) as StyleProp<ViewStyle>}>
                     <ImageBackground
                         source={assets[1] as ImageSourcePropType}
-                        style={{
+                        style={({
                             position: "absolute",
                             width: "100%",
                             height: "100%",
                             opacity: 0.3,
-                        }}
+                        }) as StyleProp<ViewStyle>}
                     />
 
-                    <View style={{
+                    <View style={({
                         justifyContent: "flex-start",
                         alignItems: "center",
                         width: "100%",
                         flex: 1,
-                    }}>
+                    }) as StyleProp<ViewStyle>}>
                         <Image
                             source={assets[2] as ImageSourcePropType}
-                            style={{
+                            style={({
                                 marginLeft: "auto",
                                 marginRight: "auto",
                                 marginTop: 30,
                                 width: "40%",
                                 height: "25%",
-                            }}></Image>
+                            }) as StyleProp<ImageStyle>}></Image>
 
                         <BigText textStyles={({
                             width: "100%",

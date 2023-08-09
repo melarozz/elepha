@@ -2,7 +2,7 @@ import React, {FunctionComponent} from "react";
 import RegularText from "../components/Texts/RegularText";
 import {
     Dimensions,
-    ImageBackground, StyleProp, StyleSheet, TextInput, TextStyle,
+    ImageBackground,  StyleSheet, TextInput,
     View,
 } from "react-native";
 import RegularButton from "../components/Buttons/RegularButton";

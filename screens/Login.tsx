@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {useState} from 'react';
-import {View, Text, TextInput, TouchableOpacity, StyleSheet, ImageBackground, StyleProp, TextStyle} from 'react-native';
-import {LinearGradient} from 'expo-linear-gradient';
+import {View, TextInput, StyleSheet, ImageBackground, StyleProp, TextStyle} from 'react-native';
 import RegularButton from "../components/Buttons/RegularButton";
 import {useNavigation} from "@react-navigation/native";
 import {colors} from "../components/colors";
