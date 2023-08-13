@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Modal, TouchableOpacity, StyleProp, ViewStyle} from 'react-native';
-import RegularText from "../components/Texts/RegularText";
+import RegularText from "../Texts/RegularText";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 
 const personalDataText: { fontFamily: string; color: string; fontSize: number, textAlign: string, padding: number } = {

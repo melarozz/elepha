@@ -2,9 +2,9 @@
 import React from 'react';
 import {View, Dimensions, StyleProp, TextStyle, TouchableOpacity} from 'react-native';
 import {Card} from 'react-native-elements';
-import RegularText from "../components/Texts/RegularText";
+import RegularText from "../Texts/RegularText";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
-import BigText from "../components/Texts/BigText";
+import BigText from "../Texts/BigText";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;

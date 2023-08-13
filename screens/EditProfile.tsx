@@ -10,7 +10,7 @@ import {
     StyleProp,
     TextStyle,
     ViewStyle,
-    Modal
+    Modal, Dimensions
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as ImagePicker from 'expo-image-picker';
@@ -22,7 +22,12 @@ import {loadUserDataUtil} from './utils';
 import {CSSProp} from 'styled-components';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import {format} from 'date-fns';
-import GenderModal from "./GenderModal";
+import GenderModal from "../components/Modals/GenderModal";
+import {colors} from "../components/colors";
+
+
+const windowWidth = Dimensions.get("window").width;
+const windowHeight = Dimensions.get("window").height;
 
 
 const totalStyles: CSSProp = {fontFamily: "TenorSans_400Regular"};
@@ -248,15 +253,13 @@ const EditProfile: FC<RootStackScreenProps<'EditProfile'>> = ({navigation}) => {
     return (
 
 
-        <ImageBackground
-            source={require('../assets/bgs/bg2.png')}
-            style={{
-                justifyContent: 'flex-start',
-                width: "100%",
-                height: "100%",
-            }}
-            imageStyle={{opacity: 0.8}}
-        >
+        <ImageBackground source={require('../assets/bgs/bg2.png')}
+                         style={{
+                             backgroundColor: colors.secondary,
+                             justifyContent: "flex-start",
+                             width: "100%",
+                             height: "100%"
+                         }}>
             <View style={{
                 backgroundColor: 'rgba(14, 83, 80, 0.4)',
                 position: "absolute",
@@ -270,7 +273,6 @@ const EditProfile: FC<RootStackScreenProps<'EditProfile'>> = ({navigation}) => {
             <ScrollView style={{
                 flex: 1,
                 padding: 20,
-
             }}>
 
 
@@ -463,7 +465,7 @@ const EditProfile: FC<RootStackScreenProps<'EditProfile'>> = ({navigation}) => {
                 </View>
 
                 {/*detailed user info*/}
-                <View style={{marginTop: 10}}>
+                <View style={{marginVertical: 10}}>
                     <RegularText textStyles={{
                         fontSize: 20,
                         color: "#FFFFFF",
@@ -560,10 +562,11 @@ const EditProfile: FC<RootStackScreenProps<'EditProfile'>> = ({navigation}) => {
                     </View>
 
                     <View style={{
-                        marginTop: 10,
+                        marginVertical: 10,
                         height: 100,
                         justifyContent: "flex-start",
                         alignItems: "center"
+
                     }}>
                         <View
                             style={{
@@ -591,12 +594,12 @@ const EditProfile: FC<RootStackScreenProps<'EditProfile'>> = ({navigation}) => {
                                 width: "100%",
                                 height: 35,
                                 marginTop: 10,
-                                marginLeft: "auto",
-                                marginRight: "auto",
+                                marginHorizontal: "auto",
                                 borderRadius: 15,
                                 justifyContent: "center",
                                 alignItems: "center",
                                 backgroundColor: "rgba(168, 168, 166, 0.3)",
+                                marginBottom: windowHeight*0.1,
                             }}
                         >
                             <RegularButton onPress={handleCancel}>

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, FC} from "react";
+import React, {useState, useRef, useEffect, FC} from "react";
 import {
     StatusBar,
     Modal,
@@ -11,7 +11,7 @@ import {
     ScrollView,
 
     Dimensions,
-    StyleProp, TextStyle,  ViewStyle
+    StyleProp, TextStyle, ViewStyle, ImageBackground
 } from "react-native";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 import styled from "styled-components/native";
@@ -20,7 +20,7 @@ import {colors} from "../components/colors";
 import RegularText from "../components/Texts/RegularText";
 import {CSSProp} from "styled-components";
 import {loadUserDataUtil} from "./utils";
-import HorizontalCard from "./Card";
+import HorizontalCard from "../components/Modals/Card";
 
 
 const windowWidth = Dimensions.get("window").width - 40;
@@ -37,7 +37,12 @@ const grayBoxLine: {
     flexDirection: string;
     marginBottom: number;
     justifyContent: string
-} = {flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 10};
+} = {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 10
+};
 const grayBoxText: { fontFamily: string; color: string; fontSize: number; fontWeight: string } = {
     fontSize: 18,
     color: "#FFFFFF",
@@ -50,17 +55,6 @@ const personalDataText: { fontFamily: string; color: string; fontSize: number } 
     fontFamily: "TenorSans_400Regular"
 };
 
-const ProfileContainer = styled.ImageBackground`
-  background-color: ${colors.secondary};
-  justify-content: flex-start;
-  width: 100%;
-  height: 100%;
-`;
-
-const ScrollableContent = styled(ScrollView)`
-  flex: 1;
-  padding: 20px;
-`;
 
 const cardsData = [
     {
@@ -95,7 +89,6 @@ const Profile: FC = () => {
     const [isModalVisible, setModalVisible] = useState<boolean>(false);
 
 
-
     const handleEditPress = () => {
         navigation.navigate('EditProfile');
     };
@@ -112,7 +105,8 @@ const Profile: FC = () => {
     };
     const hideModal = () => {
         setModalVisible(false);
-    };*/}
+    };*/
+    }
 
 
     const [pic, setPic] = useState<string>("https://images.unsplash.com/photo-1526045612212-70caf35c14df");
@@ -137,8 +131,14 @@ const Profile: FC = () => {
 
     return (
         <>
-            <StatusBar/>
-            <ProfileContainer source={require('../assets/bgs/bg2.png')}>
+
+            <ImageBackground source={require('../assets/bgs/bg2.png')}
+                             style={{
+                                 backgroundColor: colors.secondary,
+                                 justifyContent: "flex-start",
+                                 width: "100%",
+                                 height: "100%"
+                             }}>
                 <View style={{
                     backgroundColor: 'rgba(14, 83, 80, 0.4)',
                     position: "absolute",
@@ -149,7 +149,10 @@ const Profile: FC = () => {
                 }}>
                 </View>
 
-                <ScrollableContent>
+                <ScrollView style={{
+                    flex: 1,
+                    padding: 20,
+                }}>
 
                     {/*user info*/}
                     <View style={{
@@ -213,6 +216,7 @@ const Profile: FC = () => {
                                 fontSize: 18,
                                 color: "#FFFFFF",
                                 marginRight: 5,
+                                marginLeft: 5,
                                 textAlign: "left",
                                 ...totalStyles
                             } as unknown) as StyleProp<TextStyle>}>{name}</RegularText>
@@ -245,6 +249,7 @@ const Profile: FC = () => {
                                 fontSize: 18,
                                 color: "#FFFFFF",
                                 marginRight: 5,
+                                marginLeft: 5,
                                 textAlign: "left",
                                 ...totalStyles
                             } as unknown) as StyleProp<TextStyle>}>{lastName}</RegularText>
@@ -357,6 +362,7 @@ const Profile: FC = () => {
 
                         <View style={{
                             marginTop: 20,
+
                             height: 100,
                             justifyContent: "flex-start",
                             alignItems: "center"
@@ -380,8 +386,8 @@ const Profile: FC = () => {
 
                     </View>
 
-                </ScrollableContent>
-            </ProfileContainer>
+                </ScrollView>
+            </ImageBackground>
 
             {/*
             <Modal visible={isModalVisible} animationType="slide" transparent>

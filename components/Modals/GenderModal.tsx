@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Modal, TouchableOpacity, StyleProp, ViewStyle} from 'react-native';
-import RegularText from "../components/Texts/RegularText";
+import RegularText from "../Texts/RegularText";
 
 const personalDataText: { fontFamily: string; color: string; fontSize: number, textAlign: string } = {
     fontSize: 16,

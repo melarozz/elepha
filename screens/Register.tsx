@@ -15,12 +15,12 @@ import RegularText from "../components/Texts/RegularText";
 import {useNavigation} from "@react-navigation/native";
 import {colors} from "../components/colors";
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
-import GenderModal from "./GenderModal";
+import GenderModal from "../components/Modals/GenderModal";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {createUser} from "../Api";
 import {format} from "date-fns";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
-import PulseInfo from "./PulseInfo";
+import PulseInfo from "../components/Modals/PulseInfo";
 
 const windowWidth = Dimensions.get("window").width - 100;
 

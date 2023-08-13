@@ -7,7 +7,7 @@ import { Text } from "react-native";
 import { TextProps } from "./types";
 
 const RegularText: FunctionComponent<TextProps> = (props) => {
-  return <Text style={props.textStyles}> {props.children} </Text>
+  return <Text style={props.textStyles}>{props.children} </Text>
 };
 
 export default RegularText;

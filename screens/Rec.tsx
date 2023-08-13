@@ -61,7 +61,7 @@ const Rec: FunctionComponent = () => {
 
                 <Overlay/>
                 <ScrollView style={{
-                    flex: 1,
+                    flex:1,
                 }}>
                     <View style={{
                         marginTop: "15%",
