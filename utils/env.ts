@@ -1,1 +1,1 @@
-export const getApiBase = () => process.env.API_URL;
+export const getApiBase = () => process.env.EXPO_PUBLIC_API_URL;

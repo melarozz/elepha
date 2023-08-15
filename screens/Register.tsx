@@ -127,10 +127,13 @@ const Register: React.FC = () => {
         setConfirmationCode('');
         navigation.navigate("Login");
     };
+    //valeri@gmail.com
+//danif1991
+
 
 
     const handleDatePickerConfirm = useCallback((date: Date) => {
-        const formattedDate = format(date, 'dd-MM-yyyy');
+        const formattedDate = format(date, 'yyyy-MM-dd');
         setBirthDate(formattedDate);
         setDatePickerVisible(false);
     }, []);
@@ -200,6 +203,7 @@ const Register: React.FC = () => {
                                     textAlign: "left",
                                     width: windowWidth,
                                     padding: 5,
+                                    marginLeft: 10,
                                     fontFamily: "TenorSans_400Regular",
                                     color: "white"
                                 } as unknown) as StyleProp<TextStyle>}
@@ -216,6 +220,7 @@ const Register: React.FC = () => {
                                     textAlign: "left",
                                     width: windowWidth,
                                     padding: 5,
+                                    marginLeft: 10,
                                     fontFamily: "TenorSans_400Regular",
                                     color: "white"
                                 } as unknown) as StyleProp<TextStyle>}
@@ -425,11 +430,11 @@ const Register: React.FC = () => {
                 <GenderModal
                     isVisible={isGenderModalVisible}
                     onFemalePress={() => {
-                        setGender('Ж');
+                        setGender('F');
                         setGenderModalVisible(false);
                     }}
                     onMalePress={() => {
-                        setGender('М');
+                        setGender('M');
                         setGenderModalVisible(false);
                     }}
                 />

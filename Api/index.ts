@@ -4,35 +4,36 @@ import axios from "axios";
 
 export async function createUser(data: User) {
     const endpoint = '/auth/users/';
-
-    // const json = JSON.stringify({
-    //     username: "3weewd",
-    //     first_name: data.name,
-    //     last_name: data.lastName,
-    //     phone_number: data.mobile,
-    //     email: data.email,
-    //     password: data.password,
-    //     company: data.company,
-    //     date_of_birth: data.birthDate,
-    //     gender: data.gender,
-    //     height: data.height,
-    //     weight: data.weight,
-    //     avg_heart_rate: data.pulse,
-    // });
     const json = {
-        username: "3weewd",
-        first_name: 'dfvdfv',
-        last_name: 'erferf',
-        phone_number: '+79049030557',
-        email: 'danee2l@gmail.com',
-        password: 'data.password',
+        username: data.name+(Math.ceil(Math.random() * (9999 - 1000) + 1000)).toString(),
+        first_name: data.name,
+        last_name: data.lastName,
+        phone_number: data.mobile,
+        email: data.email,
+        password: data.password,
         company: 'data.company',
-        date_of_birth: "2004-03-04",
-        gender: "M",
-        height: "34",
-        weight: "34",
-        avg_heart_rate: "34"
+        date_of_birth: data.birthDate,
+        gender: data.gender,
+        height: data.height,
+        weight: data.weight,
+        avg_heart_rate: data.pulse,
     };
+    console.log(json);
+    //valeria66@gmail.com
+    // const json = {
+    //     username: "3w7d",
+    //     first_name: 'ddcccdv',
+    //     last_name: 'rerfdd',
+    //     phone_number: '+79049030757',
+    //     email: 'daneels@gmail.com',
+    //     password: 'data.password',
+    //     company: 'data.company',
+    //     date_of_birth: "2023-03-03",
+    //     gender: "M",
+    //     height: "34",
+    //     weight: "34",
+    //     avg_heart_rate: "34"
+    // };
 
     try {
         const res = await axios.post(  // пост запрос на сервер

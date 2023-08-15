@@ -156,7 +156,7 @@ const EditProfile: FC<RootStackScreenProps<'EditProfile'>> = ({navigation}) => {
 
 
     const handleDatePicker = useCallback((date: Date) => {
-        const formattedDate = format(date, 'dd.MM.yyyy');
+        const formattedDate = format(date, 'yyyy-MM-dd');
         setBirthDate(formattedDate);
         hideDatePicker();
     }, []);
@@ -183,19 +183,16 @@ const EditProfile: FC<RootStackScreenProps<'EditProfile'>> = ({navigation}) => {
 
 
     const handleImageSelection = useCallback(async () => {
-        console.log("0");
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.All,
             allowsEditing: true,
             aspect: [4, 4],
             quality: 1,
         });
-        console.log("1");
 
         if (!result.canceled) {
             if (result.assets) {
                 setPic(result.assets[0].uri);
-                console.log("3");
             }
         }
 
@@ -219,6 +216,7 @@ const EditProfile: FC<RootStackScreenProps<'EditProfile'>> = ({navigation}) => {
                 pulse,
             };
             console.log(userData)
+
             const userDataJSON = JSON.stringify(userData);
             await AsyncStorage.setItem('userData', userDataJSON);
             console.log(await AsyncStorage.getItem('userData'))
@@ -516,16 +514,16 @@ const EditProfile: FC<RootStackScreenProps<'EditProfile'>> = ({navigation}) => {
                         </View>
 
 
-                        <View style={(rowStyle) as StyleProp<ViewStyle>}>
-                            <RegularText textStyles={(personalDataText) as StyleProp<ViewStyle>}>Компания</RegularText>
-                            <TextInput
-                                style={personalDataInput}
-                                placeholder="Компания"
-                                value={company}
-                                onChangeText={(text) => setCompany(text)}
-                            />
+                        {/*<View style={(rowStyle) as StyleProp<ViewStyle>}>*/}
+                        {/*    <RegularText textStyles={(personalDataText) as StyleProp<ViewStyle>}>Компания</RegularText>*/}
+                        {/*    <TextInput*/}
+                        {/*        style={personalDataInput}*/}
+                        {/*        placeholder="Компания"*/}
+                        {/*        value={company}*/}
+                        {/*        onChangeText={(text) => setCompany(text)}*/}
+                        {/*    />*/}
 
-                        </View>
+                        {/*</View>*/}
 
                         <View style={(rowStyle) as StyleProp<ViewStyle>}>
                             <RegularText textStyles={(personalDataText) as StyleProp<ViewStyle>}>Вес</RegularText>

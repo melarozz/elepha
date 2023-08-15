@@ -333,12 +333,12 @@ const Profile: FC = () => {
                                     textStyles={(personalDataText) as StyleProp<ViewStyle>}>{gender === 'M' ? 'Мужской' : 'Женский'}</RegularText>
                             </View>
 
-                            <View style={(rowStyle) as StyleProp<ViewStyle>}>
-                                <RegularText
-                                    textStyles={(personalDataText) as StyleProp<ViewStyle>}>Компания</RegularText>
-                                <RegularText
-                                    textStyles={(personalDataText) as StyleProp<ViewStyle>}>{company}</RegularText>
-                            </View>
+                            {/*<View style={(rowStyle) as StyleProp<ViewStyle>}>*/}
+                            {/*    <RegularText*/}
+                            {/*        textStyles={(personalDataText) as StyleProp<ViewStyle>}>Компания</RegularText>*/}
+                            {/*    <RegularText*/}
+                            {/*        textStyles={(personalDataText) as StyleProp<ViewStyle>}>{company}</RegularText>*/}
+                            {/*</View>*/}
 
                             <View style={(rowStyle) as StyleProp<ViewStyle>}>
                                 <RegularText textStyles={(personalDataText) as StyleProp<ViewStyle>}>Вес</RegularText>
