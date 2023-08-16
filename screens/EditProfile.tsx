@@ -24,6 +24,7 @@ import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import {format} from 'date-fns';
 import GenderModal from "../components/Modals/GenderModal";
 import {colors} from "../components/colors";
+import {getToken} from "../Api";
 
 
 const windowWidth = Dimensions.get("window").width;
@@ -77,6 +78,7 @@ const EditProfile: FC<RootStackScreenProps<'EditProfile'>> = ({navigation}) => {
 
     const [pic, setPic] = useState<string>("https://images.unsplash.com/photo-1526045612212-70caf35c14df");
     const [name, setName] = useState<string>('Михаил');
+    const [username, setUsername] = useState<string>('123456');
     const [birthDate, setBirthDate] = useState<string>('24.04.2004');
     const [gender, setGender] = useState<string>('M');
     const [weight, setWeight] = useState<string>("95");
@@ -87,6 +89,8 @@ const EditProfile: FC<RootStackScreenProps<'EditProfile'>> = ({navigation}) => {
     const [push1, setPush1] = useState<string>('10:30');
     const [push2, setPush2] = useState<string>('15:00');
     const [push3, setPush3] = useState<string>('20:00');
+    const [email, setEmail] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
 
     const [isDatePickerVisible, setDatePickerVisible] = useState<boolean>(false);
     const [isPush1TimePickerVisible, setPush1TimePickerVisible] = useState<boolean>(false);
@@ -108,7 +112,10 @@ const EditProfile: FC<RootStackScreenProps<'EditProfile'>> = ({navigation}) => {
             setCompany,
             setWeight,
             setHeight,
-            setPulse
+            setPulse,
+            setUsername,
+            setEmail,
+            setPassword
         ).then();
     }, [
         setPic,
@@ -122,7 +129,10 @@ const EditProfile: FC<RootStackScreenProps<'EditProfile'>> = ({navigation}) => {
         setCompany,
         setWeight,
         setHeight,
-        setPulse
+        setPulse,
+        setUsername,
+        setEmail,
+        setPassword
     ]);
 
     const showDatePicker = () => {
@@ -214,17 +224,21 @@ const EditProfile: FC<RootStackScreenProps<'EditProfile'>> = ({navigation}) => {
                 weight,
                 height,
                 pulse,
+                username,
+                email,
+                password
             };
-            console.log(userData)
 
             const userDataJSON = JSON.stringify(userData);
             await AsyncStorage.setItem('userData', userDataJSON);
-            console.log(await AsyncStorage.getItem('userData'))
+            const token = await getToken(email, password);
+            const tokenAccess = token.access;
+            console.log("editprofile",await AsyncStorage.getItem('userData'));
             navigation.navigate('Profile');
         } catch (error) {
             // Handle error, if any
         }
-    }, [pic, name, lastName, push1, push2, push3, birthDate, gender, company, weight, height, pulse]);
+    }, [pic, name, lastName, push1, push2, push3, birthDate, gender, company, weight, height, pulse, username, email, password]);
 
     const handleCancel = useCallback(() => {
         Alert.alert(

@@ -31,31 +31,19 @@ export async function createUser(data: User) {
     }
 }
 
-export async function getToken(data: User, token: string) {
+export async function getToken(email: string, password: string) {
     const endpoint = '/auth/jwt/create/';
 
-    const json = JSON.stringify({
-        username: data.username,
-        password: data.password
-    });
-    const blob = new Blob([json], {
-        type: 'application/json'
-    });
-
-    const formData = new FormData();
-    formData.append("document", blob);
-
+    const json = {
+        email: email,
+        password: password
+    };
     try {
         const res = await axios.post(  // пост запрос на сервер
             getApiBase() + endpoint, // урла
-            formData,// данные
-            {
-                headers:{
-                    Authorization: 'Bearer ' + token
-                }
-            }
+            json // данные
         )
-        console.log(res.statusText)
+        return(res.data);
     } catch (error) {
         console.log(error)
     }

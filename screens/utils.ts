@@ -14,9 +14,12 @@ export async function loadUserDataUtil(
     setHeight: (string) => void,
     setPulse: (string) => void,
     setUsername: (string) => void,
+    setEmail: (string) => void,
+    setPassword: (string) => void,
 ) {
     try {
         const userDataJSON = await AsyncStorage.getItem('userData');
+        console.log("loadutil", userDataJSON);
         if (userDataJSON !== null) {
             const userData = JSON.parse(userDataJSON);
             setPic(userData.pic);
@@ -32,6 +35,8 @@ export async function loadUserDataUtil(
             setHeight(userData.height);
             setPulse(userData.pulse);
             setUsername(userData.username);
+            setEmail(userData.email);
+            setPassword(userData.password);
         }
     } catch (error) {
         // Handle error, if any

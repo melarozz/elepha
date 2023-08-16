@@ -106,11 +106,12 @@ const Register: React.FC = () => {
             await AsyncStorage.setItem('userData', userDataJSON);
             // console.log()
             await AsyncStorage.getItem('userData')
-            console.log("userdata", await AsyncStorage.getItem('userData'));
+            console.log("register", await AsyncStorage.getItem('userData'));
         } catch (error) {
             console.log(error);
         }
-        //abc@gmail.com
+        //valval
+        //abc123abc@gmail.com
         //danif1991.
     }, [
         pic, name, lastName, push1, push2, push3, birthDate,
