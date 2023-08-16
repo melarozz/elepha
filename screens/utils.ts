@@ -13,6 +13,7 @@ export async function loadUserDataUtil(
     setWeight: (string) => void,
     setHeight: (string) => void,
     setPulse: (string) => void,
+    setUsername: (string) => void,
 ) {
     try {
         const userDataJSON = await AsyncStorage.getItem('userData');
@@ -30,6 +31,7 @@ export async function loadUserDataUtil(
             setWeight(userData.weight);
             setHeight(userData.height);
             setPulse(userData.pulse);
+            setUsername(userData.username);
         }
     } catch (error) {
         // Handle error, if any

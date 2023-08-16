@@ -53,6 +53,7 @@ const Register: React.FC = () => {
     const [pulse, setPulse] = useState<string>('');
     const [gender, setGender] = useState<string>('');
     const [birthDate, setBirthDate] = useState<string>('');
+    const [username, setUsername] = useState<string>('');
 
     const [password, setPassword] = useState<string>('');
     const [confirmPassword, setConfirmPassword] = useState<string>('');
@@ -66,6 +67,7 @@ const Register: React.FC = () => {
 
     const saveUserData = useCallback(async () => {
         try {
+            const username=name+(Math.ceil(Math.random() * (9999 - 1000) + 1000)).toString();
             const userData = {
                 pic,
                 name,
@@ -82,6 +84,7 @@ const Register: React.FC = () => {
                 email,
                 password,
                 mobile,
+                username,
             };
             // const userData = { // жсон с данными, который мы отправляем на бек
             //     name: 'adawdawd',
@@ -103,14 +106,17 @@ const Register: React.FC = () => {
             await AsyncStorage.setItem('userData', userDataJSON);
             // console.log()
             await AsyncStorage.getItem('userData')
+            console.log("userdata", await AsyncStorage.getItem('userData'));
         } catch (error) {
             console.log(error);
         }
+        //abc@gmail.com
+        //danif1991.
     }, [
         pic, name, lastName, push1, push2, push3, birthDate,
         gender, company, weight,
         height, pulse, mobile,
-        password, email
+        password, email, username
     ]);
 
 
